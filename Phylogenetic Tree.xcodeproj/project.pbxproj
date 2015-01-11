@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A296E2A1A62BE6E00049383 /* PHUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A296E291A62BE6E00049383 /* PHUtility.m */; };
+		2A296E2D1A62BF1A00049383 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A296E2C1A62BF1A00049383 /* DirectoryWatcher.m */; };
 		2A76DDC31A603DD800C00302 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC21A603DD800C00302 /* main.m */; };
 		2A76DDC61A603DD800C00302 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC51A603DD800C00302 /* AppDelegate.m */; };
 		2A76DDC91A603DD800C00302 /* PHFilechooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */; };
@@ -27,6 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A296E281A62BE6E00049383 /* PHUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHUtility.h; path = "Utility + Shared Classes/PHUtility.h"; sourceTree = "<group>"; };
+		2A296E291A62BE6E00049383 /* PHUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHUtility.m; path = "Utility + Shared Classes/PHUtility.m"; sourceTree = "<group>"; };
+		2A296E2B1A62BF1A00049383 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectoryWatcher.h; path = "Utility + Shared Classes/DirectoryWatcher.h"; sourceTree = "<group>"; };
+		2A296E2C1A62BF1A00049383 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DirectoryWatcher.m; path = "Utility + Shared Classes/DirectoryWatcher.m"; sourceTree = "<group>"; };
 		2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phylogenetic Tree.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A76DDC11A603DD800C00302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A76DDC21A603DD800C00302 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,6 +66,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A296E271A62BE1700049383 /* Utilities + Shared Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2A296E281A62BE6E00049383 /* PHUtility.h */,
+				2A296E291A62BE6E00049383 /* PHUtility.m */,
+				2A296E2B1A62BF1A00049383 /* DirectoryWatcher.h */,
+				2A296E2C1A62BF1A00049383 /* DirectoryWatcher.m */,
+			);
+			name = "Utilities + Shared Classes";
+			sourceTree = "<group>";
+		};
 		2A76DDB41A603DD800C00302 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +102,7 @@
 				2A76DDC51A603DD800C00302 /* AppDelegate.m */,
 				2A76DDC71A603DD800C00302 /* PHFilechooserViewController.h */,
 				2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */,
+				2A296E271A62BE1700049383 /* Utilities + Shared Classes */,
 				2A76DDCA1A603DD800C00302 /* Main.storyboard */,
 				2A76DDCD1A603DD800C00302 /* Images.xcassets */,
 				2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */,
@@ -168,7 +186,6 @@
 				TargetAttributes = {
 					2A76DDBC1A603DD800C00302 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 9986652TQF;
 					};
 					2A76DDD51A603DD800C00302 = {
 						CreatedOnToolsVersion = 6.2;
@@ -222,6 +239,8 @@
 			files = (
 				2A76DDC91A603DD800C00302 /* PHFilechooserViewController.m in Sources */,
 				2A76DDC61A603DD800C00302 /* AppDelegate.m in Sources */,
+				2A296E2A1A62BE6E00049383 /* PHUtility.m in Sources */,
+				2A296E2D1A62BF1A00049383 /* DirectoryWatcher.m in Sources */,
 				2A76DDC31A603DD800C00302 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,10 +365,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Phylogenetic Tree/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -358,10 +380,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Phylogenetic Tree/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
@@ -419,6 +444,7 @@
 				2A76DDE21A603DD800C00302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A76DDE31A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogenetic TreeTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +453,7 @@
 				2A76DDE51A603DD800C00302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

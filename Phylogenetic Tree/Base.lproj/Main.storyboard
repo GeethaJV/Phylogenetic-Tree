@@ -17,28 +17,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCf-4M-BbI">
-                                <rect key="frame" x="316" y="143" width="107" height="30"/>
-                                <state key="normal" title="From Database">
+                                <rect key="frame" x="244" y="276" width="150" height="30"/>
+                                <state key="normal" title="Import from Database">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="fromDatabaseSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qfJ-NN-f7L"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-5S-6ZS">
+                                <rect key="frame" x="243" y="238" width="152" height="30"/>
+                                <state key="normal" title="Paste the File Content"/>
+                                <connections>
+                                    <action selector="pasteSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5RY-fo-6OG"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9km-ks-09M">
-                                <rect key="frame" x="316" y="181" width="70" height="30"/>
-                                <state key="normal" title="From PC">
+                                <rect key="frame" x="255" y="314" width="129" height="30"/>
+                                <state key="normal" title="Import from iTunes">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="pcSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E1r-RD-0tw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-5S-6ZS">
-                                <rect key="frame" x="284" y="105" width="134" height="30"/>
-                                <state key="normal" title="Paste"/>
-                                <connections>
-                                    <action selector="pasteSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5RY-fo-6OG"/>
                                 </connections>
                             </button>
                         </subviews>
