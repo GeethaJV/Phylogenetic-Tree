@@ -13,4 +13,10 @@
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
++ (NSString *)dataFilePathforDocumentName:(NSString *)inDocumentName{
+    NSString *documentPath = [NSString stringWithFormat:@"%@/%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],inDocumentName];
+
+    return documentPath;
+}
+
 @end

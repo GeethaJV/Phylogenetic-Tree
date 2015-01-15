@@ -16,6 +16,7 @@
 		2A76DDCE1A603DD800C00302 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCD1A603DD800C00302 /* Images.xcassets */; };
 		2A76DDD11A603DD800C00302 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */; };
 		2A76DDDD1A603DD800C00302 /* Phylogenetic_TreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */; };
+		2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		2A76DDD61A603DD800C00302 /* Phylogenetic TreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phylogenetic TreeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A76DDDB1A603DD800C00302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Phylogenetic_TreeTests.m; sourceTree = "<group>"; };
+		2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHiTunesFASTATableViewController.h; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.h"; sourceTree = "<group>"; };
+		2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHiTunesFASTATableViewController.m; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 			children = (
 				2A76DDC71A603DD800C00302 /* PHFilechooserViewController.h */,
 				2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */,
+				2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */,
+				2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */,
 			);
 			name = "FASTA Extractors";
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 				2A296E2A1A62BE6E00049383 /* PHUtility.m in Sources */,
 				2A296E2D1A62BF1A00049383 /* DirectoryWatcher.m in Sources */,
 				2A76DDC31A603DD800C00302 /* main.m in Sources */,
+				2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
