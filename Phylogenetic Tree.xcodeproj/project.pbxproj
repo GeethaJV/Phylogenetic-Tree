@@ -17,6 +17,7 @@
 		2A76DDD11A603DD800C00302 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */; };
 		2A76DDDD1A603DD800C00302 /* Phylogenetic_TreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */; };
 		2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */; };
+		2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAA0C971A6A244800EC420D /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Phylogenetic_TreeTests.m; sourceTree = "<group>"; };
 		2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHiTunesFASTATableViewController.h; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.h"; sourceTree = "<group>"; };
 		2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHiTunesFASTATableViewController.m; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.m"; sourceTree = "<group>"; };
+		2AAA0C971A6A244800EC420D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +111,7 @@
 				2A76DDCA1A603DD800C00302 /* Main.storyboard */,
 				2A76DDCD1A603DD800C00302 /* Images.xcassets */,
 				2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */,
+				2AAA0C971A6A244800EC420D /* QuartzCore.framework */,
 				2A76DDC01A603DD800C00302 /* Supporting Files */,
 			);
 			path = "Phylogenetic Tree";

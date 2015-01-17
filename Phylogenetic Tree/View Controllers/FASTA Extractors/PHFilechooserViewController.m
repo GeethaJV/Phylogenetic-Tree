@@ -7,6 +7,7 @@
 //
 
 #import "PHFilechooserViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PHFilechooserViewController ()
 
@@ -32,8 +33,15 @@
     [super viewDidLoad];
     
     
-    //[self.pasteButton setTitle:@"Geetha" forState:UIControlStateNormal];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.pasteButton.layer.borderWidth = 1.0f;
+    self.database.layer.borderWidth = 1.0f;
+    self.PC.layer.borderWidth = 1.0f;
+    self.pasteButton.layer.borderColor = [UIColor blueColor].CGColor;
+    self.database.layer.borderColor = [UIColor blueColor].CGColor;
+    self.PC.layer.borderColor = [UIColor blueColor].CGColor;
+    self.pasteButton.layer.cornerRadius = 4.0f;
+    self.database.layer.cornerRadius = 4.0f;
+    self.PC.layer.cornerRadius = 4.0f;
 }
 
 - (void)didReceiveMemoryWarning {
