@@ -7,6 +7,7 @@
 //
 
 #import "PHiTunesFASTATableViewController.h"
+#import "PHFASTAFileViewerController.h"
 #import "DirectoryWatcher.h"
 #import "PHUtility.h"
 
@@ -16,6 +17,7 @@
 
 @property (nonatomic, strong) DirectoryWatcher *docWatcher;
 @property (nonatomic, strong) NSMutableArray *documentURLs;
+@property (nonatomic, strong) NSMutableArray *selectedDocumentsURL;
 @property (nonatomic, strong) UIDocumentInteractionController *docInteractionController;
 @end
 
@@ -29,6 +31,7 @@
         self.docWatcher = [DirectoryWatcher watchFolderWithPath:[PHUtility applicationDocumentsDirectory]
                                                        delegate:self];
         self.documentURLs = [NSMutableArray array];
+        self.selectedDocumentsURL = [NSMutableArray new];
     }
     return self;
 }
@@ -42,11 +45,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self directoryDidChange:self.docWatcher];
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)dealloc{
     self.documentURLs = nil;
     self.docWatcher = nil;
+    self.selectedDocumentsURL = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,12 +89,12 @@
     
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+       
     }
+    cell.accessoryType = UITableViewCellAccessoryNone;
     
     
-    NSURL *fileURL;
-    fileURL = [self.documentURLs objectAtIndex:indexPath.row];
+    NSURL *fileURL = [self.documentURLs objectAtIndex:indexPath.row];
     
     [self setupDocumentControllerWithURL:fileURL];
     
@@ -101,8 +106,17 @@
         cell.imageView.image = [self.docInteractionController.icons objectAtIndex:iconCount - 1];
     }
 
+
     
     cell.textLabel.text = [[fileURL path] lastPathComponent];
+    
+    if([self.selectedDocumentsURL count] > 0){
+        if([self.selectedDocumentsURL objectAtIndex:indexPath.row]){
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }else{
+            cell.selectionStyle = UITableViewCellAccessoryNone;
+        }
+    }
     
     NSString *fileURLString = [self.docInteractionController.URL path];
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fileURLString error:nil];
@@ -111,18 +125,10 @@
                                                            countStyle:NSByteCountFormatterCountStyleFile];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", fileSizeStr, self.docInteractionController.UTI];
     
-    // attach to our view any gesture recognizers that the UIDocumentInteractionController provides
-    //cell.imageView.userInteractionEnabled = YES;
-    //cell.contentView.gestureRecognizers = self.docInteractionController.gestureRecognizers;
-    //
-    // or
-    // add a custom gesture recognizer in lieu of using the canned ones
-    //
     UILongPressGestureRecognizer *longPressGesture =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [cell.imageView addGestureRecognizer:longPressGesture];
     cell.imageView.userInteractionEnabled = YES;    // this is by default NO, so we need to turn it on
-
     
     
     return cell;
@@ -136,47 +142,63 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture
 {
-    // three ways to present a preview:
-    // 1. Don't implement this method and simply attach the canned gestureRecognizers to the cell
-    //
-    // 2. Don't use canned gesture recognizers and simply use UIDocumentInteractionController's
-    //      presentPreviewAnimated: to get a preview for the document associated with this cell
-    //
-    // 3. Use the QLPreviewController to give the user preview access to the document associated
-    //      with this cell and all the other documents as well.
-    
-    // for case 2 use this, allowing UIDocumentInteractionController to handle the preview:
-    /*
-     NSURL *fileURL;
-     if (indexPath.section == 0)
-     {
-     fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:documents[indexPath.row] ofType:nil]];
-     }
-     else
-     {
-     fileURL = [self.documentURLs objectAtIndex:indexPath.row];
-     }
-     [self setupDocumentControllerWithURL:fileURL];
-     [self.docInteractionController presentPreviewAnimated:YES];
-     */
-    
-    // for case 3 we use the QuickLook APIs directly to preview the document -
-    QLPreviewController *previewController = [[QLPreviewController alloc] init];
-    previewController.dataSource = self;
-    previewController.delegate = self;
-    
-    // start previewing the document at the current section index
-    previewController.currentPreviewItemIndex = indexPath.row;
-    [[self navigationController] pushViewController:previewController animated:YES];
+    if (longPressGesture.state == UIGestureRecognizerStateBegan)
+    {
+        NSIndexPath *cellIndexPath = [self.tableView indexPathForRowAtPoint:[longPressGesture locationInView:self.tableView]];
+        
+        NSURL *fileURL = [self.documentURLs objectAtIndex:cellIndexPath.row];
+        
+        NSString *filePath = [fileURL path];
+        NSError *error;
+        if(nil!=filePath){
+            NSString *fileContent = [[NSString alloc]initWithContentsOfFile:filePath
+                                                                   encoding:NSUTF8StringEncoding
+                                                                      error:&error];
+            NSLog(@"File Content is %@",fileContent);
+            
+            PHFASTAFileViewerController * fastafileviewerController = (PHFASTAFileViewerController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PHFASTAFileViewerController"];
+            NSLog(@"fastafileviewerController.fileTextViewer %@",fastafileviewerController.fileTextViewer);
+            [fastafileviewerController view];
+            fastafileviewerController.fileTextViewer.text = fileContent;
+            
+            [self.navigationController pushViewController:fastafileviewerController animated:YES];
+            
+            
+        }
+    }
 }
 
-#pragma mark - UIDocumentInteractionControllerDelegate
 
-- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self;
+    
+    
+    NSLog(@"Selected Index path %@",indexPath);
+    [self.selectedDocumentsURL addObject:[self.documentURLs objectAtIndex:indexPath.row]];
+    
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+   }
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+        
+    NSLog(@"Selected Index path %@ and %lu",indexPath,(unsigned long)[self.selectedDocumentsURL count]);
+    if([self.selectedDocumentsURL count] >= indexPath.row){
+        
+        [self.selectedDocumentsURL removeObjectAtIndex:indexPath.row];
+        //[self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+        UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+        selectedCell.accessoryType = UITableViewCellAccessoryNone;
+    }
+        
+    
 }
 
 
@@ -203,17 +225,26 @@
                 }else{
                     [self.documentURLs removeObjectAtIndex:indexPath.row];
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-
+                    
                     
                 }
             }
             
         }
-
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
+
+
+#pragma mark - UIDocumentInteractionControllerDelegate
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController
+{
+    return self;
+}
+
 
 
 #pragma mark - QLPreviewControllerDataSource
@@ -295,23 +326,6 @@
     }
 }
 
-// if we installed a custom UIGestureRecognizer (i.e. long-hold), then this would be called
-//
-- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture
-{
-    if (longPressGesture.state == UIGestureRecognizerStateBegan)
-    {
-        NSIndexPath *cellIndexPath = [self.tableView indexPathForRowAtPoint:[longPressGesture locationInView:self.tableView]];
-        
-        NSURL *fileURL;
-        fileURL = [self.documentURLs objectAtIndex:cellIndexPath.row];
-        self.docInteractionController.URL = fileURL;
-        
-        [self.docInteractionController presentOptionsMenuFromRect:longPressGesture.view.frame
-                                                           inView:longPressGesture.view
-                                                         animated:YES];
-    }
-}
 
 
 
@@ -343,4 +357,9 @@
     [self.tableView reloadData];
     
 }
+
+#pragma mark -
+#pragma Private Methods
+
+
 @end

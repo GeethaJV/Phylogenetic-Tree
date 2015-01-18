@@ -18,6 +18,7 @@
 		2A76DDDD1A603DD800C00302 /* Phylogenetic_TreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */; };
 		2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */; };
 		2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAA0C971A6A244800EC420D /* QuartzCore.framework */; };
+		2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHiTunesFASTATableViewController.h; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.h"; sourceTree = "<group>"; };
 		2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHiTunesFASTATableViewController.m; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.m"; sourceTree = "<group>"; };
 		2AAA0C971A6A244800EC420D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2AAA0C991A6BC5D300EC420D /* PHFASTAFileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFASTAFileViewerController.h; path = "View Controllers/FASTA Extractors/PHFASTAFileViewerController.h"; sourceTree = "<group>"; };
+		2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHFASTAFileViewerController.m; path = "View Controllers/FASTA Extractors/PHFASTAFileViewerController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,8 @@
 				2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */,
 				2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */,
 				2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */,
+				2AAA0C991A6BC5D300EC420D /* PHFASTAFileViewerController.h */,
+				2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */,
 			);
 			name = "FASTA Extractors";
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				2A296E2A1A62BE6E00049383 /* PHUtility.m in Sources */,
 				2A296E2D1A62BF1A00049383 /* DirectoryWatcher.m in Sources */,
 				2A76DDC31A603DD800C00302 /* main.m in Sources */,
+				2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */,
 				2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
