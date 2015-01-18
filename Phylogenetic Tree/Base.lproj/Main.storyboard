@@ -39,9 +39,15 @@
                                 </state>
                                 <connections>
                                     <action selector="pcSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E1r-RD-0tw"/>
-                                    <segue destination="1Kd-YN-WqJ" kind="show" id="jGO-Q9-47W"/>
+                                    <segue destination="1Kd-YN-WqJ" kind="show" identifier="iTunesFilesViewerController" id="jGO-Q9-47W"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjX-nZ-qh8">
+                                <rect key="frame" x="186" y="590" width="446" height="47"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -52,6 +58,7 @@
                         <outlet property="PC" destination="9km-ks-09M" id="rfS-IN-MvV"/>
                         <outlet property="database" destination="xCf-4M-BbI" id="m9D-bR-Ete"/>
                         <outlet property="pasteButton" destination="Wyb-5S-6ZS" id="SPZ-Ic-Q88"/>
+                        <outlet property="statusLabel" destination="KjX-nZ-qh8" id="BuM-sz-jdf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -54,6 +54,7 @@
 		2AAA0C971A6A244800EC420D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2AAA0C991A6BC5D300EC420D /* PHFASTAFileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFASTAFileViewerController.h; path = "View Controllers/FASTA Extractors/PHFASTAFileViewerController.h"; sourceTree = "<group>"; };
 		2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHFASTAFileViewerController.m; path = "View Controllers/FASTA Extractors/PHFASTAFileViewerController.m"; sourceTree = "<group>"; };
+		2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFileChoserProtocols.h; path = "View Controllers/FASTA Extractors/PHFileChoserProtocols.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +160,7 @@
 			children = (
 				2A76DDC71A603DD800C00302 /* PHFilechooserViewController.h */,
 				2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */,
+				2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */,
 				2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */,
 				2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */,
 				2AAA0C991A6BC5D300EC420D /* PHFASTAFileViewerController.h */,

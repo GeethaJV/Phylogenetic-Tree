@@ -10,4 +10,5 @@
 
 @interface PHFASTAFileViewerController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextView *fileTextViewer;
+@property (copy,nonatomic) NSString *fileName;
 @end

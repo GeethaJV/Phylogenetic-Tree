@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *pasteButton;
 @property (weak, nonatomic) IBOutlet UIButton *database;
 @property (weak, nonatomic) IBOutlet UIButton *PC;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 - (IBAction)pasteSequenceAction:(id)sender;
 - (IBAction)fromDatabaseSequenceAction:(id)sender;

@@ -160,11 +160,18 @@
             NSLog(@"File Content is %@",fileContent);
             
             PHFASTAFileViewerController * fastafileviewerController = (PHFASTAFileViewerController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PHFASTAFileViewerController"];
-            NSLog(@"fastafileviewerController.fileTextViewer %@",fastafileviewerController.fileTextViewer);
+            fastafileviewerController.fileName = [filePath lastPathComponent];
             [fastafileviewerController view];
             fastafileviewerController.fileTextViewer.text = fileContent;
             
-            [self.navigationController pushViewController:fastafileviewerController animated:YES];
+            
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fastafileviewerController];
+            //navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+            
+            [self.navigationController presentViewController:navigationController
+                                                    animated:YES
+                                                  completion:^{
+                                                  }];
             
             
         }
@@ -190,12 +197,19 @@
     
         
     NSLog(@"Selected Index path %@ and %lu",indexPath,(unsigned long)[self.selectedDocumentsURL count]);
-    if([self.selectedDocumentsURL count] >= indexPath.row){
+    if([self.documentURLs count] >= indexPath.row){
         
-        [self.selectedDocumentsURL removeObjectAtIndex:indexPath.row];
-        //[self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-        UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-        selectedCell.accessoryType = UITableViewCellAccessoryNone;
+        NSURL *filePathobj = [self.documentURLs objectAtIndex:indexPath.row];
+        
+        if([self.selectedDocumentsURL containsObject:filePathobj]){
+            
+            [self.selectedDocumentsURL removeObject:filePathobj];
+            //[self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+            UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+            selectedCell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        
     }
         
     
@@ -237,7 +251,16 @@
     }
 }
 
-
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        if([self.fileChooserDelegate respondsToSelector:@selector(numberOfFilesSelectedfromfileChooserOption:)]){
+            [self.fileChooserDelegate numberOfFilesSelectedfromfileChooserOption:[self.selectedDocumentsURL count]];
+        }
+    }
+    [super viewWillDisappear:animated];
+}
 #pragma mark - UIDocumentInteractionControllerDelegate
 
 - (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)interactionController

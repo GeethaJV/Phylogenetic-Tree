@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <QuickLook/QuickLook.h>
+#import "PHFileChoserProtocols.h"
 
 @interface PHiTunesFASTATableViewController : UITableViewController
 
+@property (weak,nonatomic)NSObject<PHFileChoserProtocols> *fileChooserDelegate;
 @end

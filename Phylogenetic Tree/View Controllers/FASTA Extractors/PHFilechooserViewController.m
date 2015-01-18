@@ -7,9 +7,11 @@
 //
 
 #import "PHFilechooserViewController.h"
+#import "PHiTunesFASTATableViewController.h"
+#import "PHFileChoserProtocols.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface PHFilechooserViewController ()
+@interface PHFilechooserViewController ()<PHFileChoserProtocols>
 
 @end
 
@@ -42,6 +44,8 @@
     self.pasteButton.layer.cornerRadius = 4.0f;
     self.database.layer.cornerRadius = 4.0f;
     self.PC.layer.cornerRadius = 4.0f;
+    
+    self.statusLabel.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,5 +71,42 @@
 
 - (IBAction)pcSequenceAction:(id)sender {
     NSLog(@"PC Action %@",sender);
+}
+
+#pragma mark -
+#pragma mark Segues
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender{
+    
+    if([segue.identifier isEqualToString:@"iTunesFilesViewerController"]){
+        
+        PHiTunesFASTATableViewController *viewController = [segue destinationViewController];
+        viewController.fileChooserDelegate = self;
+    }
+    
+}
+
+#pragma mark -
+#pragma mark Delegates
+- (void)numberOfFilesSelectedfromfileChooserOption:(NSInteger)inselectedFiles{
+    
+    if(inselectedFiles > 0){
+        
+        if(inselectedFiles == 1){
+            
+            self.statusLabel.text = @"You have taken 1 file for processing";
+            
+        }else{
+            
+            self.statusLabel.text = @"You have taken 2 files for processing";
+            
+        }
+        
+    }else{
+        
+        self.statusLabel.text = @"";
+        
+    }
+    
 }
 @end

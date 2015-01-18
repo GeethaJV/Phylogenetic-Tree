@@ -18,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonAction:)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    NSLog(@"self.fileName %@",self.fileName);
+    self.navigationItem.title = self.fileName;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,5 +40,11 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)doneButtonAction:inSender{
+    
+    [self.navigationController dismissViewControllerAnimated:YES
+                                                  completion:^{
+                                                      
+                                                  }];
+}
 @end
