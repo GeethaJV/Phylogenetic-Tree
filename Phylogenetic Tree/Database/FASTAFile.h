@@ -9,7 +9,9 @@
 #import <Realm/Realm.h>
 
 @interface FASTAFile : RLMObject
-
+@property NSString *fileName;
+@property NSString *header;
+@property NSString *sequence;
 @end
 
 // This protocol enables typed collections. i.e.:

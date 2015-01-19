@@ -7,9 +7,13 @@
 //
 
 #import <Realm/Realm.h>
+#import "FASTAFile.h"
+
 
 @interface Allignment : RLMObject
-
+@property NSString *allignmentType;
+@property NSString *alignmentSequence;
+@property RLMArray<FASTAFile> *fastaSequence;
 @end
 
 // This protocol enables typed collections. i.e.:
