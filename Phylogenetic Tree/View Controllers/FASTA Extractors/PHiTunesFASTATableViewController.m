@@ -127,7 +127,7 @@
     
     UILongPressGestureRecognizer *longPressGesture =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    [cell.imageView addGestureRecognizer:longPressGesture];
+    [cell.contentView addGestureRecognizer:longPressGesture];
     cell.imageView.userInteractionEnabled = YES;    // this is by default NO, so we need to turn it on
     
     

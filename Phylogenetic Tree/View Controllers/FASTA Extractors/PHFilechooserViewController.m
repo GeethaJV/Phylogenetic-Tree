@@ -98,7 +98,7 @@
             
         }else{
             
-            self.statusLabel.text = @"You have taken 2 files for processing";
+            self.statusLabel.text = [NSString stringWithFormat:@"You have taken %d files for processing",inselectedFiles];
             
         }
         
