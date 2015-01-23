@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface PHFilechooserViewController ()<PHFileChoserProtocols>
-
+@property (strong,nonatomic)UIBarButtonItem *allignmentButton;
 @end
 
 @implementation PHFilechooserViewController
@@ -46,6 +46,12 @@
     self.PC.layer.cornerRadius = 4.0f;
     
     self.statusLabel.text = @"";
+    
+    if(! self.allignmentButton){
+        self.allignmentButton = [[UIBarButtonItem alloc] initWithTitle:@"Allignment" style:UIBarButtonItemStylePlain target:self action:@selector(gotoAllignment:)];
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,11 +92,17 @@
     
 }
 
+- (void)gotoAllignment:sender{
+    
+}
+
 #pragma mark -
 #pragma mark Delegates
 - (void)numberOfFilesSelectedfromfileChooserOption:(NSInteger)inselectedFiles{
     
     if(inselectedFiles > 0){
+        
+         self.navigationItem.rightBarButtonItem = self.allignmentButton;
         
         if(inselectedFiles == 1){
             
@@ -98,12 +110,13 @@
             
         }else{
             
-            self.statusLabel.text = [NSString stringWithFormat:@"You have taken %d files for processing",inselectedFiles];
+            self.statusLabel.text = [NSString stringWithFormat:@"You have taken %ld files for processing",(long)inselectedFiles];
             
         }
         
     }else{
         
+        self.navigationItem.rightBarButtonItem = nil;
         self.statusLabel.text = @"";
         
     }

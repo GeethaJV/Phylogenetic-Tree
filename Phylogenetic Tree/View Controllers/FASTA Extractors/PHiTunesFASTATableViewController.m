@@ -8,13 +8,16 @@
 
 #import "PHiTunesFASTATableViewController.h"
 #import "PHFASTAFileViewerController.h"
+#import "ALToastView.h"
 #import "DirectoryWatcher.h"
 #import "PHUtility.h"
 
 #define kRowHeight 58.0f
+static NSInteger IS_FIRST_TIME = 1;
 
-@interface PHiTunesFASTATableViewController ()<DirectoryWatcherDelegate,UIDocumentInteractionControllerDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>
+@interface PHiTunesFASTATableViewController ()<DirectoryWatcherDelegate,UIDocumentInteractionControllerDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>{
 
+}
 @property (nonatomic, strong) DirectoryWatcher *docWatcher;
 @property (nonatomic, strong) NSMutableArray *documentURLs;
 @property (nonatomic, strong) NSMutableArray *selectedDocumentsURL;
@@ -35,9 +38,10 @@
     }
     return self;
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -377,8 +381,17 @@
         }
     }
     
+    if(IS_FIRST_TIME && [self.documentURLs count]){
+        [self performSelector:@selector(showToastView:) withObject:nil afterDelay:2.0];
+        IS_FIRST_TIME = 0;
+    }
+
     [self.tableView reloadData];
     
+}
+
+- (void)showToastView:sender{
+    [ALToastView toastInView:self.view withText:@"Tap and Hold for few seconds to view the file"];
 }
 
 #pragma mark -
