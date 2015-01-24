@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PHFASTAFileViewerController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextView *fileTextViewer;
-@property (copy,nonatomic) NSString *fileName;
+@property (weak, nonatomic) IBOutlet UIWebView *fileTextwebViewer;
+@property (copy, nonatomic) NSURL *fileURL;
 @end

@@ -149,35 +149,23 @@ static NSInteger IS_FIRST_TIME = 1;
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture
 {
-    if (longPressGesture.state == UIGestureRecognizerStateBegan)
-    {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan){
         NSIndexPath *cellIndexPath = [self.tableView indexPathForRowAtPoint:[longPressGesture locationInView:self.tableView]];
         
         NSURL *fileURL = [self.documentURLs objectAtIndex:cellIndexPath.row];
         
-        NSString *filePath = [fileURL path];
-        NSError *error;
-        if(nil!=filePath){
-            NSString *fileContent = [[NSString alloc]initWithContentsOfFile:filePath
-                                                                   encoding:NSUTF8StringEncoding
-                                                                      error:&error];
-            NSLog(@"File Content is %@",fileContent);
+        if(fileURL){
             
             PHFASTAFileViewerController * fastafileviewerController = (PHFASTAFileViewerController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PHFASTAFileViewerController"];
-            fastafileviewerController.fileName = [filePath lastPathComponent];
+            fastafileviewerController.fileURL = fileURL;
             [fastafileviewerController view];
-            fastafileviewerController.fileTextViewer.text = fileContent;
             
             
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fastafileviewerController];
-            //navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
-            
             [self.navigationController presentViewController:navigationController
                                                     animated:YES
                                                   completion:^{
                                                   }];
-            
-            
         }
     }
 }
@@ -241,6 +229,16 @@ static NSInteger IS_FIRST_TIME = 1;
                 if (!success) {
                     NSLog(@"Error removing file at path: %@", error.localizedDescription);
                 }else{
+                    NSURL *filePathobj = [self.documentURLs objectAtIndex:indexPath.row];
+                    
+                    if([self.selectedDocumentsURL containsObject:filePathobj]){
+                        
+                        [self.selectedDocumentsURL removeObject:filePathobj];
+                        //[self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+                        UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+                        selectedCell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    
                     [self.documentURLs removeObjectAtIndex:indexPath.row];
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
                     

@@ -7,10 +7,13 @@
 //
 
 #import "PHFASTAFileViewerController.h"
+#import "PHUtility.h"
 
 @interface PHFASTAFileViewerController ()
 
+@property (copy,nonatomic)NSString *modifiedFilePath;
 
+- (NSString *)moveFile:(NSString *)filePath toDirectory:(NSString *)tempDir andRenameFormat:(NSString *)UTIformatforWeb;
 @end
 
 @implementation PHFASTAFileViewerController
@@ -21,11 +24,29 @@
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonAction:)];
     self.navigationItem.rightBarButtonItem = doneButton;
-    NSLog(@"self.fileName %@",self.fileName);
-    self.navigationItem.title = self.fileName;
+    
+    if(self.fileURL){
+        self.navigationItem.title = [[self.fileURL path]lastPathComponent];
+    }
+    
+    self.modifiedFilePath = [self moveFile:self.fileURL.path toDirectory:[PHUtility applicationTempDirectory] andRenameFormat:@"txt"];
+    
+    NSURL *fileURLis = [[NSURL alloc] initFileURLWithPath: self.modifiedFilePath isDirectory:NO];
+    NSURLRequest *rulRequestis = [NSURLRequest requestWithURL:fileURLis];
+    
+    [self.fileTextwebViewer loadRequest:rulRequestis];
     
 }
 
+- (void)dealloc
+{
+    self.fileTextwebViewer = nil;
+    NSError *removeError = nil;
+    if(![[NSFileManager defaultManager]removeItemAtPath:self.modifiedFilePath error:&removeError]){
+        NSLog(@"removeError %@",removeError);
+    }
+    self.modifiedFilePath = nil;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -46,5 +67,32 @@
                                                   completion:^{
                                                       
                                                   }];
+}
+
+#pragma mark -
+#pragma mark Private Methods
+- (NSString *)moveFile:(NSString *)filePath toDirectory:(NSString *)tempDir andRenameFormat:(NSString *)UTIformatforWeb{
+    
+    NSString *renamedFilePath = nil;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if([fileManager fileExistsAtPath:filePath]){
+        
+        NSError *fileCopyError = nil;
+        NSString *fileName = [filePath lastPathComponent];
+        NSString *fileNameWithoutExtension = [fileName stringByDeletingPathExtension];
+        NSString *fileNameWithNewExtension = [fileNameWithoutExtension stringByAppendingPathExtension:UTIformatforWeb];
+        renamedFilePath = [tempDir stringByAppendingString:[NSString stringWithFormat:@"/%@",fileNameWithNewExtension]];
+        
+        if([fileManager copyItemAtPath:filePath toPath:renamedFilePath error:&fileCopyError]){
+            
+        }else{
+            NSLog(@"File Copy Error is %@",fileCopyError);
+        }
+        
+    }
+    
+    return renamedFilePath;
+    
 }
 @end
