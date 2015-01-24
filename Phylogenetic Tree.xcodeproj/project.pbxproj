@@ -17,12 +17,8 @@
 		2A76DDD11A603DD800C00302 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */; };
 		2A76DDDD1A603DD800C00302 /* Phylogenetic_TreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */; };
 		2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */; };
-		2A880BA31A6D6A9700436C4D /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A880BA21A6D6A9700436C4D /* libc++.dylib */; };
 		2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAA0C971A6A244800EC420D /* QuartzCore.framework */; };
 		2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */; };
-		2AEE408D1A6D6BC20022D838 /* FASTAFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE408C1A6D6BC20022D838 /* FASTAFile.m */; };
-		2AEE40901A6D6BF80022D838 /* Allignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE408F1A6D6BF80022D838 /* Allignment.m */; };
-		2AEE40921A6D6D2B0022D838 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEE40911A6D6D2B0022D838 /* Realm.framework */; };
 		2AEE40991A72BBAC0022D838 /* ALToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE40981A72BBAC0022D838 /* ALToastView.m */; };
 /* End PBXBuildFile section */
 
@@ -56,16 +52,10 @@
 		2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Phylogenetic_TreeTests.m; sourceTree = "<group>"; };
 		2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHiTunesFASTATableViewController.h; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.h"; sourceTree = "<group>"; };
 		2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHiTunesFASTATableViewController.m; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.m"; sourceTree = "<group>"; };
-		2A880BA21A6D6A9700436C4D /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		2AAA0C971A6A244800EC420D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2AAA0C991A6BC5D300EC420D /* PHFASTAFileViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFASTAFileViewerController.h; path = "View Controllers/FASTA Extractors/PHFASTAFileViewerController.h"; sourceTree = "<group>"; };
 		2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHFASTAFileViewerController.m; path = "View Controllers/FASTA Extractors/PHFASTAFileViewerController.m"; sourceTree = "<group>"; };
 		2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFileChoserProtocols.h; path = "View Controllers/FASTA Extractors/PHFileChoserProtocols.h"; sourceTree = "<group>"; };
-		2AEE408B1A6D6BC20022D838 /* FASTAFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FASTAFile.h; path = Database/FASTAFile.h; sourceTree = "<group>"; };
-		2AEE408C1A6D6BC20022D838 /* FASTAFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FASTAFile.m; path = Database/FASTAFile.m; sourceTree = "<group>"; };
-		2AEE408E1A6D6BF80022D838 /* Allignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Allignment.h; path = Database/Allignment.h; sourceTree = "<group>"; };
-		2AEE408F1A6D6BF80022D838 /* Allignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Allignment.m; path = Database/Allignment.m; sourceTree = "<group>"; };
-		2AEE40911A6D6D2B0022D838 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		2AEE40971A72BBAC0022D838 /* ALToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALToastView.h; path = "Utility + Shared Classes/Custom View/ALToastView.h"; sourceTree = "<group>"; };
 		2AEE40981A72BBAC0022D838 /* ALToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALToastView.m; path = "Utility + Shared Classes/Custom View/ALToastView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,8 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AEE40921A6D6D2B0022D838 /* Realm.framework in Frameworks */,
-				2A880BA31A6D6A9700436C4D /* libc++.dylib in Frameworks */,
 				2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,7 +116,6 @@
 				2A76DDC51A603DD800C00302 /* AppDelegate.m */,
 				2A7A93D21A678B8E00BE29E9 /* View Controllers */,
 				2A296E271A62BE1700049383 /* Utilities + Shared Classes */,
-				2A880B9F1A6D6A3600436C4D /* Database */,
 				2A76DDCA1A603DD800C00302 /* Main.storyboard */,
 				2A76DDCD1A603DD800C00302 /* Images.xcassets */,
 				2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */,
@@ -184,19 +171,6 @@
 				2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */,
 			);
 			name = "FASTA Extractors";
-			sourceTree = "<group>";
-		};
-		2A880B9F1A6D6A3600436C4D /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				2A880BA21A6D6A9700436C4D /* libc++.dylib */,
-				2AEE40911A6D6D2B0022D838 /* Realm.framework */,
-				2AEE408B1A6D6BC20022D838 /* FASTAFile.h */,
-				2AEE408C1A6D6BC20022D838 /* FASTAFile.m */,
-				2AEE408E1A6D6BF80022D838 /* Allignment.h */,
-				2AEE408F1A6D6BF80022D838 /* Allignment.m */,
-			);
-			name = Database;
 			sourceTree = "<group>";
 		};
 		2AEE40931A72B66D0022D838 /* Custom View */ = {
@@ -314,10 +288,8 @@
 				2A296E2A1A62BE6E00049383 /* PHUtility.m in Sources */,
 				2A296E2D1A62BF1A00049383 /* DirectoryWatcher.m in Sources */,
 				2A76DDC31A603DD800C00302 /* main.m in Sources */,
-				2AEE408D1A6D6BC20022D838 /* FASTAFile.m in Sources */,
 				2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */,
 				2A7A93D61A678D4000BE29E9 /* PHiTunesFASTATableViewController.m in Sources */,
-				2AEE40901A6D6BF80022D838 /* Allignment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,13 +415,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Phylogenetic",
-					Tree/Database,
-					"$(PROJECT_DIR)/Phylogenetic",
-					Tree,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Phylogenetic Tree/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -465,13 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Phylogenetic",
-					Tree/Database,
-					"$(PROJECT_DIR)/Phylogenetic",
-					Tree,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Phylogenetic Tree/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

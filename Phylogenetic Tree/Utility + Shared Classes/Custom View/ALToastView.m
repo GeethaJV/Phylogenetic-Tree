@@ -70,7 +70,7 @@ static NSMutableArray *toasts;
 		// Init and add label
 		_textLabel = [[UILabel alloc] init];
 		_textLabel.text = text;
-		_textLabel.minimumFontSize = 24;
+		_textLabel.minimumScaleFactor = 1;
         _textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
 		_textLabel.textColor = [UIColor whiteColor];
 		_textLabel.adjustsFontSizeToFitWidth = NO;
@@ -98,7 +98,7 @@ static NSMutableArray *toasts;
 	CGFloat lWidth = view.textLabel.frame.size.width;
 	CGFloat lHeight = view.textLabel.frame.size.height;
 	CGFloat pWidth = parentView.frame.size.width;
-	CGFloat pHeight = parentView.frame.size.height;
+	//CGFloat pHeight = parentView.frame.size.height;
 	
 	// Change toastview frame
 	view.frame = CGRectMake((pWidth - lWidth - 20) / 2., 180, lWidth + 20, lHeight + 10);
