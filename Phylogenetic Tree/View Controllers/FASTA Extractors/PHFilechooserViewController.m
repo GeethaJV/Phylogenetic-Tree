@@ -9,6 +9,7 @@
 #import "PHFilechooserViewController.h"
 #import "PHiTunesFASTATableViewController.h"
 #import "PHFileChoserProtocols.h"
+#import "PHFASTAParser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PHFilechooserViewController ()<PHFileChoserProtocols>
@@ -49,7 +50,7 @@
     
     if(! self.allignmentButton){
         self.allignmentButton = [[UIBarButtonItem alloc] initWithTitle:@"Allignment" style:UIBarButtonItemStylePlain target:self action:@selector(gotoAllignment:)];
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = self.allignmentButton;
     }
 
 }
@@ -93,6 +94,18 @@
 }
 
 - (void)gotoAllignment:sender{
+    
+    NSURL *fileURL  = [[NSBundle mainBundle] URLForResource:@"sequence-4" withExtension:@"fasta"];
+    
+    if(fileURL){
+        
+        PHFASTAParser *parser = [[PHFASTAParser alloc]init];
+        [parser openFASTAwithfileURL:fileURL];
+        [parser readFASTAFilewithCompletionBlock:^(NSString *sequence, NSString *name, NSUInteger length) {
+            
+            NSLog(@"Sequence %@ Name %@",sequence,name);
+        }];
+    }
     
 }
 
