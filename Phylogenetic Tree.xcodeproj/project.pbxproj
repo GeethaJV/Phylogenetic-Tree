@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1B5E5E1AAC299F00BCE192 /* sequence-2.fasta in Resources */ = {isa = PBXBuildFile; fileRef = 2A1B5E5D1AAC299F00BCE192 /* sequence-2.fasta */; };
 		2A296E2A1A62BE6E00049383 /* PHUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A296E291A62BE6E00049383 /* PHUtility.m */; };
 		2A296E2D1A62BF1A00049383 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A296E2C1A62BF1A00049383 /* DirectoryWatcher.m */; };
 		2A432A4F1AA1A55400C09DC1 /* ancestralnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A432A0C1AA1A55400C09DC1 /* ancestralnode.cpp */; };
@@ -43,10 +44,9 @@
 		2A432A6E1AA1A55400C09DC1 /* treenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A432A4B1AA1A55400C09DC1 /* treenode.cpp */; };
 		2A432A6F1AA1A55400C09DC1 /* writefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A432A4D1AA1A55400C09DC1 /* writefile.cpp */; };
 		2A548B231A7539D300C17651 /* PHFASTAParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A548B221A7539D300C17651 /* PHFASTAParser.m */; };
-		2A548B251A75559600C17651 /* sequence-4.fasta in Resources */ = {isa = PBXBuildFile; fileRef = 2A548B241A75559600C17651 /* sequence-4.fasta */; };
 		2A76DDC31A603DD800C00302 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC21A603DD800C00302 /* main.m */; };
 		2A76DDC61A603DD800C00302 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC51A603DD800C00302 /* AppDelegate.m */; };
-		2A76DDC91A603DD800C00302 /* PHFilechooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */; };
+		2A76DDC91A603DD800C00302 /* PHFilechooserViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC81A603DD800C00302 /* PHFilechooserViewController.mm */; };
 		2A76DDCC1A603DD800C00302 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCA1A603DD800C00302 /* Main.storyboard */; };
 		2A76DDCE1A603DD800C00302 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCD1A603DD800C00302 /* Images.xcassets */; };
 		2A76DDD11A603DD800C00302 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */; };
@@ -68,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A1B5E5D1AAC299F00BCE192 /* sequence-2.fasta */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sequence-2.fasta"; sourceTree = "<group>"; };
 		2A296E281A62BE6E00049383 /* PHUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHUtility.h; path = "Utility + Shared Classes/PHUtility.h"; sourceTree = "<group>"; };
 		2A296E291A62BE6E00049383 /* PHUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHUtility.m; path = "Utility + Shared Classes/PHUtility.m"; sourceTree = "<group>"; };
 		2A296E2B1A62BF1A00049383 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectoryWatcher.h; path = "Utility + Shared Classes/DirectoryWatcher.h"; sourceTree = "<group>"; };
@@ -141,14 +142,13 @@
 		2A432A4E1AA1A55400C09DC1 /* writefile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writefile.h; sourceTree = "<group>"; };
 		2A548B211A7539D300C17651 /* PHFASTAParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFASTAParser.h; path = "Utility + Shared Classes/FASTA Parser/PHFASTAParser.h"; sourceTree = "<group>"; };
 		2A548B221A7539D300C17651 /* PHFASTAParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHFASTAParser.m; path = "Utility + Shared Classes/FASTA Parser/PHFASTAParser.m"; sourceTree = "<group>"; };
-		2A548B241A75559600C17651 /* sequence-4.fasta */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sequence-4.fasta"; sourceTree = "<group>"; };
 		2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phylogenetic Tree.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A76DDC11A603DD800C00302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A76DDC21A603DD800C00302 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A76DDC41A603DD800C00302 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2A76DDC51A603DD800C00302 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2A76DDC71A603DD800C00302 /* PHFilechooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PHFilechooserViewController.h; path = "View Controllers/FASTA Extractors/PHFilechooserViewController.h"; sourceTree = "<group>"; };
-		2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PHFilechooserViewController.m; path = "View Controllers/FASTA Extractors/PHFilechooserViewController.m"; sourceTree = "<group>"; };
+		2A76DDC81A603DD800C00302 /* PHFilechooserViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = PHFilechooserViewController.mm; path = "View Controllers/FASTA Extractors/PHFilechooserViewController.mm"; sourceTree = "<group>"; };
 		2A76DDCB1A603DD800C00302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A76DDCD1A603DD800C00302 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A76DDD01A603DD800C00302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 			children = (
 				2A548B211A7539D300C17651 /* PHFASTAParser.h */,
 				2A548B221A7539D300C17651 /* PHFASTAParser.m */,
-				2A548B241A75559600C17651 /* sequence-4.fasta */,
+				2A1B5E5D1AAC299F00BCE192 /* sequence-2.fasta */,
 			);
 			name = "FASTA Parser";
 			sourceTree = "<group>";
@@ -355,7 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				2A76DDC71A603DD800C00302 /* PHFilechooserViewController.h */,
-				2A76DDC81A603DD800C00302 /* PHFilechooserViewController.m */,
+				2A76DDC81A603DD800C00302 /* PHFilechooserViewController.mm */,
 				2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */,
 				2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */,
 				2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */,
@@ -455,9 +455,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A76DDCC1A603DD800C00302 /* Main.storyboard in Resources */,
+				2A1B5E5E1AAC299F00BCE192 /* sequence-2.fasta in Resources */,
 				2A76DDD11A603DD800C00302 /* LaunchScreen.xib in Resources */,
 				2A76DDCE1A603DD800C00302 /* Images.xcassets in Resources */,
-				2A548B251A75559600C17651 /* sequence-4.fasta in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,7 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A432A6E1AA1A55400C09DC1 /* treenode.cpp in Sources */,
-				2A76DDC91A603DD800C00302 /* PHFilechooserViewController.m in Sources */,
+				2A76DDC91A603DD800C00302 /* PHFilechooserViewController.mm in Sources */,
 				2AEE40991A72BBAC0022D838 /* ALToastView.m in Sources */,
 				2A432A601AA1A55400C09DC1 /* phylomatchscore.cpp in Sources */,
 				2A432A671AA1A55400C09DC1 /* readfile.cpp in Sources */,

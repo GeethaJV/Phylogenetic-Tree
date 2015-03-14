@@ -10,6 +10,8 @@
 #import "PHiTunesFASTATableViewController.h"
 #import "PHFileChoserProtocols.h"
 #import "PHFASTAParser.h"
+#import "PHUtility.h"
+#include "progressivealignment.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PHFilechooserViewController ()<PHFileChoserProtocols>
@@ -95,10 +97,27 @@
 
 - (void)gotoAllignment:sender{
     
-    NSURL *fileURL  = [[NSBundle mainBundle] URLForResource:@"sequence-4" withExtension:@"fasta"];
+    NSURL *fileURL  = [[NSBundle mainBundle] URLForResource:@"sequence-2" withExtension:@"fasta"];
     
     if(fileURL){
         
+        NSString *pathForSequenceFile = [fileURL path];
+        
+        std::string seq = *new std::string([pathForSequenceFile UTF8String]);
+        seqfile = seq;
+
+        
+        NSString *documentsPath = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationDocumentsDirectory],@"output"];
+        
+        std::string outputfilepath = *new std::string([documentsPath UTF8String]);
+        outfile = outputfilepath;
+        
+        std::string respath( [ documentsPath UTF8String ] ) ;
+       // std::string *sequence = new std::string([pathForSequenceFile UTF8String]);
+        //std::printf(@"%s",*seq);
+        //const char *seq = [pathForSequenceFile cStringUsingEncoding:NSUTF8StringEncoding];
+        //std::string *sequencestd::string str(seq);
+        ProgressiveAlignment pa = ProgressiveAlignment("",seqfile, "");
         PHFASTAParser *parser = [[PHFASTAParser alloc]init];
         [parser openFASTAwithfileURL:fileURL];
         [parser readFASTAFilewithCompletionBlock:^(NSString *sequence, NSString *name, NSUInteger length) {
@@ -108,6 +127,8 @@
     }
     
 }
+
+
 
 #pragma mark -
 #pragma mark Delegates

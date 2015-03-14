@@ -36,6 +36,8 @@
 #include "exonerate_reads.h"
 #include "mafft_alignment.h"
 #include "bppancestors.h"
+//#import <UIKit/UIKit.h>
+//#import <Foundation/Foundation.h>
 
 using namespace std;
 
@@ -473,7 +475,10 @@ void ProgressiveAlignment::printAlignment(AncestralNode *root,vector<string> *nm
     if (!TRANSLATE)
     {
         WriteFile wfa;
+        
+        
         string file = filename+formatExtension(format);
+        //file = "/tmp/"+file;
         wfa.writeSeqs(file.c_str(),nms,seqs,format,isDna,root,false);
 
         if (WRITEXML || WRITEANCSEQ)

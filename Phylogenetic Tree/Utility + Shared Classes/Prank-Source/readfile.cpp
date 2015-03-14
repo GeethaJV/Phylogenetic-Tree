@@ -205,7 +205,7 @@ int ReadFile::readFile(const char* inputfile)
     {
 
         string temp = seqs.at(i);
-        transform( temp.begin(), temp.end(), temp.begin(), (int(*)(int))toupper );
+       // transform( temp.begin(), temp.end(), temp.begin(), (int(*)(int))toupper );
         seqs.at(i) = temp;
 
         if ((int)seqs.at(i).length()<1)
