@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface PHFASTAParser : NSObject
-- (BOOL)openFASTAwithfileURL:(NSURL *)inFastaURL;
-- (void)closeFASTAwithfileURL:(NSURL *)inFastaURL;
-- (void)readFASTAFilewithCompletionBlock:(void (^)(NSString *sequence, NSString *name, NSUInteger length)) SequenceParser;
+
+- (void)readALineOfFASTAFileContenforFileHandle:(NSFileHandle *)inReadFileHandle withCompletionBlock:(void (^)(NSData *sequenceData, NSUInteger length)) SequenceParser;
 
 @end

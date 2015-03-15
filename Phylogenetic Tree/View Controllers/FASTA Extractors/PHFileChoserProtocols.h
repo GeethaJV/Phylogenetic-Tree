@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @protocol PHFileChoserProtocols <NSObject>
-- (void)numberOfFilesSelectedfromfileChooserOption:(NSInteger)inselectedFiles;
+- (void)selectedFileReferenceArray:(NSMutableArray *)inSelectedFileArray;
 @end

@@ -23,4 +23,27 @@
     return documentPath;
 }
 
++ (NSString *)FASTAFileManipulationDirectory{
+    
+    NSString *documentDirectory = [PHUtility applicationDocumentsDirectory];
+    
+    NSString *FASTADirName = [documentDirectory stringByAppendingPathComponent:@"FASTA Manipulations"];
+    
+    BOOL isDir = NO;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if(![fileManager fileExistsAtPath:FASTADirName isDirectory:&isDir]){
+        if([fileManager createDirectoryAtPath:FASTADirName withIntermediateDirectories:YES attributes:nil error:nil]){
+             NSLog(@"Directory Created");
+        }else{
+            NSLog(@"Directory Creation Failed");
+            return nil;
+        }
+        
+    }
+    else{
+         NSLog(@"Directory Already Exist");
+    }
+    
+    return FASTADirName;
+}
 @end

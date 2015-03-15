@@ -257,8 +257,8 @@ static NSInteger IS_FIRST_TIME = 1;
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
-        if([self.fileChooserDelegate respondsToSelector:@selector(numberOfFilesSelectedfromfileChooserOption:)]){
-            [self.fileChooserDelegate numberOfFilesSelectedfromfileChooserOption:[self.selectedDocumentsURL count]];
+        if([self.fileChooserDelegate respondsToSelector:@selector(selectedFileReferenceArray:)]){
+            [self.fileChooserDelegate selectedFileReferenceArray:self.selectedDocumentsURL];
         }
     }
     [super viewWillDisappear:animated];

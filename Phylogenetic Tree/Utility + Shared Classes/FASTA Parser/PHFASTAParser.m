@@ -9,31 +9,20 @@
 #import "PHFASTAParser.h"
 
 @interface PHFASTAParser ()
-@property(strong,nonatomic) NSFileHandle *fastaFileHandle;
+//@property(strong,nonatomic) NSFileHandle *fastaFileHandle;
 @end
 
 @implementation PHFASTAParser
 
-- (BOOL)openFASTAwithfileURL:(NSURL *)inFastaURL{
+
+
+- (void)readALineOfFASTAFileContenforFileHandle:(NSFileHandle *)inReadFileHandle withCompletionBlock:(void (^)(NSData *sequenceData, NSUInteger length)) SequenceParser{
     
-    BOOL isSucessufullyOpened = NO;
-    NSError *error = nil;
-    
-    if(nil == _fastaFileHandle){
-        
-         self.fastaFileHandle = [NSFileHandle fileHandleForReadingFromURL:inFastaURL
-                                                                    error:&error];
-        if(nil != error){
-            NSLog(@"Error Value is %@",error);
-            isSucessufullyOpened = NO;
-        }else{
-            isSucessufullyOpened = YES;
-        }
-    }
-   
-    return isSucessufullyOpened;
+    NSData *sequunceData = [self readLineWithDelimiter:@"\n" andReadFileHandle:inReadFileHandle];
+    SequenceParser(sequunceData,[sequunceData length]);
 }
 
+#if 0
 - (void)readFASTAFilewithCompletionBlock:(void (^)(NSString *sequence, NSString *name, NSUInteger length)) SequenceParser{
     
     //unsigned long long currentPosition = [inFileHandle offsetInFile];
@@ -75,17 +64,10 @@
     
     
 }
-
-
-
-- (void)closeFASTAwithfileURL:(NSURL *)inFastaURL{
-    
-    [self.fastaFileHandle closeFile];
-}
-
+# endif
 #pragma mark -
 #pragma mark Private Methods
-- (NSData *)readLineWithDelimiter:(NSString *)theDelimiter
+- (NSData *)readLineWithDelimiter:(NSString *)theDelimiter andReadFileHandle:(NSFileHandle *)inFileHandle
 {
     NSUInteger bufferSize = 1024; // Set our buffer size
     
@@ -97,7 +79,7 @@
     
     NSData *lineData; // Our buffer of data
     
-    unsigned long long currentPosition = [self.fastaFileHandle offsetInFile];
+    unsigned long long currentPosition = [inFileHandle offsetInFile];
     NSUInteger positionOffset = 0;
     
     BOOL hasData = YES;
@@ -106,7 +88,7 @@
     while (lineBreakFound == NO && hasData == YES)
     {
         // Fill our buffer with data
-        lineData = [self.fastaFileHandle readDataOfLength:bufferSize];
+        lineData = [inFileHandle readDataOfLength:bufferSize];
         
         // If our buffer gets some data, proceed
         if ([lineData length] > 0)
@@ -152,9 +134,9 @@
     // Use positionOffset to determine the string to return...
     
     // Return to the start of this line
-    [self.fastaFileHandle seekToFileOffset:currentPosition];
+    [inFileHandle seekToFileOffset:currentPosition];
     
-    NSData *returnData = [self.fastaFileHandle readDataOfLength:positionOffset];
+    NSData *returnData = [inFileHandle readDataOfLength:positionOffset];
     
     if ([returnData length] > 0)
     {

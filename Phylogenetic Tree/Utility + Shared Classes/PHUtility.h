@@ -11,4 +11,5 @@
 @interface PHUtility : NSObject
 + (NSString *)applicationDocumentsDirectory;
 + (NSString *)applicationTempDirectory;
++ (NSString *)FASTAFileManipulationDirectory;
 @end
