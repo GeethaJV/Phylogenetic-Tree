@@ -15,7 +15,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface PHFilechooserViewController ()<PHFileChoserProtocols>{
-    dispatch_queue_t writerqueue;
 }
 @property (strong,nonatomic)UIBarButtonItem *allignmentButton;
 @property (strong,nonatomic)NSMutableArray *selectedFileURlsforAllignment;
@@ -47,10 +46,7 @@ typedef void(^fileConstructed)(NSString *);
         self.navigationItem.rightBarButtonItem = self.allignmentButton;
     }
 
-    if(!writerqueue)
-    {
-        writerqueue = dispatch_queue_create("yourOwnQueueName", NULL);
-    }
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,9 +56,7 @@ typedef void(^fileConstructed)(NSString *);
 
 - (void)dealloc
 {
-//    if(writerqueue){
-//        dispatch_release(writerqueue);
-//    }
+
 }
 
 #pragma mark -
@@ -93,7 +87,7 @@ typedef void(^fileConstructed)(NSString *);
     
 }
 
-- (void)gotoAllignment:sender{
+- (void)gotoAllignment:(id)sender{
     
     //NSURL *fileURL  = [[NSBundle mainBundle] URLForResource:@"sequence-2" withExtension:@"fasta"];
    // NSString *pathForSequenceFile = [fileURL path];
