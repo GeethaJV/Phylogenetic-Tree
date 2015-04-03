@@ -59,11 +59,12 @@
                         <outlet property="database" destination="xCf-4M-BbI" id="m9D-bR-Ete"/>
                         <outlet property="pasteButton" destination="Wyb-5S-6ZS" id="SPZ-Ic-Q88"/>
                         <outlet property="statusLabel" destination="KjX-nZ-qh8" id="BuM-sz-jdf"/>
+                        <segue destination="UmL-3y-MmH" kind="show" identifier="AllignmentViewController" id="7Zc-WJ-1KZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="951" y="136"/>
+            <point key="canvasLocation" x="835" y="440"/>
         </scene>
         <!--Hi TunesFASTA Table View Controller-->
         <scene sceneID="NOy-ys-AVd">
@@ -90,6 +91,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jq9-pg-6lE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1799" y="-142"/>
+        </scene>
+        <!--Allignment View Controller-->
+        <scene sceneID="Ofh-mL-LSY">
+            <objects>
+                <viewController id="UmL-3y-MmH" customClass="PHAllignmentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8AX-7w-ncO"/>
+                        <viewControllerLayoutGuide type="bottom" id="vWt-E0-dAJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lqd-56-1vH">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB5-po-YVE">
+                                <rect key="frame" x="276" y="497" width="216" height="30"/>
+                                <state key="normal" title="View Alligned File"/>
+                                <connections>
+                                    <action selector="viewAllignment:" destination="UmL-3y-MmH" eventType="touchUpInside" id="Jbb-hm-8SQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbo-RL-Wny">
+                                <rect key="frame" x="276" y="535" width="216" height="30"/>
+                                <state key="normal" title="Tree Construction"/>
+                                <connections>
+                                    <action selector="constructTree:" destination="UmL-3y-MmH" eventType="touchUpInside" id="ogq-TS-5Jx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="treeConstructionButton" destination="gbo-RL-Wny" id="UF7-ey-Z9E"/>
+                        <outlet property="viewAllignmentButton" destination="MB5-po-YVE" id="IVn-4t-X9J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z8l-AO-QsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="948"/>
         </scene>
         <!--File Viewer Controller-->
         <scene sceneID="fIN-tg-RxJ">

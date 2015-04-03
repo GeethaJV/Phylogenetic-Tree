@@ -25,7 +25,7 @@
 
 + (NSString *)FASTAFileManipulationDirectory{
     
-    NSString *documentDirectory = [PHUtility applicationDocumentsDirectory];
+    NSString *documentDirectory = [PHUtility applicationTempDirectory];
     
     NSString *FASTADirName = [documentDirectory stringByAppendingPathComponent:@"FASTA Manipulations"];
     

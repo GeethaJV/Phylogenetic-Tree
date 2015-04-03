@@ -188,7 +188,7 @@ bool NOTGAP = true;
 bool TERMF = false;
 
 // run iterations
-int iterations = 1;
+int iterations = 2;
 
 // prune the tree
 bool PRUNETREE = false;

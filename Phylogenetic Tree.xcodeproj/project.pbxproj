@@ -43,6 +43,7 @@
 		2A432A6D1AA1A55400C09DC1 /* translatesequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A432A491AA1A55400C09DC1 /* translatesequences.cpp */; };
 		2A432A6E1AA1A55400C09DC1 /* treenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A432A4B1AA1A55400C09DC1 /* treenode.cpp */; };
 		2A432A6F1AA1A55400C09DC1 /* writefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A432A4D1AA1A55400C09DC1 /* writefile.cpp */; };
+		2A4F71721AC83D9C00C4E209 /* PHAllignmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F71711AC83D9C00C4E209 /* PHAllignmentViewController.mm */; };
 		2A548B231A7539D300C17651 /* PHFASTAParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A548B221A7539D300C17651 /* PHFASTAParser.m */; };
 		2A76DDC31A603DD800C00302 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC21A603DD800C00302 /* main.m */; };
 		2A76DDC61A603DD800C00302 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A76DDC51A603DD800C00302 /* AppDelegate.m */; };
@@ -140,6 +141,8 @@
 		2A432A4C1AA1A55400C09DC1 /* treenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = treenode.h; sourceTree = "<group>"; };
 		2A432A4D1AA1A55400C09DC1 /* writefile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = writefile.cpp; sourceTree = "<group>"; };
 		2A432A4E1AA1A55400C09DC1 /* writefile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writefile.h; sourceTree = "<group>"; };
+		2A4F71701AC83D9C00C4E209 /* PHAllignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHAllignmentViewController.h; path = "View Controllers/Allignment/PHAllignmentViewController.h"; sourceTree = "<group>"; };
+		2A4F71711AC83D9C00C4E209 /* PHAllignmentViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PHAllignmentViewController.mm; path = "View Controllers/Allignment/PHAllignmentViewController.mm"; sourceTree = "<group>"; };
 		2A548B211A7539D300C17651 /* PHFASTAParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFASTAParser.h; path = "Utility + Shared Classes/FASTA Parser/PHFASTAParser.h"; sourceTree = "<group>"; };
 		2A548B221A7539D300C17651 /* PHFASTAParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHFASTAParser.m; path = "Utility + Shared Classes/FASTA Parser/PHFASTAParser.m"; sourceTree = "<group>"; };
 		2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phylogenetic Tree.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,6 +276,15 @@
 			path = "Utility + Shared Classes/Prank-Source";
 			sourceTree = "<group>";
 		};
+		2A4F71731AC83DA700C4E209 /* Allignment */ = {
+			isa = PBXGroup;
+			children = (
+				2A4F71701AC83D9C00C4E209 /* PHAllignmentViewController.h */,
+				2A4F71711AC83D9C00C4E209 /* PHAllignmentViewController.mm */,
+			);
+			name = Allignment;
+			sourceTree = "<group>";
+		};
 		2A548B201A75399600C17651 /* FASTA Parser */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				2A7A93D31A678BCB00BE29E9 /* FASTA Extractors */,
+				2A4F71731AC83DA700C4E209 /* Allignment */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -514,6 +527,7 @@
 				2A432A5E1AA1A55400C09DC1 /* mafft_alignment.cpp in Sources */,
 				2A432A6F1AA1A55400C09DC1 /* writefile.cpp in Sources */,
 				2A432A5D1AA1A55400C09DC1 /* intmatrix.cpp in Sources */,
+				2A4F71721AC83D9C00C4E209 /* PHAllignmentViewController.mm in Sources */,
 				2A432A4F1AA1A55400C09DC1 /* ancestralnode.cpp in Sources */,
 				2A432A611AA1A55400C09DC1 /* postprobability.cpp in Sources */,
 				2A432A631AA1A55400C09DC1 /* progressivealignment.cpp in Sources */,

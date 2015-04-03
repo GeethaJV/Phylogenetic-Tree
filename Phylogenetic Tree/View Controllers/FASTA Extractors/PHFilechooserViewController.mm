@@ -9,9 +9,9 @@
 #import "PHFilechooserViewController.h"
 #import "PHiTunesFASTATableViewController.h"
 #import "PHFileChoserProtocols.h"
+#import "PHAllignmentViewController.h"
 #import "PHFASTAParser.h"
 #import "PHUtility.h"
-#include "progressivealignment.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PHFilechooserViewController ()<PHFileChoserProtocols>{
@@ -78,11 +78,12 @@ typedef void(^fileConstructed)(NSString *);
 #pragma mark Segues
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender{
-    
     if([segue.identifier isEqualToString:@"iTunesFilesViewerController"]){
-        
         PHiTunesFASTATableViewController *viewController = [segue destinationViewController];
         viewController.fileChooserDelegate = self;
+    }else if([segue.identifier isEqualToString:@"AllignmentViewController"]){
+        PHAllignmentViewController *allignmentController = [segue destinationViewController];
+        allignmentController.allignmentFile = self.pathOfFASTAfileForAllignment;
     }
     
 }
@@ -91,22 +92,17 @@ typedef void(^fileConstructed)(NSString *);
     
     //NSURL *fileURL  = [[NSBundle mainBundle] URLForResource:@"sequence-2" withExtension:@"fasta"];
    // NSString *pathForSequenceFile = [fileURL path];
-    
     [self constructFASTAReferenceFilefromFilesAtPath:self.selectedFileURlsforAllignment
                                  withCompletionBlock:^(NSString * inFileName) {
-                                     NSLog(@"inFileName %@",inFileName);
                                      if(inFileName){
-                                         std::string seq = *new std::string([inFileName UTF8String]);
-                                         seqfile = seq;
-                                         NSString *documentsPath = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationDocumentsDirectory],@"output"];
                                          
-                                         std::string outputfilepath = *new std::string([documentsPath UTF8String]);
-                                         outfile = outputfilepath;
-                                         
-                                         std::string respath( [ documentsPath UTF8String ] ) ;
-                                         ProgressiveAlignment pa = ProgressiveAlignment("",seqfile, "");
+                                          [self performSegueWithIdentifier:@"AllignmentViewController" sender:sender];
+                                     }else{
+                                         NSLog(@"There are no sufficient allignment files… No Action");
                                      }
                                  }];
+    
+   
 #if 0
     std::string seq = *new std::string([pathForSequenceFile UTF8String]);
     seqfile = seq;
@@ -159,6 +155,7 @@ typedef void(^fileConstructed)(NSString *);
     }
 }
 
+
 #pragma mark -
 #pragma mark Private Methods
 - (void)constructFASTAReferenceFilefromFilesAtPath:(NSMutableArray *)inFilePaths withCompletionBlock:(fileConstructed)inCompletionBlock{
@@ -176,10 +173,10 @@ typedef void(^fileConstructed)(NSString *);
                                                 
                                                 __block NSUInteger sequenceDataLength = length;
                                                 __block NSData *sequenceLineData = sequenceData;
-                                    
+                                                
                                                 while (sequenceDataLength > 0) {
-                                                   [fileHandle_Writer seekToEndOfFile];
-                                                   [fileHandle_Writer writeData:sequenceLineData];
+                                                    [fileHandle_Writer seekToEndOfFile];
+                                                    [fileHandle_Writer writeData:sequenceLineData];
                                                     [parser readALineOfFASTAFileContenforFileHandle:fileHandle_Reader withCompletionBlock:^(NSData *sequenceData, NSUInteger length) {
                                                         sequenceDataLength = length;
                                                         sequenceLineData = sequenceData;
@@ -197,7 +194,7 @@ typedef void(^fileConstructed)(NSString *);
     }else{
         inCompletionBlock(nil);
     }
-   
+    
 }
 - (NSString *)FASTAInupfile{
     
@@ -206,16 +203,27 @@ typedef void(^fileConstructed)(NSString *);
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath: fastaInputFileName] == YES){
         NSLog(@"File exists");
-    }else {
+        if([fileManager removeItemAtPath:fastaInputFileName error:nil]){
+            if ([fileManager createFileAtPath:fastaInputFileName contents:nil attributes:nil]){
+                return fastaInputFileName;
+            }else{
+                NSLog(@"Create file returned NO");
+                return nil;
+            }
+
+        }
+        }else {
         NSLog (@"File not found, file will be created");
         if ([fileManager createFileAtPath:fastaInputFileName contents:nil attributes:nil]){
             return fastaInputFileName;
         }else{
-             NSLog(@"Create file returned NO");
+            NSLog(@"Create file returned NO");
             return nil;
         }
     }
     
     return fastaInputFileName;
 }
+
+
 @end
