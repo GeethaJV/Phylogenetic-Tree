@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Esu-vm-r5Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Esu-vm-r5Q">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Filechooser View Controller-->
@@ -13,11 +14,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCf-4M-BbI">
-                                <rect key="frame" x="301" y="497" width="216" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCf-4M-BbI">
+                                <rect key="frame" x="192" y="497" width="216" height="30"/>
                                 <state key="normal" title="Import from Database">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -25,15 +26,36 @@
                                     <action selector="fromDatabaseSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qfJ-NN-f7L"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-5S-6ZS">
-                                <rect key="frame" x="301" y="459" width="216" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-5S-6ZS">
+                                <rect key="frame" x="192" y="459" width="216" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="216" id="6d5-yR-oTW"/>
+                                </constraints>
                                 <state key="normal" title="Paste the File Content"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6d5-yR-oTW"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="pasteSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5RY-fo-6OG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9km-ks-09M">
-                                <rect key="frame" x="301" y="535" width="216" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjX-nZ-qh8">
+                                <rect key="frame" x="77" y="166" width="446" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="446" id="RsB-62-4j1"/>
+                                    <constraint firstAttribute="height" constant="47" id="ZG7-kP-y7N"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9km-ks-09M">
+                                <rect key="frame" x="192" y="421" width="216" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="216" id="KsG-l1-Q33"/>
+                                </constraints>
                                 <state key="normal" title="Import from iTunes">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -42,18 +64,36 @@
                                     <segue destination="1Kd-YN-WqJ" kind="show" identifier="iTunesFilesViewerController" id="jGO-Q9-47W"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjX-nZ-qh8">
-                                <rect key="frame" x="186" y="590" width="446" height="47"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="301" id="3P0-Ef-Ztu"/>
+                            <constraint firstItem="xCf-4M-BbI" firstAttribute="top" secondItem="Wyb-5S-6ZS" secondAttribute="bottom" constant="8" id="3rI-39-1gg"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="leading" secondItem="9km-ks-09M" secondAttribute="leading" id="D3m-wQ-i2l"/>
+                            <constraint firstItem="9km-ks-09M" firstAttribute="top" secondItem="KjX-nZ-qh8" secondAttribute="bottom" constant="208" id="Fn0-Dr-87r"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="centerX" secondItem="KjX-nZ-qh8" secondAttribute="centerX" id="Q9Z-c5-SHS"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="leading" secondItem="xCf-4M-BbI" secondAttribute="leading" id="QfQ-N9-BIz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wyb-5S-6ZS" secondAttribute="trailing" constant="235" id="Rha-JF-7Yw"/>
+                            <constraint firstItem="xCf-4M-BbI" firstAttribute="top" secondItem="Wyb-5S-6ZS" secondAttribute="bottom" constant="8" id="aSK-jQ-sKV"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="395" id="bUy-7V-Pv9"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="trailing" secondItem="9km-ks-09M" secondAttribute="trailing" id="c2X-Ce-nXn"/>
+                            <constraint firstItem="KjX-nZ-qh8" firstAttribute="top" secondItem="9km-ks-09M" secondAttribute="bottom" constant="-285" id="gPM-Sd-hz7"/>
+                            <constraint firstItem="9km-ks-09M" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lll-fE-lth"/>
+                            <constraint firstItem="xCf-4M-BbI" firstAttribute="top" secondItem="Wyb-5S-6ZS" secondAttribute="bottom" constant="8" symbolic="YES" id="osH-jO-sOc"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="top" secondItem="9km-ks-09M" secondAttribute="bottom" constant="8" id="pW8-pN-THX"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xCf-4M-BbI" secondAttribute="bottom" constant="73" id="vgs-IZ-qsg"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KjX-nZ-qh8" secondAttribute="bottom" constant="387" id="xAV-Bc-TsY"/>
+                            <constraint firstItem="Wyb-5S-6ZS" firstAttribute="trailing" secondItem="xCf-4M-BbI" secondAttribute="trailing" id="xHq-j9-KBq"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3P0-Ef-Ztu"/>
+                                <exclude reference="Rha-JF-7Yw"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mfG-Eh-rCB"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="PC" destination="9km-ks-09M" id="rfS-IN-MvV"/>
                         <outlet property="database" destination="xCf-4M-BbI" id="m9D-bR-Ete"/>
@@ -87,6 +127,8 @@
                             <outlet property="delegate" destination="1Kd-YN-WqJ" id="L38-ma-SLr"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="1024"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jq9-pg-6lE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,18 +143,26 @@
                         <viewControllerLayoutGuide type="bottom" id="vWt-E0-dAJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lqd-56-1vH">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB5-po-YVE">
-                                <rect key="frame" x="276" y="497" width="216" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB5-po-YVE">
+                                <rect key="frame" x="192" y="318" width="216" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="bFj-p9-LmE"/>
+                                    <constraint firstAttribute="width" constant="216" id="usV-18-wgf"/>
+                                </constraints>
                                 <state key="normal" title="View Alligned File"/>
                                 <connections>
                                     <action selector="viewAllignment:" destination="UmL-3y-MmH" eventType="touchUpInside" id="Jbb-hm-8SQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbo-RL-Wny">
-                                <rect key="frame" x="276" y="535" width="216" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbo-RL-Wny">
+                                <rect key="frame" x="192" y="356" width="216" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="216" id="3L5-mQ-eTd"/>
+                                    <constraint firstAttribute="height" constant="30" id="H3n-B5-L1N"/>
+                                </constraints>
                                 <state key="normal" title="Tree Construction"/>
                                 <connections>
                                     <action selector="constructTree:" destination="UmL-3y-MmH" eventType="touchUpInside" id="ogq-TS-5Jx"/>
@@ -120,7 +170,14 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gbo-RL-Wny" firstAttribute="leading" secondItem="MB5-po-YVE" secondAttribute="leading" id="L32-Rb-lkF"/>
+                            <constraint firstItem="vWt-E0-dAJ" firstAttribute="top" secondItem="gbo-RL-Wny" secondAttribute="bottom" constant="214" id="TSJ-lR-xhE"/>
+                            <constraint firstItem="gbo-RL-Wny" firstAttribute="top" secondItem="MB5-po-YVE" secondAttribute="bottom" constant="8" symbolic="YES" id="XcL-Gf-Gzo"/>
+                            <constraint firstItem="gbo-RL-Wny" firstAttribute="centerX" secondItem="lqd-56-1vH" secondAttribute="centerX" id="qm9-0B-ZR6"/>
+                        </constraints>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="treeConstructionButton" destination="gbo-RL-Wny" id="UF7-ey-Z9E"/>
                         <outlet property="viewAllignmentButton" destination="MB5-po-YVE" id="IVn-4t-X9J"/>
@@ -149,7 +206,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="1024"/>
                     <connections>
                         <outlet property="fileTextwebViewer" destination="7Km-uj-dn7" id="CfN-4N-3u1"/>
                     </connections>
@@ -163,6 +221,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Esu-vm-r5Q" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t2h-nP-nff">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
