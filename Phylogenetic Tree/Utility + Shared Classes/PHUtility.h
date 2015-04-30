@@ -12,4 +12,5 @@
 + (NSString *)applicationDocumentsDirectory;
 + (NSString *)applicationTempDirectory;
 + (NSString *)FASTAFileManipulationDirectory;
++ (void)clearFilewithNamefromTempDirectory:(NSString *)fileName;
 @end

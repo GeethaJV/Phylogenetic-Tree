@@ -46,4 +46,19 @@
     
     return FASTADirName;
 }
+
++ (void)clearFilewithNamefromTempDirectory:(NSString *)fileName{
+    
+    if (fileName) {
+        NSString *cachesDirectoryDirectory = [PHUtility applicationTempDirectory];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *fastafileName = [cachesDirectoryDirectory stringByAppendingPathComponent:fileName];
+        
+        BOOL isDir = NO;
+        if ([fileManager fileExistsAtPath:fastafileName isDirectory:&isDir]) {
+            [fileManager removeItemAtPath:fastafileName error:nil];
+        }
+    }
+    
+}
 @end

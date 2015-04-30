@@ -43,15 +43,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"TreeViewController"]){
+
+    }
 }
-*/
+
 
 - (IBAction)viewAllignment:(id)sender {
     
@@ -80,6 +84,7 @@
 #pragma mark -
 - (void)processAllignmentforFile:(NSString *)inputFASTAFile{
     
+    [self deleteOutputFileIfExists];
      std::string seq = *new std::string([inputFASTAFile UTF8String]);
      seqfile = seq;
     self.outPutAllignedFilePath = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationTempDirectory],@"output.best.fas"];
@@ -89,6 +94,14 @@
 
     // std::string respath( [ documentsPath UTF8String ] ) ;
      ProgressiveAlignment pa = ProgressiveAlignment("",seqfile, "");
+}
+
+- (void)deleteOutputFileIfExists{
+    NSString *fastFileName = @"output.best.fas.best.fas";
+    NSString *xmlFileName = @"output.best.fas.best.xml";
+    [PHUtility clearFilewithNamefromTempDirectory:fastFileName];
+    [PHUtility clearFilewithNamefromTempDirectory:xmlFileName];
+    
 }
 
 @end

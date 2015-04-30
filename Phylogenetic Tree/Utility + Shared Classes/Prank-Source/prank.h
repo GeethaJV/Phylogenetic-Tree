@@ -127,7 +127,7 @@ bool PRINTNODES = false;
 bool PRINTTREE = false;
 
 // don't write xml
-bool WRITEXML = false;
+bool WRITEXML = true;
 
 // print dots for insertions
 bool DOTS = false;
