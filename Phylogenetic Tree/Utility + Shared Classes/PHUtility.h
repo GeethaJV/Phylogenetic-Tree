@@ -13,4 +13,8 @@
 + (NSString *)applicationTempDirectory;
 + (NSString *)FASTAFileManipulationDirectory;
 + (void)clearFilewithNamefromTempDirectory:(NSString *)fileName;
++ (NSString *)CreateTreeDataSourceHTMLFilewithData:(NSData *)inHTMLData;
++ (void)RemoveHTMLTreeDataSource;
++ (void)SaveSupportingFilesDoesNotExists;
++ (void)RemoveSupportingFiles;
 @end

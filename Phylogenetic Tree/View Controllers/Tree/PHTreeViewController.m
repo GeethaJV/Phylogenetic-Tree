@@ -14,6 +14,9 @@
     xmlTextReaderPtr xmlreader;
 }
 @property (nonatomic,strong) NSString *xmlFileName;
+@property (nonatomic,strong) NSDictionary *newickDictionary;
+@property (nonatomic,copy) NSString *pathOfHTMLFile;
+@property (weak, nonatomic) IBOutlet UIWebView *treeViewerWebView;
 
 @end
 
@@ -23,7 +26,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.xmlFileName = @"output.best.fas.best.xml";
-    [self parseData];
+    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self parseData];
+        [self generateHTMLFile];
+    //});
+     NSURL *urlis = [NSURL fileURLWithPath:self.pathOfHTMLFile];
+    [self.treeViewerWebView loadRequest:[NSURLRequest requestWithURL:urlis]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,7 +61,6 @@
     
     NSString *currentTagName = nil;
     NSString *currentTagValue = nil;
-    NSDictionary *newickDict = nil;
     char* temp;
     while (true) {
         if (!xmlTextReaderRead(reader)) break;
@@ -64,7 +71,7 @@
                 currentTagName = [NSString stringWithCString:temp
                                                     encoding:NSUTF8StringEncoding];
                 if ([currentTagName isEqualToString:@"newick"]) {
-                    newickDict = [NSMutableDictionary dictionary];
+                    self.newickDictionary = [NSMutableDictionary new];
                 }
                 break;
             case XML_READER_TYPE_TEXT:
@@ -72,13 +79,65 @@
                 temp = (char*)xmlTextReaderConstValue(reader);
                 currentTagValue = [NSString stringWithCString:temp
                                                      encoding:NSUTF8StringEncoding];
-                if (!newickDict) return;
-                [newickDict setValue:currentTagValue forKey:currentTagName];
+                if (!self.newickDictionary) return;
+                [self.newickDictionary setValue:currentTagValue forKey:currentTagName];
                 currentTagValue = nil;
                 currentTagName = nil;
                 break;
             default: break;
         }
     }
+}
+
+- (void)generateHTMLFile{
+    
+#if 0
+    <html>
+    <head>	<script type="text/javascript" src="raphael-min.js" ></script>
+    <script type="text/javascript" src="jsphylosvg-min.js"></script>
+    </head>
+    <script type="text/javascript">
+    window.onload = function(){
+        var dataObject = { newick: '(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);' };
+        phylocanvas = new Smits.PhyloCanvas(
+                                            dataObject,
+                                            'svgCanvas',
+                                            500, 500
+                                            );
+    };
+    </script>
+    <body>
+    <div id="svgCanvas"> </div>
+    </body>
+    </html>
+    
+#endif
+    
+    NSString *newickString = [self.newickDictionary objectForKey:@"newick"];
+    NSString *html = [NSString stringWithFormat:@"<html> \n"
+                      "<head> \n"
+                      "<head>	<script type=\"text/javascript\" src=\"raphael-min.js\" ></script> \n"
+                      "<script type=\"text/javascript\" src=\"jsphylosvg-min.js\"></script> \n"
+                      "</head> \n"
+                      "<script type=\"text/javascript\"> \n"
+                      "window.onload = function(){ \n"
+                      "var dataObject = { newick:'%@'}; \n"
+                      "phylocanvas = new Smits.PhyloCanvas(dataObject,'svgCanvas',500, 500); };\n"
+                      "</script> \n"
+                      "</body> \n"
+                      "<div id=\"svgCanvas\"> </div> \n"
+                      "</body> \n"
+                      
+                      "</html>",newickString];
+    
+    
+    if(nil == self.pathOfHTMLFile){
+        self.pathOfHTMLFile = [PHUtility CreateTreeDataSourceHTMLFilewithData: [html dataUsingEncoding:NSUTF8StringEncoding]];
+    }else{
+        [PHUtility RemoveHTMLTreeDataSource];
+        self.pathOfHTMLFile = [PHUtility CreateTreeDataSourceHTMLFilewithData:[html dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    
 }
 @end

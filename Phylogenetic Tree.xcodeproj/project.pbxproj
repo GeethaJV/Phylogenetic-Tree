@@ -56,6 +56,8 @@
 		2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAA0C971A6A244800EC420D /* QuartzCore.framework */; };
 		2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */; };
 		2AEE40991A72BBAC0022D838 /* ALToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE40981A72BBAC0022D838 /* ALToastView.m */; };
+		B4E5F3411AF2FFDA00E4C0EE /* jsphylosvg-min.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */; };
+		B4E5F3421AF2FFDA00E4C0EE /* raphael-min.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */; };
 		B4F4F5541AF1C09E003BFC86 /* PHTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F4F5531AF1C09E003BFC86 /* PHTreeViewController.m */; };
 		B4F4F5561AF1C476003BFC86 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B4F4F5551AF1C476003BFC86 /* libxml2.2.dylib */; };
 		B4F4F5581AF1C488003BFC86 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B4F4F5571AF1C488003BFC86 /* libsqlite3.0.dylib */; };
@@ -169,6 +171,8 @@
 		2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFileChoserProtocols.h; path = "View Controllers/FASTA Extractors/PHFileChoserProtocols.h"; sourceTree = "<group>"; };
 		2AEE40971A72BBAC0022D838 /* ALToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALToastView.h; path = "Utility + Shared Classes/Custom View/ALToastView.h"; sourceTree = "<group>"; };
 		2AEE40981A72BBAC0022D838 /* ALToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALToastView.m; path = "Utility + Shared Classes/Custom View/ALToastView.m"; sourceTree = "<group>"; };
+		B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "jsphylosvg-min.js"; path = "Phylogenetic Tree/Resources/jsphylosvg-min.js"; sourceTree = "<group>"; };
+		B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "raphael-min.js"; path = "Phylogenetic Tree/Resources/raphael-min.js"; sourceTree = "<group>"; };
 		B4F4F5521AF1C09D003BFC86 /* PHTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTreeViewController.h; path = "View Controllers/Tree/PHTreeViewController.h"; sourceTree = "<group>"; };
 		B4F4F5531AF1C09E003BFC86 /* PHTreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHTreeViewController.m; path = "View Controllers/Tree/PHTreeViewController.m"; sourceTree = "<group>"; };
 		B4F4F5551AF1C476003BFC86 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -309,8 +313,6 @@
 		2A76DDB41A603DD800C00302 = {
 			isa = PBXGroup;
 			children = (
-				B4F4F5571AF1C488003BFC86 /* libsqlite3.0.dylib */,
-				B4F4F5551AF1C476003BFC86 /* libxml2.2.dylib */,
 				2A76DDBF1A603DD800C00302 /* Phylogenetic Tree */,
 				2A76DDD91A603DD800C00302 /* Phylogenetic TreeTests */,
 				2A76DDBE1A603DD800C00302 /* Products */,
@@ -333,9 +335,12 @@
 				2A76DDC51A603DD800C00302 /* AppDelegate.m */,
 				2A7A93D21A678B8E00BE29E9 /* View Controllers */,
 				2A296E271A62BE1700049383 /* Utilities + Shared Classes */,
+				B4E5F33E1AF2FFAC00E4C0EE /* Resources */,
 				2A76DDCA1A603DD800C00302 /* Main.storyboard */,
 				2A76DDCD1A603DD800C00302 /* Images.xcassets */,
 				2A76DDCF1A603DD800C00302 /* LaunchScreen.xib */,
+				B4F4F5571AF1C488003BFC86 /* libsqlite3.0.dylib */,
+				B4F4F5551AF1C476003BFC86 /* libxml2.2.dylib */,
 				2AAA0C971A6A244800EC420D /* QuartzCore.framework */,
 				2A76DDC01A603DD800C00302 /* Supporting Files */,
 			);
@@ -398,6 +403,16 @@
 				2AEE40981A72BBAC0022D838 /* ALToastView.m */,
 			);
 			name = "Custom View";
+			sourceTree = "<group>";
+		};
+		B4E5F33E1AF2FFAC00E4C0EE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */,
+				B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */,
+			);
+			name = Resources;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -482,8 +497,10 @@
 			files = (
 				2A76DDCC1A603DD800C00302 /* Main.storyboard in Resources */,
 				2A1B5E5E1AAC299F00BCE192 /* sequence-2.fasta in Resources */,
+				B4E5F3411AF2FFDA00E4C0EE /* jsphylosvg-min.js in Resources */,
 				2A76DDD11A603DD800C00302 /* LaunchScreen.xib in Resources */,
 				2A76DDCE1A603DD800C00302 /* Images.xcassets in Resources */,
+				B4E5F3421AF2FFDA00E4C0EE /* raphael-min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
