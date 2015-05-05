@@ -82,6 +82,14 @@
     }
     else{
         NSLog(@"Directory Already Exist");
+        [fileManager removeItemAtPath:treeFilePath error:nil];
+        if([fileManager createFileAtPath:treeFilePath contents:inHTMLData attributes:nil]){
+            NSLog(@"File Created");
+            return  treeFilePath;
+        }else{
+            NSLog(@"File Creation Failed");
+            return nil;
+        }
         return  treeFilePath;
     }
 

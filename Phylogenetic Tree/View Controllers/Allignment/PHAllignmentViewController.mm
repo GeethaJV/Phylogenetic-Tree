@@ -62,7 +62,7 @@
     self.outPutAllignedFilePath = [NSString stringWithFormat:@"%@.%@",[NSString stringWithFormat:@"%s",outfile.c_str()],@"best.fas"];
     
     
-    if(self.outPutAllignedFilePath){
+    if([[NSFileManager defaultManager]fileExistsAtPath:self.outPutAllignedFilePath]){
         
         PHFASTAFileViewerController * fastafileviewerController = (PHFASTAFileViewerController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PHFASTAFileViewerController"];
         fastafileviewerController.fileURL = [[NSURL alloc]initFileURLWithPath:self.outPutAllignedFilePath];
@@ -103,5 +103,7 @@
     [PHUtility clearFilewithNamefromTempDirectory:xmlFileName];
     
 }
+
+
 
 @end
