@@ -200,20 +200,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yzl-E5-D4i">
-                                <rect key="frame" x="16" y="72" width="568" height="520"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzl-E5-D4i">
+                                <rect key="frame" x="11" y="108" width="568" height="472"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="472" id="A8t-GO-xpb"/>
+                                </constraints>
                             </webView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="U6M-Ju-Xlg">
+                                <rect key="frame" x="152" y="72" width="287" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="9zI-oj-uw9"/>
+                                    <constraint firstAttribute="width" constant="287" id="X8t-Po-pHZ"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Tree"/>
+                                    <segment title="Circular"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentControlTapped:" destination="tkc-Bh-PTe" eventType="valueChanged" id="kmT-pD-Aey"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="U6M-Ju-Xlg" firstAttribute="leading" secondItem="JnW-BU-HAP" secondAttribute="leadingMargin" constant="136" id="56E-D4-Rtn"/>
+                            <constraint firstItem="U6M-Ju-Xlg" firstAttribute="top" secondItem="7mK-tP-3cH" secondAttribute="bottom" constant="8" id="LxK-ae-tQS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="U6M-Ju-Xlg" secondAttribute="trailing" constant="145" id="MAe-PB-Pul"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="U6M-Ju-Xlg" secondAttribute="trailing" constant="145" id="Qo4-rm-pX6"/>
+                            <constraint firstItem="U6M-Ju-Xlg" firstAttribute="leading" secondItem="JnW-BU-HAP" secondAttribute="leadingMargin" constant="136" id="ZY2-Ei-ecF"/>
+                            <constraint firstItem="yzl-E5-D4i" firstAttribute="top" secondItem="U6M-Ju-Xlg" secondAttribute="bottom" constant="8" id="ed0-vZ-q4E"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yzl-E5-D4i" secondAttribute="trailing" constant="5" id="sK6-ox-dGs"/>
+                            <constraint firstItem="yzl-E5-D4i" firstAttribute="leading" secondItem="JnW-BU-HAP" secondAttribute="leadingMargin" constant="-5" id="uQ1-XA-Aj1"/>
+                            <constraint firstAttribute="bottom" secondItem="yzl-E5-D4i" secondAttribute="bottom" constant="20" symbolic="YES" id="yXb-BA-C91"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="segmentControl" destination="U6M-Ju-Xlg" id="Qpg-d4-D5f"/>
                         <outlet property="treeViewerWebView" destination="yzl-E5-D4i" id="vPQ-lb-eQA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1l-TG-fjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="1066"/>
+            <point key="canvasLocation" x="2380" y="979"/>
         </scene>
         <!--File Viewer Controller-->
         <scene sceneID="fIN-tg-RxJ">

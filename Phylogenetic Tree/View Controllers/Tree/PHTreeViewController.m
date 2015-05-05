@@ -10,6 +10,11 @@
 #import "PHUtility.h"
 #import <libxml/xmlreader.h>
 
+typedef enum : NSUInteger {
+    TreeTypeChart,
+    TreeTypeCircular,
+} TReeType;
+
 @interface PHTreeViewController (){
     xmlTextReaderPtr xmlreader;
 }
@@ -17,6 +22,8 @@
 @property (nonatomic,strong) NSDictionary *newickDictionary;
 @property (nonatomic,copy) NSString *pathOfHTMLFile;
 @property (weak, nonatomic) IBOutlet UIWebView *treeViewerWebView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+- (IBAction)segmentControlTapped:(id)sender;
 
 @end
 
@@ -28,10 +35,9 @@
     self.xmlFileName = @"output.best.fas.best.xml";
     //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self parseData];
-        [self generateHTMLFile];
+    [self generateHTMLFilefortType:TreeTypeChart];
     //});
-     NSURL *urlis = [NSURL fileURLWithPath:self.pathOfHTMLFile];
-    [self.treeViewerWebView loadRequest:[NSURLRequest requestWithURL:urlis]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,7 +95,7 @@
     }
 }
 
-- (void)generateHTMLFile{
+- (void)generateHTMLFilefortType:(TReeType)treeType{
     
 #if 0
     <html>
@@ -114,21 +120,40 @@
 #endif
     
     NSString *newickString = [self.newickDictionary objectForKey:@"newick"];
-    NSString *html = [NSString stringWithFormat:@"<html> \n"
-                      "<head> \n"
-                      "<head>	<script type=\"text/javascript\" src=\"raphael-min.js\" ></script> \n"
-                      "<script type=\"text/javascript\" src=\"jsphylosvg-min.js\"></script> \n"
-                      "</head> \n"
-                      "<script type=\"text/javascript\"> \n"
-                      "window.onload = function(){ \n"
-                      "var dataObject = { newick:'%@'}; \n"
-                      "phylocanvas = new Smits.PhyloCanvas(dataObject,'svgCanvas',500, 500); };\n"
-                      "</script> \n"
-                      "</body> \n"
-                      "<div id=\"svgCanvas\"> </div> \n"
-                      "</body> \n"
-                      
-                      "</html>",newickString];
+    NSString *html = nil;
+    
+    if (treeType == TreeTypeCircular) {
+        
+       html =  [NSString stringWithFormat:@"<html> \n"
+         "<head> \n"
+         "<script type=\"text/javascript\" src=\"raphael-min.js\" ></script> \n"
+         "<script type=\"text/javascript\" src=\"jsphylosvg-min.js\"></script> \n"
+         "<script type=\"text/javascript\"> \n"
+         "window.onload = function(){ \n"
+         "var dataObject = { newick:'%@'}; \n"
+         "phylocanvas = new Smits.PhyloCanvas(dataObject,'svgCanvas',%f, %f,'circular'); };\n"
+         "</script> \n"
+         "</body> \n"
+         "<div id=\"svgCanvas\"> </div> \n"
+         "</body> \n"
+         "</html>",newickString,self.treeViewerWebView.frame.size.width,self.treeViewerWebView.frame.size.height];
+    }else{
+        
+        html = [NSString stringWithFormat:@"<html> \n"
+         "<head> \n"
+         "<script type=\"text/javascript\" src=\"raphael-min.js\" ></script> \n"
+         "<script type=\"text/javascript\" src=\"jsphylosvg-min.js\"></script> \n"
+         "<script type=\"text/javascript\"> \n"
+         "window.onload = function(){ \n"
+         "var dataObject = { newick:'%@'}; \n"
+         "phylocanvas = new Smits.PhyloCanvas(dataObject,'svgCanvas',%f, %f); };\n"
+         "</script> \n"
+         "</body> \n"
+         "<div id=\"svgCanvas\"> </div> \n"
+         "</body> \n"
+         "</html>",newickString,self.treeViewerWebView.frame.size.width,self.treeViewerWebView.frame.size.height];
+    }
+    
     
     
     if(nil == self.pathOfHTMLFile){
@@ -138,6 +163,16 @@
         self.pathOfHTMLFile = [PHUtility CreateTreeDataSourceHTMLFilewithData:[html dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
+    NSURL *urlis = [NSURL fileURLWithPath:self.pathOfHTMLFile];
+    [self.treeViewerWebView loadRequest:[NSURLRequest requestWithURL:urlis]];
     
+}
+- (IBAction)segmentControlTapped:(UISegmentedControl *)sender {
+    
+    if( [sender selectedSegmentIndex] == 0){
+        [self generateHTMLFilefortType:TreeTypeChart];
+    } else {
+        [self generateHTMLFilefortType:TreeTypeCircular];
+    }
 }
 @end
