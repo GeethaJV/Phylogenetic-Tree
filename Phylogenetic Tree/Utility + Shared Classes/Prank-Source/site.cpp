@@ -39,9 +39,11 @@ Site::~Site()
 
 void Site::setMatrices(int longest,int )
 {
-    if(count>2)
-        this->deleteMatrices();
+//TODO: Hack to fix crash while doing allignment for multiple times. Need to have proper fix
+//    if(count>2)
+//        this->deleteMatrices();
 
+    
     int s = (int)(initialMatrixSize*(float)longest);
 
     anc = new BoolMatrix(s,"site_anc");

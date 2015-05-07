@@ -12,7 +12,9 @@
 #include "progressivealignment.h"
 
 
-@interface PHAllignmentViewController ()
+@interface PHAllignmentViewController (){
+    ProgressiveAlignment *allignmentObj;
+}
 @property (copy,nonatomic) NSString *outPutAllignedFilePath;
 @end
 
@@ -35,7 +37,7 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self processAllignmentforFile:self.allignmentFile];
     });
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,7 +95,7 @@
    outfile = outputfilepath;
 
     // std::string respath( [ documentsPath UTF8String ] ) ;
-     ProgressiveAlignment pa = ProgressiveAlignment("",seqfile, "");
+    allignmentObj = new ProgressiveAlignment("",seqfile,"");
 }
 
 - (void)deleteOutputFileIfExists{
@@ -104,6 +106,12 @@
     
 }
 
-
+- (void)dealloc {
+    
+    seqfile = "";
+    outfile = "output";
+    delete allignmentObj;
+    delete hmm;
+}
 
 @end
