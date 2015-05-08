@@ -10,12 +10,14 @@
 #import "PHFASTAFileViewerController.h"
 #import "PHUtility.h"
 #include "progressivealignment.h"
+#import "MBProgressHUD.h"
 
 
-@interface PHAllignmentViewController (){
+@interface PHAllignmentViewController ()<MBProgressHUDDelegate>{
     ProgressiveAlignment *allignmentObj;
 }
 @property (copy,nonatomic) NSString *outPutAllignedFilePath;
+@property (strong,nonatomic) MBProgressHUD *progressbar;
 @end
 
 @implementation PHAllignmentViewController
@@ -97,7 +99,15 @@
     // std::string respath( [ documentsPath UTF8String ] ) ;
     allignmentObj = new ProgressiveAlignment("",seqfile,"",(__bridge void *)self);
     
-    allignmentObj->pha_ = self;
+//    self.progressbar = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+//    [self.navigationController.view addSubview:self.progressbar];
+//    
+//    self.progressbar.delegate = self;
+//    self.progressbar.labelText = @"Connecting";
+//    self.progressbar.minSize = CGSizeMake(135.f, 135.f);
+//    
+//    [self.progressbar showWhileExecuting:@selector(doSomethingWith:andString:) onTarget:self withObject:nil animated:YES];
+    
 }
 
 - (void)deleteOutputFileIfExists{
@@ -118,20 +128,44 @@
 
 
 // C "trampoline" function to invoke Objective-C method
-int MyObjectDoProgressUpdateWith (void *self, int aParameter, string str)
+int MyObjectDoProgressUpdateWith (void *myObjectInstance, int aParameter, string str)
 {
     NSString *allignmentIteration = nil;
     if ( !str.empty()) {
         allignmentIteration = [NSString stringWithUTF8String:str.c_str()];
     }
     // Call the Objective-C method using Objective-C syntax
-    return [(__bridge id) self doSomethingWith:aParameter andString:allignmentIteration];
+    return [(__bridge id) myObjectInstance doSomethingWith:aParameter andString:allignmentIteration];
+}
+
+int MyObjectDoInformTheCompletion (void *myObjectInstance )
+{
+     return [(__bridge id) myObjectInstance allignmentCompleted];
+    
 }
 
 // The Objective-C member function you want to call from C++
 - (int) doSomethingWith:(int)aParameter andString:(NSString *)strng{
     
     NSLog(@" Allignment of %@ and percentage %d",strng,aParameter);
+    
+    self.progressbar.mode = MBProgressHUDModeDeterminate;
+    self.progressbar.labelText = [NSString stringWithFormat:@"Allignment of %@ and percentage %d",strng,aParameter];
+
+   // self.progressbar sh
     return 0;
 }
+- (int)allignmentCompleted{
+    
+    return 0;
+}
+
+#pragma mark - MBProgressHUDDelegate
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [self.progressbar removeFromSuperview];
+
+}
+
 @end

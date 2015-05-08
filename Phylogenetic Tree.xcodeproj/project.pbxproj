@@ -56,6 +56,7 @@
 		2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAA0C971A6A244800EC420D /* QuartzCore.framework */; };
 		2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */; };
 		2AEE40991A72BBAC0022D838 /* ALToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE40981A72BBAC0022D838 /* ALToastView.m */; };
+		B471E9C81AFC774500984DE8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B471E9C71AFC774500984DE8 /* MBProgressHUD.m */; };
 		B4E5F3411AF2FFDA00E4C0EE /* jsphylosvg-min.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */; };
 		B4E5F3421AF2FFDA00E4C0EE /* raphael-min.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */; };
 		B4F4F5541AF1C09E003BFC86 /* PHTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F4F5531AF1C09E003BFC86 /* PHTreeViewController.m */; };
@@ -172,6 +173,8 @@
 		2AEE40971A72BBAC0022D838 /* ALToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALToastView.h; path = "Utility + Shared Classes/Custom View/ALToastView.h"; sourceTree = "<group>"; };
 		2AEE40981A72BBAC0022D838 /* ALToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALToastView.m; path = "Utility + Shared Classes/Custom View/ALToastView.m"; sourceTree = "<group>"; };
 		B471E9C21AFC389400984DE8 /* MyObject-C-Interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyObject-C-Interface.h"; path = "View Controllers/Allignment/MyObject-C-Interface.h"; sourceTree = "<group>"; };
+		B471E9C61AFC774500984DE8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = "Utility + Shared Classes/MBProgressHUD.h"; sourceTree = "<group>"; };
+		B471E9C71AFC774500984DE8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = "Utility + Shared Classes/MBProgressHUD.m"; sourceTree = "<group>"; };
 		B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "jsphylosvg-min.js"; path = "Phylogenetic Tree/Resources/jsphylosvg-min.js"; sourceTree = "<group>"; };
 		B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "raphael-min.js"; path = "Phylogenetic Tree/Resources/raphael-min.js"; sourceTree = "<group>"; };
 		B4F4F5521AF1C09D003BFC86 /* PHTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTreeViewController.h; path = "View Controllers/Tree/PHTreeViewController.h"; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				2A548B201A75399600C17651 /* FASTA Parser */,
 				2A296E281A62BE6E00049383 /* PHUtility.h */,
 				2A296E291A62BE6E00049383 /* PHUtility.m */,
+				B471E9C61AFC774500984DE8 /* MBProgressHUD.h */,
+				B471E9C71AFC774500984DE8 /* MBProgressHUD.m */,
 				2A296E2B1A62BF1A00049383 /* DirectoryWatcher.h */,
 				2A296E2C1A62BF1A00049383 /* DirectoryWatcher.m */,
 			);
@@ -542,6 +547,7 @@
 				2A432A551AA1A55400C09DC1 /* dbmatrix.cpp in Sources */,
 				2A432A5C1AA1A55400C09DC1 /* hmmodel.cpp in Sources */,
 				2A76DDC31A603DD800C00302 /* main.m in Sources */,
+				B471E9C81AFC774500984DE8 /* MBProgressHUD.m in Sources */,
 				2A548B231A7539D300C17651 /* PHFASTAParser.m in Sources */,
 				2A432A5F1AA1A55400C09DC1 /* node.cpp in Sources */,
 				2A432A681AA1A55400C09DC1 /* readnewick.cpp in Sources */,

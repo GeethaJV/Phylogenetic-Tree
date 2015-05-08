@@ -211,7 +211,7 @@ private:
     int computeParsimonyScore(AncestralNode *root,bool isDna,int bestScore=-1,int *nSubst=0,int *nIns=0,int *nDel=0,int *nInsDel=0,bool noSuffix=false);
 
     void updateIndelSites(AncestralNode *root);
-    int someMethod (void *objectiveCObject,int aParameter,std::string str);
+    int completionCallbackMethod (void *objectiveCObject);
 
     void printAlignment(AncestralNode *root,std::vector<std::string> *nms,std::vector<std::string> *sqs,string filename, bool isDna, bool verbose=true);
     void printAncestral(AncestralNode *root,string filename,bool isDna, bool verbose=true);

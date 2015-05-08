@@ -398,6 +398,8 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
 
     }
 
+    this->completionCallbackMethod(pha_);
+    
     sites->deleteMatrices();
     delete sites;
 
@@ -407,11 +409,11 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
 
 }
 
-int ProgressiveAlignment::someMethod (void *objectiveCObject, int aParameter,std::string str)
+int ProgressiveAlignment::completionCallbackMethod (void *objectiveCObject)
 {
     // To invoke an Objective-C method from C++, use
     // the C trampoline function
-    return MyObjectDoProgressUpdateWith (objectiveCObject, aParameter,str);
+    return MyObjectDoInformTheCompletion(objectiveCObject);
 }
 
 void ProgressiveAlignment::updateIndelSites(AncestralNode *root)
