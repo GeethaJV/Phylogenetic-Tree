@@ -36,9 +36,7 @@
     //[self.viewAllignmentButton setEnabled:NO];
     //[self.treeConstructionButton setEnabled:NO];
     
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self processAllignmentforFile:self.allignmentFile];
-    });
+    [self processAllignmentforFile:self.allignmentFile];
     
 }
 
@@ -96,17 +94,25 @@
    std::string outputfilepath = *new std::string([self.outPutAllignedFilePath UTF8String]);
    outfile = outputfilepath;
 
-    // std::string respath( [ documentsPath UTF8String ] ) ;
-    allignmentObj = new ProgressiveAlignment("",seqfile,"",(__bridge void *)self);
     
-//    self.progressbar = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-//    [self.navigationController.view addSubview:self.progressbar];
-//    
-//    self.progressbar.delegate = self;
-//    self.progressbar.labelText = @"Connecting";
-//    self.progressbar.minSize = CGSizeMake(135.f, 135.f);
-//    
-//    [self.progressbar showWhileExecuting:@selector(doSomethingWith:andString:) onTarget:self withObject:nil animated:YES];
+    self.progressbar = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.progressbar];
+    [self.progressbar removeFromSuperViewOnHide];
+    self.progressbar.delegate = self;
+    self.progressbar.labelText = @"Generating Multiple Allignment…";
+    self.progressbar.minSize = CGSizeMake(135.f, 135.f);
+    self.progressbar.mode = MBProgressHUDModeIndeterminate;
+    self.progressbar.progress = 0.0;
+    [self.progressbar show:YES];
+
+    // std::string respath( [ documentsPath UTF8String ] ) ;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        allignmentObj = new ProgressiveAlignment("",seqfile,"",(__bridge void *)self);
+    });
+    
+    
+
+
     
 }
 
@@ -149,13 +155,23 @@ int MyObjectDoInformTheCompletion (void *myObjectInstance )
     
     NSLog(@" Allignment of %@ and percentage %d",strng,aParameter);
     
-    self.progressbar.mode = MBProgressHUDModeDeterminate;
-    self.progressbar.labelText = [NSString stringWithFormat:@"Allignment of %@ and percentage %d",strng,aParameter];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.progressbar.mode = MBProgressHUDModeDeterminateHorizontalBar;
+        self.progressbar.progress = aParameter/100;
+        self.progressbar.labelText = strng;
+        self.progressbar.detailsLabelText = [NSString stringWithFormat:@"%d/100 allignment completed",aParameter];
+    });
+    
 
    // self.progressbar sh
     return 0;
 }
 - (int)allignmentCompleted{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.progressbar.hidden = YES;
+        
+    });
     
     return 0;
 }
