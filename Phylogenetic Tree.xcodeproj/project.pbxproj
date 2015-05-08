@@ -171,6 +171,7 @@
 		2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFileChoserProtocols.h; path = "View Controllers/FASTA Extractors/PHFileChoserProtocols.h"; sourceTree = "<group>"; };
 		2AEE40971A72BBAC0022D838 /* ALToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALToastView.h; path = "Utility + Shared Classes/Custom View/ALToastView.h"; sourceTree = "<group>"; };
 		2AEE40981A72BBAC0022D838 /* ALToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALToastView.m; path = "Utility + Shared Classes/Custom View/ALToastView.m"; sourceTree = "<group>"; };
+		B471E9C21AFC389400984DE8 /* MyObject-C-Interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyObject-C-Interface.h"; path = "View Controllers/Allignment/MyObject-C-Interface.h"; sourceTree = "<group>"; };
 		B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "jsphylosvg-min.js"; path = "Phylogenetic Tree/Resources/jsphylosvg-min.js"; sourceTree = "<group>"; };
 		B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "raphael-min.js"; path = "Phylogenetic Tree/Resources/raphael-min.js"; sourceTree = "<group>"; };
 		B4F4F5521AF1C09D003BFC86 /* PHTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTreeViewController.h; path = "View Controllers/Tree/PHTreeViewController.h"; sourceTree = "<group>"; };
@@ -296,6 +297,7 @@
 				2A4F71711AC83D9C00C4E209 /* PHAllignmentViewController.mm */,
 				B4F4F5521AF1C09D003BFC86 /* PHTreeViewController.h */,
 				B4F4F5531AF1C09E003BFC86 /* PHTreeViewController.m */,
+				B471E9C21AFC389400984DE8 /* MyObject-C-Interface.h */,
 			);
 			name = Allignment;
 			sourceTree = "<group>";

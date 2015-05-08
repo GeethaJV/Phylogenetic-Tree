@@ -32,6 +32,9 @@ extern string tmpNodeName;
 
 Hirschberg::~Hirschberg()
 {
+    if (allignementObjcObj) {
+        allignementObjcObj = NULL;
+    }
     delete beg;
     delete end;
     delete newsite;
@@ -140,8 +143,9 @@ void Hirschberg::cleanUp()
 }
 
 
-Hirschberg::Hirschberg()
+Hirschberg::Hirschberg(PHAllignmentViewControllerPtr callback)
 {
+    allignementObjcObj = callback;
     count = 2;
     small = -HUGE_VAL;
 
@@ -572,6 +576,12 @@ void Hirschberg::alignSeqs(Sequence* s1,Sequence* s2,PhyloMatchScore *pms)
 
 }
 
+int Hirschberg::someMethod (void *objectiveCObject, int aParameter,std::string str)
+{
+    // To invoke an Objective-C method from C++, use
+    // the C trampoline function
+    return MyObjectDoProgressUpdateWith (objectiveCObject, aParameter,str);
+}
 
 void Hirschberg::defineBegin()
 {
@@ -868,15 +878,24 @@ void Hirschberg::divideSeq()
             }
 
             char prop[10];
-            sprintf(prop,": %i",countSites*100/totalSites);
+            int percent = countSites*100/totalSites;
+            sprintf(prop,": %i",percent);
             message = currentNode+prop+"% aligned                    ";
 
+            if (allignementObjcObj) {
+                this->someMethod(allignementObjcObj, percent,currentNode);
+            }
             cout<<message;
             cout.flush();
         }
         else if (NOISE>0)
         {
-            cout<<currentNode<<": "<<countSites*100/totalSites<<"% aligned"<<endl;
+            int percent = countSites*100/totalSites;
+            cout<<currentNode<<": "<<percent<<"% aligned"<<endl;
+            if (allignementObjcObj) {
+                this->someMethod(allignementObjcObj, percent,currentNode);
+            }
+            
         }
     }
 

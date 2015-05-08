@@ -28,6 +28,13 @@
 #include <map>
 #include "treenode.h"
 
+#ifdef __OBJC__
+@class PHAllignmentViewController;
+typedef PHAllignmentViewController *PHAllignmentViewControllerPtr;
+#else
+typedef void *PHAllignmentViewControllerPtr;
+#endif
+
 class ReadNewick
 {
     std::string s;
@@ -38,7 +45,7 @@ public:
     ~ReadNewick();
 
     std::string readFile(const char* filename);
-    void buildTree(std::string s,std::map<std::string,TreeNode*>* nodes);
+    void buildTree(std::string s,std::map<std::string,TreeNode*>* nodes, PHAllignmentViewControllerPtr callback);
     std::string getRoot()
     {
         return root;

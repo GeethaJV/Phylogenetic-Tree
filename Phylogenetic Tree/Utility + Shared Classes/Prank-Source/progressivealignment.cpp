@@ -36,16 +36,20 @@
 #include "exonerate_reads.h"
 #include "mafft_alignment.h"
 #include "bppancestors.h"
+
 //#import <UIKit/UIKit.h>
 //#import <Foundation/Foundation.h>
 
 using namespace std;
 
-ProgressiveAlignment::~ProgressiveAlignment(){}
-
-ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string dnafile)
+ProgressiveAlignment::~ProgressiveAlignment()
 {
+    pha_ = NULL;
+}
 
+ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string dnafile, void *progressCallback)
+{
+    this->pha_ = progressCallback;
     // Write general info unless silenced
     //
     if (NOISE>=0)
@@ -128,7 +132,7 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
         map<string,TreeNode*> nodes;
 
         ReadNewick rn;
-        rn.buildTree(tree,&nodes);
+        rn.buildTree(tree,&nodes,pha_);
 
         AncestralNode* root = static_cast<AncestralNode*>(nodes[rn.getRoot()]);
         string rooted = "";
@@ -152,7 +156,7 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
     map<string,TreeNode*> nodes;
 
     ReadNewick rn;
-    rn.buildTree(tree,&nodes);
+    rn.buildTree(tree,&nodes,pha_);
 
     AncestralNode* root = static_cast<AncestralNode*>(nodes[rn.getRoot()]);
 
@@ -230,7 +234,7 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
     {
         int thisIteration = 1;
 
-        Hirschberg hir;
+        Hirschberg hir(pha_);
         if (EXONERATE)
             hir.initialiseMatrices(initialAnchDist);
         else
@@ -286,7 +290,7 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
             delete root;
             nodes.clear();
 
-            rn.buildTree(tree,&nodes);
+            rn.buildTree(tree,&nodes,pha_);
 
 
             root = static_cast<AncestralNode*>(nodes[rn.getRoot()]);
@@ -399,9 +403,16 @@ ProgressiveAlignment::ProgressiveAlignment(string treefile,string seqfile,string
 
     nodes.clear();
     delete root;
+    
 
 }
 
+int ProgressiveAlignment::someMethod (void *objectiveCObject, int aParameter,std::string str)
+{
+    // To invoke an Objective-C method from C++, use
+    // the C trampoline function
+    return MyObjectDoProgressUpdateWith (objectiveCObject, aParameter,str);
+}
 
 void ProgressiveAlignment::updateIndelSites(AncestralNode *root)
 {
@@ -555,7 +566,7 @@ void ProgressiveAlignment::printAlignment(AncestralNode *root,vector<string> *nm
         map<string,TreeNode*> nodes;
 
         ReadNewick rn;
-        rn.buildTree(tree,&nodes);
+        rn.buildTree(tree,&nodes,pha_);
 
         AncestralNode* codonRoot = static_cast<AncestralNode*>(nodes[rn.getRoot()]);
 
@@ -836,7 +847,7 @@ void ProgressiveAlignment::reconstructAncestors(AncestralNode *root,bool isDna)
         tree << "(left:" << root->getLeftBrL()<<",right:"<<root->getRightBrL()<<");";
 
         map<string,TreeNode*> twonodes;
-        rn.buildTree(tree.str(),&twonodes);
+        rn.buildTree(tree.str(),&twonodes,pha_);
 
         bool tmpPREALIGNED = PREALIGNED;
         PREALIGNED = true;

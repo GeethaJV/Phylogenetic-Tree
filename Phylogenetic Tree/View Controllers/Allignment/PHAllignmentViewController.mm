@@ -95,7 +95,9 @@
    outfile = outputfilepath;
 
     // std::string respath( [ documentsPath UTF8String ] ) ;
-    allignmentObj = new ProgressiveAlignment("",seqfile,"");
+    allignmentObj = new ProgressiveAlignment("",seqfile,"",(__bridge void *)self);
+    
+    allignmentObj->pha_ = self;
 }
 
 - (void)deleteOutputFileIfExists{
@@ -114,4 +116,22 @@
     delete hmm;
 }
 
+
+// C "trampoline" function to invoke Objective-C method
+int MyObjectDoProgressUpdateWith (void *self, int aParameter, string str)
+{
+    NSString *allignmentIteration = nil;
+    if ( !str.empty()) {
+        allignmentIteration = [NSString stringWithUTF8String:str.c_str()];
+    }
+    // Call the Objective-C method using Objective-C syntax
+    return [(__bridge id) self doSomethingWith:aParameter andString:allignmentIteration];
+}
+
+// The Objective-C member function you want to call from C++
+- (int) doSomethingWith:(int)aParameter andString:(NSString *)strng{
+    
+    NSLog(@" Allignment of %@ and percentage %d",strng,aParameter);
+    return 0;
+}
 @end

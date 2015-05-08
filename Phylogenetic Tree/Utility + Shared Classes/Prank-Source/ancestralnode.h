@@ -21,17 +21,31 @@
 #ifndef ANCESTRALNODE_H
 #define ANCESTRALNODE_H
 
+
 #include "treenode.h"
 #include "ancestralsequence.h"
+#include "MyObject-C-Interface.h"
+
+#ifdef __OBJC__
+@class PHAllignmentViewController;
+typedef PHAllignmentViewController *PHAllignmentViewControllerPtr;
+#else
+typedef void *PHAllignmentViewControllerPtr;
+#endif
+
 
 class AncestralNode : public TreeNode
 {
     AncestralSequence* seq;
     bool reestimateBranchLength;
 public:
-    AncestralNode(std::string s);
+    AncestralNode(std::string s, PHAllignmentViewControllerPtr allignPtr);
 
     ~AncestralNode();
+    
+    PHAllignmentViewControllerPtr allignmentPtr;
+
+    
 
     std::string left_nhx_tag;
     std::string right_nhx_tag;

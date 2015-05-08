@@ -59,12 +59,12 @@ AncestralNode::~AncestralNode()
     delete seq;
 }
 
-AncestralNode::AncestralNode(string s)
+AncestralNode::AncestralNode(string s,PHAllignmentViewControllerPtr allignPtr)
         : TreeNode()
 {
 
 //    cout<<s<<endl;
-
+    allignmentPtr = allignPtr;
     root = false;
     terminal = false;
     seq = 0;
@@ -277,6 +277,7 @@ void AncestralNode::alignThisNode()
 {
     char prop[20];
     sprintf(prop,"(%i/%i)",alignedNodes,totalNodes-1);
+    
 
     currentNode = nodeName+prop;
     if (NOISE>0)
@@ -287,7 +288,7 @@ void AncestralNode::alignThisNode()
     PhyloMatchScore *pms = new PhyloMatchScore(lChild->getSequence(),rChild->getSequence());
     int time1 = time(0);
 
-    Hirschberg* hp = new Hirschberg();
+    Hirschberg* hp = new Hirschberg(allignmentPtr);
 
     if (rnd_seed>0)
     {
@@ -405,6 +406,8 @@ void AncestralNode::alignThisNode()
     rChild->getSequence()->cleanSpace();
 
 }
+
+
 
 void AncestralNode::printDebugNodes()
 {

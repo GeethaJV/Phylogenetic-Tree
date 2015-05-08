@@ -31,8 +31,18 @@
 #include "intmatrix.h"
 #include <cstdlib>
 
+#ifdef __OBJC__
+@class PHAllignmentViewController;
+typedef PHAllignmentViewController *PHAllignmentViewControllerPtr;
+#else
+typedef void *PHAllignmentViewControllerPtr;
+#endif
+
+
 class Hirschberg
 {
+public:
+    int someMethod(void *objectiveCObject, int aParameter,std::string str);
 protected:
     static int count;
     static int sAlpha;
@@ -216,7 +226,8 @@ protected:
     int random_seed;
 public:
     double small;
-    Hirschberg();
+    Hirschberg(PHAllignmentViewControllerPtr callback);
+    PHAllignmentViewControllerPtr allignementObjcObj;
     ~Hirschberg();
 
     void defineBegin();

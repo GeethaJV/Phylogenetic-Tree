@@ -14,4 +14,7 @@
 @property (copy, nonatomic) NSString *allignmentFile;
 - (IBAction)viewAllignment:(id)sender;
 - (IBAction)constructTree:(id)sender;
+
+// The Objective-C member function you want to call from C++
+- (int) doSomethingWith:(int)aParameter andString:(NSString *)strng;
 @end

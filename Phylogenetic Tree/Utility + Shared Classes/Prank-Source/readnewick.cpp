@@ -27,6 +27,8 @@
 #include "ancestralnode.h"
 #include "node.h"
 
+
+
 using namespace std;
 
 extern int NOISE;
@@ -52,7 +54,7 @@ string ReadNewick::readFile(const char* filename)
     return s;
 }
 
-void ReadNewick::buildTree(string s,map<string,TreeNode*>* nodes)
+void ReadNewick::buildTree(string s,map<string,TreeNode*>* nodes,PHAllignmentViewControllerPtr callback)
 {
     string::iterator b = s.begin();
     string::iterator e = s.end();
@@ -193,7 +195,7 @@ void ReadNewick::buildTree(string s,map<string,TreeNode*>* nodes)
                         tc<<"#"<<count++<<"#";
 //                    }
 
-                    AncestralNode *tn = new AncestralNode(n);
+                    AncestralNode *tn = new AncestralNode(n,callback);
                     tn->setNodeName(tc.str());
                     if (tn->isLInternal())
                     {

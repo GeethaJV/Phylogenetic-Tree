@@ -20,6 +20,13 @@
 #ifndef PROGRESSIVEALIGNMENT_H
 #define PROGRESSIVEALIGNMENT_H
 
+#ifdef __OBJC__
+@class PHAllignmentViewController;
+typedef PHAllignmentViewController *PHAllignmentViewControllerPtr;
+#else
+typedef void *PHAllignmentViewControllerPtr;
+#endif
+
 /**
  * Wrapper for sequence loading and multiple alignment.
  */
@@ -41,17 +48,19 @@
 #include "bppancestors.h"
 #include "readalignment.h"
 #include "hirschberg.h"
+#include "MyObject-C-Interface.h"
 
 class ProgressiveAlignment
 {
 public:
-    ProgressiveAlignment(std::string treefile,std::string seqfile,std::string dnafile);
+    ProgressiveAlignment(std::string treefile,std::string seqfile,std::string dnafile,void *progressCallback);
     ~ProgressiveAlignment();
+    PHAllignmentViewControllerPtr pha_;
 
 private:
 
     Site *sites;
-
+    
     void getAlignmentMatrix(AncestralNode *root,char* alignment,bool translate);
     void getAlignmentMatrix(AncestralNode *root,vector<string> *aseqs,bool translate);
 
@@ -119,7 +128,7 @@ private:
         ReadAlignment ra;
         ra.initialiseMatrices(longest+2);
 
-        Hirschberg hir;
+        Hirschberg hir(pha_);
         hir.initialiseMatrices((int)(((float)longest+2)*initialMatrixSize));
 
         if (NOISE>=0)
@@ -160,7 +169,7 @@ private:
         ReadAlignment ra;
         ra.initialiseMatrices(longest+2);
 
-        Hirschberg hir;
+        Hirschberg hir(pha_);
         hir.initialiseMatrices((int)(((float)longest+2)*initialMatrixSize));
 
         if (NOISE>=0)
@@ -202,6 +211,7 @@ private:
     int computeParsimonyScore(AncestralNode *root,bool isDna,int bestScore=-1,int *nSubst=0,int *nIns=0,int *nDel=0,int *nInsDel=0,bool noSuffix=false);
 
     void updateIndelSites(AncestralNode *root);
+    int someMethod (void *objectiveCObject,int aParameter,std::string str);
 
     void printAlignment(AncestralNode *root,std::vector<std::string> *nms,std::vector<std::string> *sqs,string filename, bool isDna, bool verbose=true);
     void printAncestral(AncestralNode *root,string filename,bool isDna, bool verbose=true);
@@ -326,7 +336,7 @@ private:
             }
             map<string,TreeNode*> oldnodes;
 
-            rn.buildTree(oldtree,&oldnodes);
+            rn.buildTree(oldtree,&oldnodes,pha_);
             AncestralNode* oldroot = static_cast<AncestralNode*>(oldnodes[rn.getRoot()]);
 
             map<string,float> subtreesOld;
@@ -1061,7 +1071,7 @@ private:
                         map<string,TreeNode*> tmp_nodes;
 
                         ReadNewick rn;
-                        rn.buildTree(tmp_tree,&tmp_nodes);
+                        rn.buildTree(tmp_tree,&tmp_nodes,pha_);
 
                         AncestralNode* tmp_root = static_cast<AncestralNode*>(tmp_nodes[rn.getRoot()]);
 
