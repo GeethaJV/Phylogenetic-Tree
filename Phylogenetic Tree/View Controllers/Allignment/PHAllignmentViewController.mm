@@ -156,8 +156,8 @@ int MyObjectDoInformTheCompletion (void *myObjectInstance )
     NSLog(@" Allignment of %@ and percentage %d",strng,aParameter);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.progressbar.mode = MBProgressHUDModeDeterminateHorizontalBar;
-        self.progressbar.progress = aParameter/100;
+        self.progressbar.mode = MBProgressHUDModeDeterminate;
+        self.progressbar.progress = aParameter/100.0;
         self.progressbar.labelText = strng;
         self.progressbar.detailsLabelText = [NSString stringWithFormat:@"%d/100 allignment completed",aParameter];
     });
