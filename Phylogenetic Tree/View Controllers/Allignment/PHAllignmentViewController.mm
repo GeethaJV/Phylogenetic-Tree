@@ -26,11 +26,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.viewAllignmentButton.layer.borderWidth = 1.0f;
-    self.viewAllignmentButton.layer.borderColor = [UIColor blueColor].CGColor;
+    self.viewAllignmentButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.viewAllignmentButton.layer.cornerRadius = 4.0f;
     
     self.treeConstructionButton.layer.borderWidth = 1.0f;
-    self.treeConstructionButton.layer.borderColor = [UIColor blueColor].CGColor;
+    self.treeConstructionButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.treeConstructionButton.layer.cornerRadius = 4.0f;
     
     //[self.viewAllignmentButton setEnabled:NO];

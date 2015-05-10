@@ -32,18 +32,18 @@ typedef void(^fileConstructed)(NSString *);
     self.pasteButton.layer.borderWidth = 1.0f;
     self.database.layer.borderWidth = 1.0f;
     self.PC.layer.borderWidth = 1.0f;
-    self.pasteButton.layer.borderColor = [UIColor blueColor].CGColor;
-    self.database.layer.borderColor = [UIColor blueColor].CGColor;
-    self.PC.layer.borderColor = [UIColor blueColor].CGColor;
+    self.pasteButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.database.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.PC.layer.borderColor = [UIColor whiteColor].CGColor;
     self.pasteButton.layer.cornerRadius = 4.0f;
     self.database.layer.cornerRadius = 4.0f;
     self.PC.layer.cornerRadius = 4.0f;
     
     self.statusLabel.text = @"";
-    
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     if(! self.allignmentButton){
         self.allignmentButton = [[UIBarButtonItem alloc] initWithTitle:@"Allignment" style:UIBarButtonItemStylePlain target:self action:@selector(gotoAllignment:)];
-        self.navigationItem.rightBarButtonItem = self.allignmentButton;
+        self.navigationItem.rightBarButtonItem = nil;
     }
 
 

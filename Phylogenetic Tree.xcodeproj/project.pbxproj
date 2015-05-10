@@ -151,7 +151,7 @@
 		2A4F71711AC83D9C00C4E209 /* PHAllignmentViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PHAllignmentViewController.mm; path = "View Controllers/Allignment/PHAllignmentViewController.mm"; sourceTree = "<group>"; };
 		2A548B211A7539D300C17651 /* PHFASTAParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFASTAParser.h; path = "Utility + Shared Classes/FASTA Parser/PHFASTAParser.h"; sourceTree = "<group>"; };
 		2A548B221A7539D300C17651 /* PHFASTAParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHFASTAParser.m; path = "Utility + Shared Classes/FASTA Parser/PHFASTAParser.m"; sourceTree = "<group>"; };
-		2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phylogenetic Tree.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A76DDBD1A603DD800C00302 /* Phylogeny Tree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phylogeny Tree.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A76DDC11A603DD800C00302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A76DDC21A603DD800C00302 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A76DDC41A603DD800C00302 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -329,7 +329,7 @@
 		2A76DDBE1A603DD800C00302 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */,
+				2A76DDBD1A603DD800C00302 /* Phylogeny Tree.app */,
 				2A76DDD61A603DD800C00302 /* Phylogeny TreeTests.xctest */,
 			);
 			name = Products;
@@ -439,7 +439,7 @@
 			);
 			name = "Phylogeny Tree";
 			productName = "Phylogenetic Tree";
-			productReference = 2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */;
+			productReference = 2A76DDBD1A603DD800C00302 /* Phylogeny Tree.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2A76DDD51A603DD800C00302 /* Phylogeny TreeTests */ = {

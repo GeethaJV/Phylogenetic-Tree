@@ -21,9 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonAction:)];
     self.navigationItem.rightBarButtonItem = doneButton;
+//    self.navigationItem.backgroundColor = [UIColor colorWithRed:49.0/255.0 green:133.0/255.0 blue:243.0/255.0 alpha:1.0];
+//    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     
     if(self.fileURL){
         self.navigationItem.title = [[self.fileURL path]lastPathComponent];
