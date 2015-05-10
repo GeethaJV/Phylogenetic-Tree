@@ -161,7 +161,7 @@
 		2A76DDCB1A603DD800C00302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A76DDCD1A603DD800C00302 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A76DDD01A603DD800C00302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		2A76DDD61A603DD800C00302 /* Phylogenetic TreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phylogenetic TreeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A76DDD61A603DD800C00302 /* Phylogeny TreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phylogeny TreeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A76DDDB1A603DD800C00302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A76DDDC1A603DD800C00302 /* Phylogenetic_TreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Phylogenetic_TreeTests.m; sourceTree = "<group>"; };
 		2A7A93D41A678D4000BE29E9 /* PHiTunesFASTATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHiTunesFASTATableViewController.h; path = "View Controllers/FASTA Extractors/PHiTunesFASTATableViewController.h"; sourceTree = "<group>"; };
@@ -330,7 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */,
-				2A76DDD61A603DD800C00302 /* Phylogenetic TreeTests.xctest */,
+				2A76DDD61A603DD800C00302 /* Phylogeny TreeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -442,9 +442,9 @@
 			productReference = 2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2A76DDD51A603DD800C00302 /* Phylogenetic TreeTests */ = {
+		2A76DDD51A603DD800C00302 /* Phylogeny TreeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2A76DDE31A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogenetic TreeTests" */;
+			buildConfigurationList = 2A76DDE31A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogeny TreeTests" */;
 			buildPhases = (
 				2A76DDD21A603DD800C00302 /* Sources */,
 				2A76DDD31A603DD800C00302 /* Frameworks */,
@@ -455,9 +455,9 @@
 			dependencies = (
 				2A76DDD81A603DD800C00302 /* PBXTargetDependency */,
 			);
-			name = "Phylogenetic TreeTests";
+			name = "Phylogeny TreeTests";
 			productName = "Phylogenetic TreeTests";
-			productReference = 2A76DDD61A603DD800C00302 /* Phylogenetic TreeTests.xctest */;
+			productReference = 2A76DDD61A603DD800C00302 /* Phylogeny TreeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -492,7 +492,7 @@
 			projectRoot = "";
 			targets = (
 				2A76DDBC1A603DD800C00302 /* Phylogeny Tree */,
-				2A76DDD51A603DD800C00302 /* Phylogenetic TreeTests */,
+				2A76DDD51A603DD800C00302 /* Phylogeny TreeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -748,7 +748,7 @@
 				INFOPLIST_FILE = "Phylogenetic TreeTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phylogenetic Tree.app/Phylogenetic Tree";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phylogeny Tree.app/Phylogeny Tree";
 			};
 			name = Debug;
 		};
@@ -763,7 +763,7 @@
 				INFOPLIST_FILE = "Phylogenetic TreeTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phylogenetic Tree.app/Phylogenetic Tree";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phylogeny Tree.app/Phylogeny Tree";
 			};
 			name = Release;
 		};
@@ -788,7 +788,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2A76DDE31A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogenetic TreeTests" */ = {
+		2A76DDE31A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogeny TreeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2A76DDE41A603DD800C00302 /* Debug */,
