@@ -425,9 +425,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2A76DDBC1A603DD800C00302 /* Phylogenetic Tree */ = {
+		2A76DDBC1A603DD800C00302 /* Phylogeny Tree */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2A76DDE01A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogenetic Tree" */;
+			buildConfigurationList = 2A76DDE01A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogeny Tree" */;
 			buildPhases = (
 				2A76DDB91A603DD800C00302 /* Sources */,
 				2A76DDBA1A603DD800C00302 /* Frameworks */,
@@ -437,7 +437,7 @@
 			);
 			dependencies = (
 			);
-			name = "Phylogenetic Tree";
+			name = "Phylogeny Tree";
 			productName = "Phylogenetic Tree";
 			productReference = 2A76DDBD1A603DD800C00302 /* Phylogenetic Tree.app */;
 			productType = "com.apple.product-type.application";
@@ -491,7 +491,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2A76DDBC1A603DD800C00302 /* Phylogenetic Tree */,
+				2A76DDBC1A603DD800C00302 /* Phylogeny Tree */,
 				2A76DDD51A603DD800C00302 /* Phylogenetic TreeTests */,
 			);
 		};
@@ -586,7 +586,7 @@
 /* Begin PBXTargetDependency section */
 		2A76DDD81A603DD800C00302 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2A76DDBC1A603DD800C00302 /* Phylogenetic Tree */;
+			target = 2A76DDBC1A603DD800C00302 /* Phylogeny Tree */;
 			targetProxy = 2A76DDD71A603DD800C00302 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -649,7 +649,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -684,7 +684,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -779,7 +779,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2A76DDE01A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogenetic Tree" */ = {
+		2A76DDE01A603DD800C00302 /* Build configuration list for PBXNativeTarget "Phylogeny Tree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2A76DDE11A603DD800C00302 /* Debug */,
