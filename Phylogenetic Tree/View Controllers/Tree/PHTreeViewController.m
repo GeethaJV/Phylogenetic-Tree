@@ -15,7 +15,7 @@ typedef enum : NSUInteger {
     TreeTypeCircular,
 } TReeType;
 
-@interface PHTreeViewController (){
+@interface PHTreeViewController ()<UIAlertViewDelegate>{
     xmlTextReaderPtr xmlreader;
 }
 @property (nonatomic,strong) NSString *xmlFileName;
@@ -31,6 +31,11 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save File" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonAction:)];
+    self.navigationItem.rightBarButtonItem = saveButton;
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    
     // Do any additional setup after loading the view.
     self.xmlFileName = @"output.best.fas.best.xml";
     //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -174,5 +179,47 @@ typedef enum : NSUInteger {
     } else {
         [self generateHTMLFilefortType:TreeTypeCircular];
     }
+}
+
+#pragma mark -
+#pragma mark Save Button Action
+- (void)saveButtonAction:(id)inSender{
+    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Save output XML"
+                                                       message:@"Give unique name without extension to Save the XML file for quick view of Graphs"
+                                                      delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Save", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
+    
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
+    NSString *nameOfFile = nil; NSString *extension = @".xml";
+    
+    if (buttonIndex == 1) {
+        UITextField *nameTextField = [alertView textFieldAtIndex:0];
+        
+        
+        if (nameTextField) {
+            nameOfFile = nameTextField.text;
+            
+            if (nameOfFile.length != 0) {
+                nameOfFile = [NSString stringWithFormat:@"%@%@",nameOfFile,extension];
+            } else {
+                nameOfFile = @"No Name.xml";
+            }
+        }
+    } else {
+        
+    }
+
+    if (nameOfFile != nil) {
+            
+        [PHUtility saveXMLFileofName:nameOfFile];
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 @end

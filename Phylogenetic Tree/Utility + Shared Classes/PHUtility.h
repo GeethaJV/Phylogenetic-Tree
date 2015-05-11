@@ -17,4 +17,6 @@
 + (void)RemoveHTMLTreeDataSource;
 + (void)SaveSupportingFilesDoesNotExists;
 + (void)RemoveSupportingFiles;
++ (NSString *)allignedXMLDirectory;
++ (void)saveXMLFileofName:(NSString *)xmlFileName;
 @end
