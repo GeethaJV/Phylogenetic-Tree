@@ -19,11 +19,12 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCf-4M-BbI">
                                 <rect key="frame" x="192" y="457" width="216" height="30"/>
-                                <state key="normal" title="Import from Database">
+                                <state key="normal" title="Quick Tree View">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="fromDatabaseSequenceAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qfJ-NN-f7L"/>
+                                    <segue destination="eFH-cF-gXa" kind="show" identifier="XMLFIleSelectionController" id="mxU-Cu-lmb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-5S-6ZS">
@@ -100,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="835" y="440"/>
+            <point key="canvasLocation" x="743" y="424"/>
         </scene>
         <!--Hi TunesFASTA Table View Controller-->
         <scene sceneID="NOy-ys-AVd">
@@ -133,7 +134,7 @@
         <!--Allignment View Controller-->
         <scene sceneID="Ofh-mL-LSY">
             <objects>
-                <viewController id="UmL-3y-MmH" customClass="PHAllignmentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AllignmentViewController" id="UmL-3y-MmH" customClass="PHAllignmentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8AX-7w-ncO"/>
                         <viewControllerLayoutGuide type="bottom" id="vWt-E0-dAJ"/>
@@ -185,6 +186,34 @@
             </objects>
             <point key="canvasLocation" x="1732" y="948"/>
         </scene>
+        <!--Chooser Table View Controller-->
+        <scene sceneID="mbF-nS-Pou">
+            <objects>
+                <tableViewController id="eFH-cF-gXa" customClass="PHXMLChooserTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NUZ-bw-aMc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="XMLDirIdentifier" id="rGw-Cr-Rm8">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rGw-Cr-Rm8" id="j3h-Pm-MiD">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eFH-cF-gXa" id="eLP-FR-jDv"/>
+                            <outlet property="delegate" destination="eFH-cF-gXa" id="YOW-Z2-pSQ"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mRf-oC-bbE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1543" y="1830"/>
+        </scene>
         <!--Tree View Controller-->
         <scene sceneID="SO1-hL-Gz9">
             <objects>
@@ -233,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1l-TG-fjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2380" y="979"/>
+            <point key="canvasLocation" x="2534" y="989"/>
         </scene>
         <!--File Viewer Controller-->
         <scene sceneID="fIN-tg-RxJ">

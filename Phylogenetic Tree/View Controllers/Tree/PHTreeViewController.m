@@ -18,7 +18,6 @@ typedef enum : NSUInteger {
 @interface PHTreeViewController ()<UIAlertViewDelegate>{
     xmlTextReaderPtr xmlreader;
 }
-@property (nonatomic,strong) NSString *xmlFileName;
 @property (nonatomic,strong) NSDictionary *newickDictionary;
 @property (nonatomic,copy) NSString *pathOfHTMLFile;
 @property (weak, nonatomic) IBOutlet UIWebView *treeViewerWebView;
@@ -29,6 +28,14 @@ typedef enum : NSUInteger {
 
 @implementation PHTreeViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _isFromQuickPreview = NO;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -36,13 +43,9 @@ typedef enum : NSUInteger {
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     
-    // Do any additional setup after loading the view.
-    self.xmlFileName = @"output.best.fas.best.xml";
-    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self parseData];
+    [self parseData];
     [self generateHTMLFilefortType:TreeTypeChart];
-    //});
-    
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +65,18 @@ typedef enum : NSUInteger {
 
 - (void)parseData{
     
-    NSString *path = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationTempDirectory],self.xmlFileName];
+    
+    NSString *path = nil;
+    
+    if (self.isFromQuickPreview) {
+         path = [NSString stringWithFormat:@"%@/%@",[PHUtility allignedXMLDirectory],self.xmlFileName];
+    } else {
+        self.xmlFileName = @"output.best.fas.best.xml";
+        path = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationTempDirectory],self.xmlFileName];
+    }
+    
+    
+    
     xmlTextReaderPtr reader = xmlReaderForFile([path cStringUsingEncoding:NSUTF8StringEncoding], "utf-8", (XML_PARSE_NOBLANKS | XML_PARSE_NOCDATA | XML_PARSE_NOERROR | XML_PARSE_NOWARNING));
 
     if (!reader) {
@@ -216,10 +230,18 @@ typedef enum : NSUInteger {
     }
 
     if (nameOfFile != nil) {
-            
-        [PHUtility saveXMLFileofName:nameOfFile];
+        
+        ;
+        if (self.isFromQuickPreview){
+            [PHUtility saveXMLFileofName:nameOfFile fromFileofPath:[NSString stringWithFormat:@"%@/%@",[PHUtility allignedXMLDirectory],self.xmlFileName]];
+        } else {
+            [PHUtility saveXMLFileofName:nameOfFile fromFileofPath:[NSString stringWithFormat:@"%@/output.best.fas.best.xml",[PHUtility applicationTempDirectory]]];
+        }
+        
     }
     
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"Reset Selection And Controls"
+                                                       object:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 @end

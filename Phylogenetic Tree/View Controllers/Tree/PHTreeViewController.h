@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PHTreeViewController : UIViewController
-
+@property (nonatomic,copy) NSString *xmlFileName;
+@property (nonatomic,assign) BOOL isFromQuickPreview;
 @end

@@ -18,5 +18,5 @@
 + (void)SaveSupportingFilesDoesNotExists;
 + (void)RemoveSupportingFiles;
 + (NSString *)allignedXMLDirectory;
-+ (void)saveXMLFileofName:(NSString *)xmlFileName;
++ (void)saveXMLFileofName:(NSString *)xmlFileName fromFileofPath:(NSString *)path;
 @end

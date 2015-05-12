@@ -20,6 +20,7 @@
 @property (strong,nonatomic)NSMutableArray *selectedFileURlsforAllignment;
 @property (copy,nonatomic)NSString *pathOfFASTAfileForAllignment;
 typedef void(^fileConstructed)(NSString *);
+- (void)resetSelectionAndControls;
 
 @end
 
@@ -46,6 +47,10 @@ typedef void(^fileConstructed)(NSString *);
         self.navigationItem.rightBarButtonItem = nil;
     }
 
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(resetSelectionAndControls)
+                                                name:@"Reset Selection And Controls"
+                                              object:nil];
 
 }
 
@@ -56,7 +61,9 @@ typedef void(^fileConstructed)(NSString *);
 
 - (void)dealloc
 {
-
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:@"Reset Selection And Controls"
+                                                 object:nil];
 }
 
 #pragma mark -
@@ -84,6 +91,9 @@ typedef void(^fileConstructed)(NSString *);
     }else if([segue.identifier isEqualToString:@"AllignmentViewController"]){
         PHAllignmentViewController *allignmentController = [segue destinationViewController];
         allignmentController.allignmentFile = self.pathOfFASTAfileForAllignment;
+    }else if([segue.identifier isEqualToString:@"XMLFIleSelectionController"]){
+//        PHAllignmentViewController *allignmentController = [segue destinationViewController];
+//        allignmentController.allignmentFile = self.pathOfFASTAfileForAllignment;
     }
     
 }
@@ -225,5 +235,9 @@ typedef void(^fileConstructed)(NSString *);
     return fastaInputFileName;
 }
 
-
+- (void)resetSelectionAndControls{
+    [self.selectedFileURlsforAllignment removeAllObjects];
+    self.statusLabel.text = nil;
+    self.navigationController.navigationItem.rightBarButtonItem = nil;
+}
 @end

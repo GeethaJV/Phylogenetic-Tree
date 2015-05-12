@@ -136,6 +136,17 @@
         }
         
     }
+    
+    NSString *XMLDirectory = [[self class]allignedXMLDirectory];
+    NSString *sampleXMLPath = [XMLDirectory stringByAppendingPathComponent:@"/Sample.xml"];
+    if(![fileManager fileExistsAtPath:sampleXMLPath isDirectory:&isDir]){
+        NSString *pathinstring = [[NSBundle mainBundle]pathForResource:@"Sample" ofType:@"xml"];
+        NSError *error = nil;
+        if (![fileManager copyItemAtPath:pathinstring toPath:sampleXMLPath error:&error]) {
+            NSLog(@"Failed to copythe file %@ and Error is %@",pathinstring,error);
+        }
+    }
+    
 }
 
 + (void)RemoveSupportingFiles{
@@ -151,6 +162,12 @@
     
     if(![fileManager fileExistsAtPath:raphaelminPath isDirectory:&isDir]){
         [fileManager removeItemAtPath:raphaelminPath error:nil];
+    }
+    
+    NSString *XMLDirectory = [[self class]allignedXMLDirectory];
+    NSString *sampleXMLPath = [XMLDirectory stringByAppendingPathComponent:@"/Sample.xml"];
+    if(![fileManager fileExistsAtPath:sampleXMLPath isDirectory:&isDir]){
+        [fileManager removeItemAtPath:sampleXMLPath error:nil];
     }
 }
 
@@ -177,7 +194,7 @@
     return savedAllignmentDirectory;
 }
 
-+ (void)saveXMLFileofName:(NSString *)xmlFileName{
++ (void)saveXMLFileofName:(NSString *)xmlFileName fromFileofPath:(NSString *)path{
     
     if(xmlFileName != nil){
         
@@ -190,7 +207,7 @@
             if ([[NSFileManager defaultManager]fileExistsAtPath:proposedPath isDirectory:&isDirectory]) {
                 
                 NSError *filemangerError = nil;
-                NSString *outPutXMLFilePath = [NSString stringWithFormat:@"%@/output.best.fas.best.xml",[[self class]applicationTempDirectory]];
+                NSString *outPutXMLFilePath = path;
                 if ([[NSFileManager defaultManager]removeItemAtPath:proposedPath error:&filemangerError]){
                     
                     if ([[NSFileManager defaultManager]copyItemAtPath:outPutXMLFilePath
@@ -208,7 +225,7 @@
             } else {
                 
                 NSError *filemangerError = nil;
-                NSString *outPutXMLFilePath = [NSString stringWithFormat:@"%@/output.best.fas.best.xml",[[self class]applicationTempDirectory]];
+                NSString *outPutXMLFilePath = path;
                 
                     if ([[NSFileManager defaultManager]copyItemAtPath:outPutXMLFilePath
                                                                toPath:proposedPath error:&filemangerError]) {

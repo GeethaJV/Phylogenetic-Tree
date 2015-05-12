@@ -8,6 +8,7 @@
 
 #import "PHAllignmentViewController.h"
 #import "PHFASTAFileViewerController.h"
+#import "PHTreeViewController.h"
 #import "PHUtility.h"
 #include "progressivealignment.h"
 #import "MBProgressHUD.h"
@@ -22,6 +23,16 @@
 
 @implementation PHAllignmentViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _isFromQuickPreview = NO;
+        _quickTreeFileName = nil;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -35,8 +46,10 @@
     
     //[self.viewAllignmentButton setEnabled:NO];
     //[self.treeConstructionButton setEnabled:NO];
+    if(self.isFromQuickPreview == NO){
+        [self processAllignmentforFile:self.allignmentFile];
+    }
     
-    [self processAllignmentforFile:self.allignmentFile];
     
 }
 
@@ -54,6 +67,15 @@
     // Pass the selected object to the new view controller.
     
     if([segue.identifier isEqualToString:@"TreeViewController"]){
+        
+        PHTreeViewController *treeViewController = (PHTreeViewController *)[segue destinationViewController];
+        if (self.isFromQuickPreview == YES) {
+            treeViewController.isFromQuickPreview = YES;
+            treeViewController.xmlFileName = self.quickTreeFileName;
+        } else {
+            treeViewController.xmlFileName =  @"output.best.fas.best.xml";
+        }
+    
 
     }
 }
@@ -81,6 +103,7 @@
 }
 
 - (IBAction)constructTree:(id)sender {
+    
 }
 
 #pragma mark -
@@ -109,10 +132,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         allignmentObj = new ProgressiveAlignment("",seqfile,"",(__bridge void *)self);
     });
-    
-    
-
-
     
 }
 

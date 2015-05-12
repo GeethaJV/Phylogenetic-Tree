@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *viewAllignmentButton;
 @property (weak, nonatomic) IBOutlet UIButton *treeConstructionButton;
 @property (copy, nonatomic) NSString *allignmentFile;
+@property (assign,nonatomic) BOOL isFromQuickPreview;
+@property (nonatomic,copy) NSString *quickTreeFileName;
 - (IBAction)viewAllignment:(id)sender;
 - (IBAction)constructTree:(id)sender;
 
