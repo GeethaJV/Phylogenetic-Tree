@@ -147,8 +147,15 @@
     
     seqfile = "";
     outfile = "output";
-    delete allignmentObj;
-    delete hmm;
+    if (allignmentObj){
+        delete allignmentObj;
+        allignmentObj = NULL;
+    }
+    if (hmm) {
+        delete hmm;
+        hmm = NULL;
+    }
+    
 }
 
 
