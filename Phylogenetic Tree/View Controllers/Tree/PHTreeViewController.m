@@ -8,6 +8,7 @@
 
 #import "PHTreeViewController.h"
 #import "PHUtility.h"
+#import "PHFilechooserViewController.h"
 #import <libxml/xmlreader.h>
 
 typedef enum : NSUInteger {
@@ -18,7 +19,6 @@ typedef enum : NSUInteger {
 @interface PHTreeViewController (){
     xmlTextReaderPtr xmlreader;
 }
-@property (nonatomic,strong) NSString *xmlFileName;
 @property (nonatomic,strong) NSDictionary *newickDictionary;
 @property (nonatomic,copy) NSString *pathOfHTMLFile;
 @property (weak, nonatomic) IBOutlet UIWebView *treeViewerWebView;
@@ -31,8 +31,12 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save File" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonAction:)];
+    self.navigationItem.rightBarButtonItem = saveButton;
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    
     // Do any additional setup after loading the view.
-    self.xmlFileName = @"output.best.fas.best.xml";
     //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self parseData];
     [self generateHTMLFilefortType:TreeTypeChart];
@@ -57,7 +61,16 @@ typedef enum : NSUInteger {
 
 - (void)parseData{
     
-    NSString *path = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationTempDirectory],self.xmlFileName];
+    NSString *path = nil;
+    
+    
+    if (([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode])) {
+        path = [NSString stringWithFormat:@"%@/%@",[PHUtility allignedXMLDirectory],self.xmlFileName];
+    } else {
+        self.xmlFileName = @"output.best.fas.best.xml";
+        path = [NSString stringWithFormat:@"%@/%@",[PHUtility applicationTempDirectory],self.xmlFileName];
+    }
+    
     xmlTextReaderPtr reader = xmlReaderForFile([path cStringUsingEncoding:NSUTF8StringEncoding], "utf-8", (XML_PARSE_NOBLANKS | XML_PARSE_NOCDATA | XML_PARSE_NOERROR | XML_PARSE_NOWARNING));
 
     if (!reader) {
@@ -175,4 +188,59 @@ typedef enum : NSUInteger {
         [self generateHTMLFilefortType:TreeTypeCircular];
     }
 }
+
+#pragma mark -
+#pragma mark Save Button Action
+- (void)saveButtonAction:(id)inSender{
+    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Save output XML"
+                                                       message:@"Give unique name without extension to Save the XML file for quick view of Graphs"
+                                                      delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Save", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
+    
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
+    NSString *nameOfFile = nil; NSString *extension = @".xml";
+    
+    if (buttonIndex == 1) {
+        UITextField *nameTextField = [alertView textFieldAtIndex:0];
+        
+        
+        if (nameTextField) {
+            nameOfFile = nameTextField.text;
+            
+            if (nameOfFile.length != 0) {
+                nameOfFile = [NSString stringWithFormat:@"%@%@",nameOfFile,extension];
+            } else {
+                nameOfFile = @"No Name.xml";
+            }
+        }
+    } else {
+        
+    }
+    
+    if (nameOfFile != nil) {
+        
+        if (([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode])){
+            [PHUtility saveXMLFileofName:nameOfFile fromFileofPath:[NSString stringWithFormat:@"%@/%@",[PHUtility allignedXMLDirectory],self.xmlFileName]];
+        } else {
+            [PHUtility saveXMLFileofName:nameOfFile fromFileofPath:[NSString stringWithFormat:@"%@/output.best.fas.best.xml",[PHUtility applicationTempDirectory]]];
+        }
+        
+    }
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"Reset Selection And Controls"
+                                                       object:nil];
+    
+    if ([self.fileChooserDelegate respondsToSelector:@selector(setAppinQuickPreviewMode:)]) {
+        [self.fileChooserDelegate setAppinQuickPreviewMode:NO];
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 @end

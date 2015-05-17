@@ -10,4 +10,7 @@
 
 @protocol PHFileChoserProtocols <NSObject>
 - (void)selectedFileReferenceArray:(NSMutableArray *)inSelectedFileArray;
+@optional
+- (BOOL)isAppInQuickTreeViewMode;
+- (void)setAppinQuickPreviewMode:(BOOL)inIsPreviewMode;
 @end

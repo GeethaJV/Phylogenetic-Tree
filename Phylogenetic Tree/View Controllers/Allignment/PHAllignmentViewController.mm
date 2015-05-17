@@ -8,6 +8,7 @@
 
 #import "PHAllignmentViewController.h"
 #import "PHFASTAFileViewerController.h"
+#import "PHTreeViewController.h"
 #import "PHUtility.h"
 #include "progressivealignment.h"
 #import "MBProgressHUD.h"
@@ -21,6 +22,16 @@
 @end
 
 @implementation PHAllignmentViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _quickTreeFileName = nil;
+
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +47,12 @@
     //[self.viewAllignmentButton setEnabled:NO];
     //[self.treeConstructionButton setEnabled:NO];
     
-    [self processAllignmentforFile:self.allignmentFile];
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        
+    }else {
+         [self processAllignmentforFile:self.allignmentFile];
+    }
+   
     
 }
 
@@ -54,7 +70,14 @@
     // Pass the selected object to the new view controller.
     
     if([segue.identifier isEqualToString:@"TreeViewController"]){
-
+        
+        PHTreeViewController *treeViewController = (PHTreeViewController *)[segue destinationViewController];
+        if (([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode])) {
+            treeViewController.xmlFileName = self.quickTreeFileName;
+        } else {
+            treeViewController.xmlFileName =  @"output.best.fas.best.xml";
+        }
+        treeViewController.fileChooserDelegate = self.fileChooserDelegate;
     }
 }
 
@@ -129,7 +152,7 @@
     seqfile = "";
     outfile = "output";
     delete allignmentObj;
-    delete hmm;
+    //delete hmm;
 }
 
 

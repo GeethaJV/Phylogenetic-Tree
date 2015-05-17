@@ -8,13 +8,12 @@
 
 #import "PHFilechooserViewController.h"
 #import "PHiTunesFASTATableViewController.h"
-#import "PHFileChoserProtocols.h"
 #import "PHAllignmentViewController.h"
 #import "PHFASTAParser.h"
 #import "PHUtility.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface PHFilechooserViewController ()<PHFileChoserProtocols>{
+@interface PHFilechooserViewController (){
 }
 @property (strong,nonatomic)UIBarButtonItem *allignmentButton;
 @property (strong,nonatomic)NSMutableArray *selectedFileURlsforAllignment;
@@ -25,6 +24,14 @@ typedef void(^fileConstructed)(NSString *);
 
 @implementation PHFilechooserViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _isQuickTreeViewMode = NO;
+    }
+    return self;
+}
 
 #pragma mark -
 - (void)viewDidLoad {
@@ -45,6 +52,12 @@ typedef void(^fileConstructed)(NSString *);
         self.allignmentButton = [[UIBarButtonItem alloc] initWithTitle:@"Allignment" style:UIBarButtonItemStylePlain target:self action:@selector(gotoAllignment:)];
         self.navigationItem.rightBarButtonItem = nil;
     }
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(resetSelectionAndControls)
+                                                name:@"Reset Selection And Controls"
+                                              object:nil];
+
 
 
 }
@@ -56,6 +69,9 @@ typedef void(^fileConstructed)(NSString *);
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:@"Reset Selection And Controls"
+                                                 object:nil];
 
 }
 
@@ -81,9 +97,15 @@ typedef void(^fileConstructed)(NSString *);
     if([segue.identifier isEqualToString:@"iTunesFilesViewerController"]){
         PHiTunesFASTATableViewController *viewController = [segue destinationViewController];
         viewController.fileChooserDelegate = self;
+        self.isQuickTreeViewMode = NO;
     }else if([segue.identifier isEqualToString:@"AllignmentViewController"]){
         PHAllignmentViewController *allignmentController = [segue destinationViewController];
         allignmentController.allignmentFile = self.pathOfFASTAfileForAllignment;
+        self.isQuickTreeViewMode = NO;
+    }else if ([segue.identifier isEqualToString:@"xmlFilesViewerController"]) {
+        PHiTunesFASTATableViewController *viewController = [segue destinationViewController];
+        viewController.fileChooserDelegate = self;
+        self.isQuickTreeViewMode = YES;
     }
     
 }
@@ -155,7 +177,13 @@ typedef void(^fileConstructed)(NSString *);
     }
 }
 
+- (BOOL)isAppInQuickTreeViewMode{
+    return self.isQuickTreeViewMode;
+}
 
+- (void)setAppinQuickPreviewMode:(BOOL)inIsPreviewMode{
+    self.isQuickTreeViewMode = inIsPreviewMode;
+}
 #pragma mark -
 #pragma mark Private Methods
 - (void)constructFASTAReferenceFilefromFilesAtPath:(NSMutableArray *)inFilePaths withCompletionBlock:(fileConstructed)inCompletionBlock{
@@ -194,8 +222,8 @@ typedef void(^fileConstructed)(NSString *);
     }else{
         inCompletionBlock(nil);
     }
-    
 }
+
 - (NSString *)FASTAInupfile{
     
     NSString *fastaDir = [PHUtility FASTAFileManipulationDirectory];
@@ -225,5 +253,10 @@ typedef void(^fileConstructed)(NSString *);
     return fastaInputFileName;
 }
 
+- (void)resetSelectionAndControls{
+    [self.selectedFileURlsforAllignment removeAllObjects];
+    self.statusLabel.text = nil;
+    self.navigationController.navigationItem.rightBarButtonItem = nil;
+}
 
 @end

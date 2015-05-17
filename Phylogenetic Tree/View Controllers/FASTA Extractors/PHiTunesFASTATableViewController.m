@@ -8,6 +8,8 @@
 
 #import "PHiTunesFASTATableViewController.h"
 #import "PHFASTAFileViewerController.h"
+#import "PHFilechooserViewController.h"
+#import "PHAllignmentViewController.h"
 #import "ALToastView.h"
 #import "DirectoryWatcher.h"
 #import "PHUtility.h"
@@ -21,6 +23,10 @@ static NSInteger IS_FIRST_TIME = 1;
 @property (nonatomic, strong) DirectoryWatcher *docWatcher;
 @property (nonatomic, strong) NSMutableArray *documentURLs;
 @property (nonatomic, strong) NSMutableArray *selectedDocumentsURL;
+@property (nonatomic,strong)  NSMutableArray *xmlFileDataSourceArray;
+@property (nonatomic,copy) NSString *selectedFileName;
+
+
 @property (nonatomic, strong) UIDocumentInteractionController *docInteractionController;
 @end
 
@@ -31,10 +37,7 @@ static NSInteger IS_FIRST_TIME = 1;
     self = [super initWithCoder:coder];
     if (self) {
         
-        self.docWatcher = [DirectoryWatcher watchFolderWithPath:[PHUtility applicationDocumentsDirectory]
-                                                       delegate:self];
-        self.documentURLs = [NSMutableArray array];
-        self.selectedDocumentsURL = [NSMutableArray new];
+       
     }
     return self;
 }
@@ -42,14 +45,32 @@ static NSInteger IS_FIRST_TIME = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        
+        NSArray *sampleFiles = [[NSFileManager defaultManager]
+                                contentsOfDirectoryAtPath:[PHUtility allignedXMLDirectory] error:nil];
+        if (sampleFiles.count > 0){
+            self.xmlFileDataSourceArray = [[NSMutableArray alloc]initWithArray:sampleFiles];
+        } else {
+            self.xmlFileDataSourceArray = [NSMutableArray new];
+        }
+        
+        UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonAction:)];
+        self.navigationItem.rightBarButtonItem = saveButton;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        
+    } else {
+        
+        self.docWatcher = [DirectoryWatcher watchFolderWithPath:[PHUtility applicationDocumentsDirectory]delegate:self];
+        
+        self.documentURLs = [NSMutableArray array];
+        self.selectedDocumentsURL = [NSMutableArray new];
+        [self directoryDidChange:self.docWatcher];
+    }
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
     
-    [self directoryDidChange:self.docWatcher];
-    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)dealloc{
@@ -63,6 +84,25 @@ static NSInteger IS_FIRST_TIME = 1;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark Action Methods
+- (void)doneButtonAction:(id)inSender{
+    
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle:nil];
+        PHAllignmentViewController *viewController =[storyboard instantiateViewControllerWithIdentifier:@"AllignmentViewController"];
+        viewController.fileChooserDelegate = self.fileChooserDelegate;
+        viewController.quickTreeFileName = self.selectedFileName;
+        [self.navigationController pushViewController:viewController animated:YES];
+
+        
+    } else {
+        
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -71,16 +111,32 @@ static NSInteger IS_FIRST_TIME = 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return self.documentURLs.count;
+
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        return self.xmlFileDataSourceArray.count;
+    } else {
+        return self.documentURLs.count;
+    }
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *title = nil;
 
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        
+        if (self.xmlFileDataSourceArray.count > 0){
+            
+            title = @"XML Files";
+        }
+        
+    } else {
+        
         if (self.documentURLs.count > 0)
             title = @"Documents folder";
+    }
+    
     
     return title;
 }
@@ -93,47 +149,60 @@ static NSInteger IS_FIRST_TIME = 1;
     
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
-       
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
+     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    
-    NSURL *fileURL = [self.documentURLs objectAtIndex:indexPath.row];
-    
-    [self setupDocumentControllerWithURL:fileURL];
-    
-    // layout the cell
-    cell.textLabel.text = [[fileURL path] lastPathComponent];
-    NSInteger iconCount = [self.docInteractionController.icons count];
-    if (iconCount > 0)
-    {
-        cell.imageView.image = [self.docInteractionController.icons objectAtIndex:iconCount - 1];
-    }
-
-
-    
-    cell.textLabel.text = [[fileURL path] lastPathComponent];
-    
-    if([self.selectedDocumentsURL count] > 0){
-        if([self.selectedDocumentsURL objectAtIndex:indexPath.row]){
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }else{
-            cell.selectionStyle = UITableViewCellAccessoryNone;
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        
+        tableView.allowsSelection = YES;
+        tableView.allowsMultipleSelection = NO;
+        NSString *filePath = [self.xmlFileDataSourceArray objectAtIndex:indexPath.row];
+        cell.textLabel.text = filePath;
+        
+        NSURL *fileURL = [NSURL fileURLWithPath:[[NSString stringWithFormat:@"%@/%@",[PHUtility allignedXMLDirectory],filePath]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [self setupDocumentControllerWithURL:fileURL];
+        NSInteger iconCount = [self.docInteractionController.icons count];
+        if (iconCount > 0)
+        {
+            cell.imageView.image = [self.docInteractionController.icons objectAtIndex:iconCount - 1];
         }
+        
+        
+    } else {
+        
+        tableView.allowsMultipleSelection = YES;
+        NSURL *fileURL = [self.documentURLs objectAtIndex:indexPath.row];
+        [self setupDocumentControllerWithURL:fileURL];
+        
+        // layout the cell
+        cell.textLabel.text = [[fileURL path] lastPathComponent];
+        NSInteger iconCount = [self.docInteractionController.icons count];
+        if (iconCount > 0)
+        {
+            cell.imageView.image = [self.docInteractionController.icons objectAtIndex:iconCount - 1];
+        }
+        cell.textLabel.text = [[fileURL path] lastPathComponent];
+        
+        if([self.selectedDocumentsURL count] > 0){
+            if([self.selectedDocumentsURL objectAtIndex:indexPath.row]){
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }else{
+                cell.selectionStyle = UITableViewCellAccessoryNone;
+            }
+        }
+        
+        NSString *fileURLString = [self.docInteractionController.URL path];
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fileURLString error:nil];
+        NSInteger fileSize = [[fileAttributes objectForKey:NSFileSize] intValue];
+        NSString *fileSizeStr = [NSByteCountFormatter stringFromByteCount:fileSize
+                                                               countStyle:NSByteCountFormatterCountStyleFile];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", fileSizeStr, self.docInteractionController.UTI];
+        cell.imageView.userInteractionEnabled = YES;    // this is by default NO, so we need to turn it on
     }
-    
-    NSString *fileURLString = [self.docInteractionController.URL path];
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fileURLString error:nil];
-    NSInteger fileSize = [[fileAttributes objectForKey:NSFileSize] intValue];
-    NSString *fileSizeStr = [NSByteCountFormatter stringFromByteCount:fileSize
-                                                           countStyle:NSByteCountFormatterCountStyleFile];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", fileSizeStr, self.docInteractionController.UTI];
     
     UILongPressGestureRecognizer *longPressGesture =
     [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [cell.contentView addGestureRecognizer:longPressGesture];
-    cell.imageView.userInteractionEnabled = YES;    // this is by default NO, so we need to turn it on
-    
     
     return cell;
 }
@@ -152,14 +221,20 @@ static NSInteger IS_FIRST_TIME = 1;
     if (longPressGesture.state == UIGestureRecognizerStateBegan){
         NSIndexPath *cellIndexPath = [self.tableView indexPathForRowAtPoint:[longPressGesture locationInView:self.tableView]];
         
-        NSURL *fileURL = [self.documentURLs objectAtIndex:cellIndexPath.row];
+        NSURL *fileURL = nil;
+        if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+            fileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",[PHUtility allignedXMLDirectory],[self.xmlFileDataSourceArray objectAtIndex:cellIndexPath.row]]];
+        } else {
+            fileURL = [self.documentURLs objectAtIndex:cellIndexPath.row];
+        }
+        
         
         if(fileURL){
             
             PHFASTAFileViewerController * fastafileviewerController = (PHFASTAFileViewerController *)[self.storyboard instantiateViewControllerWithIdentifier:@"PHFASTAFileViewerController"];
             fastafileviewerController.fileURL = fileURL;
+            fastafileviewerController.fileChooserDelegate = (PHFilechooserViewController *)self.fileChooserDelegate;
             [fastafileviewerController view];
-            
             
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fastafileviewerController];
             [self.navigationController presentViewController:navigationController
@@ -174,36 +249,46 @@ static NSInteger IS_FIRST_TIME = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+     NSLog(@"Selected Index path %@",indexPath);
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]){
+        
+        self.selectedFileName = [self.xmlFileDataSourceArray objectAtIndex:indexPath.row];
+        UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+        selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        
+        [self.selectedDocumentsURL addObject:[self.documentURLs objectAtIndex:indexPath.row]];
+        UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+        selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     
-    
-    NSLog(@"Selected Index path %@",indexPath);
-    [self.selectedDocumentsURL addObject:[self.documentURLs objectAtIndex:indexPath.row]];
-    
-    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    
-   }
+}
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
         
-    NSLog(@"Selected Index path %@ and %lu",indexPath,(unsigned long)[self.selectedDocumentsURL count]);
-    if([self.documentURLs count] >= indexPath.row){
+        self.selectedFileName = nil;
+        UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+        selectedCell.accessoryType = UITableViewCellAccessoryNone;
         
-        NSURL *filePathobj = [self.documentURLs objectAtIndex:indexPath.row];
+    } else {
         
-        if([self.selectedDocumentsURL containsObject:filePathobj]){
+        NSLog(@"Selected Index path %@ and %lu",indexPath,(unsigned long)[self.selectedDocumentsURL count]);
+        if([self.documentURLs count] >= indexPath.row){
             
-            [self.selectedDocumentsURL removeObject:filePathobj];
-            //[self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-            UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-            selectedCell.accessoryType = UITableViewCellAccessoryNone;
+            NSURL *filePathobj = [self.documentURLs objectAtIndex:indexPath.row];
+            
+            if([self.selectedDocumentsURL containsObject:filePathobj]){
+                
+                [self.selectedDocumentsURL removeObject:filePathobj];
+                //[self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+                UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+                selectedCell.accessoryType = UITableViewCellAccessoryNone;
+            }
+
         }
-        
-        
     }
-        
     
 }
 
@@ -211,7 +296,16 @@ static NSInteger IS_FIRST_TIME = 1;
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        
+        return NO;
+        
+    } else {
+        
+        return YES;
+
+    }
 }
 
 
@@ -344,6 +438,7 @@ static NSInteger IS_FIRST_TIME = 1;
     {
         self.docInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
         self.docInteractionController.delegate = self;
+        self.docInteractionController.URL = url;
     }
     else
     {

@@ -30,7 +30,12 @@
         self.navigationItem.title = [[self.fileURL path]lastPathComponent];
     }
     
-    self.modifiedFilePath = [self moveFile:self.fileURL.path toDirectory:[PHUtility applicationTempDirectory] andRenameFormat:@"txt"];
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+        self.modifiedFilePath = [self moveFile:self.fileURL.path toDirectory:[PHUtility applicationTempDirectory] andRenameFormat:@"xml"];
+    } else {
+        self.modifiedFilePath = [self moveFile:self.fileURL.path toDirectory:[PHUtility applicationTempDirectory] andRenameFormat:@"txt"];
+    }
+    
     
     NSURL *fileURLis = [[NSURL alloc] initFileURLWithPath: self.modifiedFilePath isDirectory:NO];
     NSURLRequest *rulRequestis = [NSURLRequest requestWithURL:fileURLis];

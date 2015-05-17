@@ -136,6 +136,18 @@
         }
         
     }
+    
+    NSString *XMLDirectory = [[self class]allignedXMLDirectory];
+    NSString *sampleXMLPath = [XMLDirectory stringByAppendingPathComponent:@"/Sample.xml"];
+    if(![fileManager fileExistsAtPath:sampleXMLPath isDirectory:&isDir]){
+        NSString *pathinstring = [[NSBundle mainBundle]pathForResource:@"Sample" ofType:@"xml"];
+        NSError *error = nil;
+        if (![fileManager copyItemAtPath:pathinstring toPath:sampleXMLPath error:&error]) {
+            NSLog(@"Failed to copythe file %@ and Error is %@",pathinstring,error);
+        }
+    }
+
+    
 }
 
 + (void)RemoveSupportingFiles{
@@ -152,5 +164,83 @@
     if(![fileManager fileExistsAtPath:raphaelminPath isDirectory:&isDir]){
         [fileManager removeItemAtPath:raphaelminPath error:nil];
     }
+    
+    NSString *XMLDirectory = [[self class]allignedXMLDirectory];
+    NSString *sampleXMLPath = [XMLDirectory stringByAppendingPathComponent:@"/Sample.xml"];
+    if(![fileManager fileExistsAtPath:sampleXMLPath isDirectory:&isDir]){
+        [fileManager removeItemAtPath:sampleXMLPath error:nil];
+    }
 }
+
++ (NSString *)allignedXMLDirectory{
+    NSString *tempDirectory = [PHUtility applicationTempDirectory];
+    
+    NSString *savedAllignmentDirectory = [tempDirectory stringByAppendingPathComponent:@"Saved Allignments"];
+    
+    BOOL isDir = YES;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if(![fileManager fileExistsAtPath:savedAllignmentDirectory isDirectory:&isDir]){
+        if([fileManager createDirectoryAtPath:savedAllignmentDirectory withIntermediateDirectories:YES attributes:nil error:nil]){
+            NSLog(@"Saved Directory Created");
+        }else{
+            NSLog(@"Saved Directory Creation Failed");
+            return nil;
+        }
+        
+    }
+    else{
+        NSLog(@"Directory Already Exist");
+    }
+    
+    return savedAllignmentDirectory;
+}
+
++ (void)saveXMLFileofName:(NSString *)xmlFileName fromFileofPath:(NSString *)path{
+    
+    if(xmlFileName != nil){
+        
+        NSString *XMLDirectoryPath = [[self class]allignedXMLDirectory];
+        
+        if (XMLDirectoryPath) {
+            NSString *proposedPath = [NSString stringWithFormat:@"%@/%@",XMLDirectoryPath,xmlFileName];
+            
+            BOOL isDirectory = NO;
+            if ([[NSFileManager defaultManager]fileExistsAtPath:proposedPath isDirectory:&isDirectory]) {
+                
+                NSError *filemangerError = nil;
+                NSString *outPutXMLFilePath = path;
+                if ([[NSFileManager defaultManager]removeItemAtPath:proposedPath error:&filemangerError]){
+                    
+                    if ([[NSFileManager defaultManager]copyItemAtPath:outPutXMLFilePath
+                                                               toPath:proposedPath error:&filemangerError]) {
+                        NSLog(@"File copied sucessfully");
+                    } else {
+                        NSLog(@"Could not able to copy File. Save Failed");
+                    }
+                    
+                } else {
+                    
+                    NSLog(@"Could Not Remove File. Save Failed");
+                }
+                
+            } else {
+                
+                NSError *filemangerError = nil;
+                NSString *outPutXMLFilePath = path;
+                
+                if ([[NSFileManager defaultManager]copyItemAtPath:outPutXMLFilePath
+                                                           toPath:proposedPath error:&filemangerError]) {
+                    NSLog(@"File copied sucessfully");
+                } else {
+                    NSLog(@"Could not able to copy File. Save Failed");
+                }
+            }
+        }else{
+            NSLog(@"Directory Not Exists");
+        }
+    } else {
+        NSLog(@"No File Name Given");
+    }
+}
+
 @end

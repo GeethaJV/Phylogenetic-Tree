@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHFileChoserProtocols.h"
 
 @interface PHTreeViewController : UIViewController
-
+@property (nonatomic,strong) NSString *xmlFileName;
+@property (weak,nonatomic)NSObject<PHFileChoserProtocols> *fileChooserDelegate;
 @end

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHFileChoserProtocols.h"
 
-@interface PHFilechooserViewController : UIViewController
+@interface PHFilechooserViewController : UIViewController<PHFileChoserProtocols>
 
 @property (weak, nonatomic) IBOutlet UIButton *pasteButton;
 @property (weak, nonatomic) IBOutlet UIButton *database;
 @property (weak, nonatomic) IBOutlet UIButton *PC;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (assign, nonatomic) BOOL isQuickTreeViewMode;
 
 - (IBAction)pasteSequenceAction:(id)sender;
 - (IBAction)fromDatabaseSequenceAction:(id)sender;

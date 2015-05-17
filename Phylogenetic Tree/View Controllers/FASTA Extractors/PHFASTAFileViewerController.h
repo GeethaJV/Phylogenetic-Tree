@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHFileChoserProtocols.h"
 
 @interface PHFASTAFileViewerController : UIViewController
+@property (weak,nonatomic)NSObject<PHFileChoserProtocols> *fileChooserDelegate;
 @property (weak, nonatomic) IBOutlet UIWebView *fileTextwebViewer;
 @property (copy, nonatomic) NSURL *fileURL;
 @end
