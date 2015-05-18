@@ -88,18 +88,21 @@ static NSInteger IS_FIRST_TIME = 1;
 #pragma mark Action Methods
 - (void)doneButtonAction:(id)inSender{
     
-    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
-                                                             bundle:nil];
-        PHAllignmentViewController *viewController =[storyboard instantiateViewControllerWithIdentifier:@"AllignmentViewController"];
-        viewController.fileChooserDelegate = self.fileChooserDelegate;
-        viewController.quickTreeFileName = self.selectedFileName;
-        [self.navigationController pushViewController:viewController animated:YES];
+    if (nil != self.selectedFileName) {
+        if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle:nil];
+            PHAllignmentViewController *viewController =[storyboard instantiateViewControllerWithIdentifier:@"AllignmentViewController"];
+            viewController.fileChooserDelegate = self.fileChooserDelegate;
+            viewController.quickTreeFileName = self.selectedFileName;
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+            
+        } else {
+            
+        }
 
-        
-    } else {
-        
     }
 }
 
