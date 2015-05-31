@@ -19,4 +19,5 @@
 + (void)RemoveSupportingFiles;
 + (NSString *)allignedXMLDirectory;
 + (void)saveXMLFileofName:(NSString *)xmlFileName fromFileofPath:(NSString *)path;
++ (NSString *)webServiceFASTADirectory;
 @end

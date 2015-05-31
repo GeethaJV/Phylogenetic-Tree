@@ -243,4 +243,28 @@
     }
 }
 
++ (NSString *)webServiceFASTADirectory{
+    NSString *tempDirectory = [PHUtility applicationTempDirectory];
+    
+    NSString *savedAllignmentDirectory = [tempDirectory stringByAppendingPathComponent:@"Web Service"];
+    
+    BOOL isDir = YES;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if(![fileManager fileExistsAtPath:savedAllignmentDirectory isDirectory:&isDir]){
+        if([fileManager createDirectoryAtPath:savedAllignmentDirectory withIntermediateDirectories:YES attributes:nil error:nil]){
+            NSLog(@"Web Service Directory Created");
+        }else{
+            NSLog(@"Web Service Directory Creation Failed");
+            return nil;
+        }
+        
+    }
+    else{
+        NSLog(@"Web Service Directory Already Exist");
+    }
+    
+    return savedAllignmentDirectory;
+}
+
+
 @end

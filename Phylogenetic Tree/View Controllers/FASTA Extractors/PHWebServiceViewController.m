@@ -8,13 +8,15 @@
 
 #import "PHWebServiceViewController.h"
 #import "Reachability.h"
+#import "PHUtility.h"
 
-@interface PHWebServiceViewController ()
+@interface PHWebServiceViewController ()<NSURLSessionDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *typeSelectorBtn;
 @property (weak, nonatomic) IBOutlet UITextField *nameSelectorTextField;
 @property (nonatomic) Reachability *internetReachability;
 @property (nonatomic,copy) NSString *errorMessage;
 @property (nonatomic,copy) NSString *hostName;
+@property (nonatomic,strong) NSURLSession *urlSession;
 - (IBAction)searchAction:(id)sender;
 
 @end
@@ -94,8 +96,51 @@
         self.errorMessage = [NSString stringWithFormat:@"Could Not Reach %@. Plese check Internet Connection",[NSString stringWithFormat:remoteHostLabelFormatString, self.hostName]];
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Network Error" message:self.errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+    } else {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSString *fileName = @"J00231";
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://togows.org/entry/%@/%@.fasta",@"nucleotide",fileName]];
+        
+        NSURLSession *session =
+        [NSURLSession sessionWithConfiguration:urlSessionConfig
+                                      delegate:self
+                                 delegateQueue:nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        request.HTTPMethod = @"GET";
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                        
+                                                        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                                        if (error != nil) {
+                                                             NSLog(@"Complete Data %@",data);
+                                                            
+                                                            NSString *filePath = [NSString stringWithFormat:@"%@/%@",[PHUtility webServiceFASTADirectory],fileName];
+                                                            
+                                                            NSFileManager *fileManager = [NSFileManager defaultManager];
+                                                            BOOL isDirectory = NO;
+                                                            if ([fileManager fileExistsAtPath:filePath isDirectory:&isDirectory]) {
+                                                                
+                                                            } else {
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                       
+                                                    }];
+        [dataTask resume];
     }
    
 
+}
+
+#pragma mark -
+#pragma mark Delegate
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+    didReceiveData:(NSData *)data{
+    
+    NSLog(@"Data %@",data);
 }
 @end
