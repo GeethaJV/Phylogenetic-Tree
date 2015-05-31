@@ -35,7 +35,7 @@
     
     NetworkStatus netStatus = [self.internetReachability currentReachabilityStatus];
     
-    self.hostName = @"www.apple.com";
+    self.hostName = @"http://togows.org/";
     NSString *remoteHostLabelFormatString = NSLocalizedString(@"Remote Host: %@", @"Remote host label format string");
     if (netStatus == NotReachable) {
         self.errorMessage = [NSString stringWithFormat:@"Could Not Reach %@. Plese check Internet Connection",[NSString stringWithFormat:remoteHostLabelFormatString, self.hostName]];
