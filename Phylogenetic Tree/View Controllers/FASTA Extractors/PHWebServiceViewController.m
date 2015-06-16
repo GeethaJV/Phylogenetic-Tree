@@ -114,7 +114,7 @@
                                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                         
                                                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                                        if (error != nil) {
+                                                        if (error == nil) {
                                                              NSLog(@"Complete Data %@",data);
                                                             
                                                             NSString *filePath = [NSString stringWithFormat:@"%@/%@",[PHUtility webServiceFASTADirectory],fileName];
