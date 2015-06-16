@@ -46,6 +46,8 @@ static NSInteger IS_FIRST_TIME = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellID"];
+    
     if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
         
         NSArray *sampleFiles = [[NSFileManager defaultManager]

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHFileChoserProtocols.h"
 
 @interface PHWebServiceViewController : UIViewController
-
+@property (weak,nonatomic)NSObject<PHFileChoserProtocols> *fileChooserDelegate;
 @end
