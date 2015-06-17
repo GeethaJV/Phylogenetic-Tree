@@ -183,8 +183,12 @@ static NSInteger IS_FIRST_TIME_VC = 1;
             NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
                                                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                             
-                                                            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                                            self.progressbar.hidden = YES;
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                                                self.progressbar.hidden = YES;
+                                                                
+                                                            });
+
                                                             
                                                             if (error == nil) {
                                                                 NSLog(@"Complete Data %@",data);
@@ -195,7 +199,6 @@ static NSInteger IS_FIRST_TIME_VC = 1;
                                                                 BOOL isDirectory = NO;
                                                                 if ([fileManager fileExistsAtPath:filePath isDirectory:&isDirectory]) {
                                                                    
-                                                                    NSLog(@"File Exists");
                                                                     [fileManager removeItemAtPath:filePath error:nil];
                                                                     [fileManager createFileAtPath:filePath
                                                                                          contents:data attributes:nil];
