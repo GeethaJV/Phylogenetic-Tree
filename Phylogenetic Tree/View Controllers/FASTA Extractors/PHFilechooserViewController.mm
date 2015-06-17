@@ -9,6 +9,7 @@
 #import "PHFilechooserViewController.h"
 #import "PHiTunesFASTATableViewController.h"
 #import "PHAllignmentViewController.h"
+#import "PHWebServiceViewController.h"
 #import "PHFASTAParser.h"
 #import "PHUtility.h"
 #import <QuartzCore/QuartzCore.h>
@@ -106,6 +107,10 @@ typedef void(^fileConstructed)(NSString *);
         PHiTunesFASTATableViewController *viewController = [segue destinationViewController];
         viewController.fileChooserDelegate = self;
         self.isQuickTreeViewMode = YES;
+    }else if ([segue.identifier isEqualToString:@"WebServiceViewController"]) {
+        PHWebServiceViewController *viewController = [segue destinationViewController];
+        viewController.fileChooserDelegate = self;
+        self.isQuickTreeViewMode = NO;
     }
     
 }
