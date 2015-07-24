@@ -56,7 +56,9 @@
 		2AAA0C981A6A244800EC420D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAA0C971A6A244800EC420D /* QuartzCore.framework */; };
 		2AAA0C9B1A6BC5D300EC420D /* PHFASTAFileViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */; };
 		2AEE40991A72BBAC0022D838 /* ALToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE40981A72BBAC0022D838 /* ALToastView.m */; };
+		B445EB4C1B1AA73B00EE2CB3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B445EB4B1B1AA73B00EE2CB3 /* Reachability.m */; };
 		B471E9C81AFC774500984DE8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B471E9C71AFC774500984DE8 /* MBProgressHUD.m */; };
+		B4B214941B1A35460033F26F /* PHWebServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4B214931B1A35460033F26F /* PHWebServiceViewController.m */; };
 		B4D9760D1B08FC380032BEC2 /* Sample.xml in Resources */ = {isa = PBXBuildFile; fileRef = B4D9760C1B08FC380032BEC2 /* Sample.xml */; };
 		B4E5F3411AF2FFDA00E4C0EE /* jsphylosvg-min.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */; };
 		B4E5F3421AF2FFDA00E4C0EE /* raphael-min.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */; };
@@ -173,9 +175,13 @@
 		2AAA0C9C1A6C278700EC420D /* PHFileChoserProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHFileChoserProtocols.h; path = "View Controllers/FASTA Extractors/PHFileChoserProtocols.h"; sourceTree = "<group>"; };
 		2AEE40971A72BBAC0022D838 /* ALToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALToastView.h; path = "Utility + Shared Classes/Custom View/ALToastView.h"; sourceTree = "<group>"; };
 		2AEE40981A72BBAC0022D838 /* ALToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ALToastView.m; path = "Utility + Shared Classes/Custom View/ALToastView.m"; sourceTree = "<group>"; };
+		B445EB4A1B1AA73B00EE2CB3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = "Utility + Shared Classes/Reachability.h"; sourceTree = "<group>"; };
+		B445EB4B1B1AA73B00EE2CB3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = "Utility + Shared Classes/Reachability.m"; sourceTree = "<group>"; };
 		B471E9C21AFC389400984DE8 /* MyObject-C-Interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyObject-C-Interface.h"; path = "View Controllers/Allignment/MyObject-C-Interface.h"; sourceTree = "<group>"; };
 		B471E9C61AFC774500984DE8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = "Utility + Shared Classes/MBProgressHUD.h"; sourceTree = "<group>"; };
 		B471E9C71AFC774500984DE8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = "Utility + Shared Classes/MBProgressHUD.m"; sourceTree = "<group>"; };
+		B4B214921B1A35460033F26F /* PHWebServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHWebServiceViewController.h; path = "View Controllers/FASTA Extractors/PHWebServiceViewController.h"; sourceTree = "<group>"; };
+		B4B214931B1A35460033F26F /* PHWebServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHWebServiceViewController.m; path = "View Controllers/FASTA Extractors/PHWebServiceViewController.m"; sourceTree = "<group>"; };
 		B4D9760C1B08FC380032BEC2 /* Sample.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Sample.xml; path = "Phylogenetic Tree/Resources/Sample.xml"; sourceTree = "<group>"; };
 		B4E5F33F1AF2FFDA00E4C0EE /* jsphylosvg-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "jsphylosvg-min.js"; path = "Phylogenetic Tree/Resources/jsphylosvg-min.js"; sourceTree = "<group>"; };
 		B4E5F3401AF2FFDA00E4C0EE /* raphael-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "raphael-min.js"; path = "Phylogenetic Tree/Resources/raphael-min.js"; sourceTree = "<group>"; };
@@ -214,6 +220,8 @@
 				2A548B201A75399600C17651 /* FASTA Parser */,
 				2A296E281A62BE6E00049383 /* PHUtility.h */,
 				2A296E291A62BE6E00049383 /* PHUtility.m */,
+				B445EB4A1B1AA73B00EE2CB3 /* Reachability.h */,
+				B445EB4B1B1AA73B00EE2CB3 /* Reachability.m */,
 				B471E9C61AFC774500984DE8 /* MBProgressHUD.h */,
 				B471E9C71AFC774500984DE8 /* MBProgressHUD.m */,
 				2A296E2B1A62BF1A00049383 /* DirectoryWatcher.h */,
@@ -401,6 +409,8 @@
 				2A7A93D51A678D4000BE29E9 /* PHiTunesFASTATableViewController.m */,
 				2AAA0C991A6BC5D300EC420D /* PHFASTAFileViewerController.h */,
 				2AAA0C9A1A6BC5D300EC420D /* PHFASTAFileViewerController.m */,
+				B4B214921B1A35460033F26F /* PHWebServiceViewController.h */,
+				B4B214931B1A35460033F26F /* PHWebServiceViewController.m */,
 			);
 			name = "FASTA Extractors";
 			sourceTree = "<group>";
@@ -538,6 +548,7 @@
 				2A76DDC61A603DD800C00302 /* AppDelegate.m in Sources */,
 				2A432A541AA1A55400C09DC1 /* check_version.cpp in Sources */,
 				2A432A591AA1A55400C09DC1 /* fullprobability.cpp in Sources */,
+				B445EB4C1B1AA73B00EE2CB3 /* Reachability.m in Sources */,
 				2A432A581AA1A55400C09DC1 /* flmatrix.cpp in Sources */,
 				2A432A6D1AA1A55400C09DC1 /* translatesequences.cpp in Sources */,
 				2A432A621AA1A55400C09DC1 /* prank.cpp in Sources */,
@@ -548,6 +559,7 @@
 				2A432A6C1AA1A55400C09DC1 /* terminalsequence.cpp in Sources */,
 				2A432A521AA1A55400C09DC1 /* bppancestors.cpp in Sources */,
 				2A432A661AA1A55400C09DC1 /* readalignment.cpp in Sources */,
+				B4B214941B1A35460033F26F /* PHWebServiceViewController.m in Sources */,
 				2A432A551AA1A55400C09DC1 /* dbmatrix.cpp in Sources */,
 				2A432A5C1AA1A55400C09DC1 /* hmmodel.cpp in Sources */,
 				2A76DDC31A603DD800C00302 /* main.m in Sources */,

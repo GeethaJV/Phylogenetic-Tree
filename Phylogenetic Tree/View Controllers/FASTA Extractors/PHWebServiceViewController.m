@@ -1,57 +1,59 @@
 //
-//  PHiTunesFASTATableViewController.m
+//  PHWebServiceViewController.m
 //  Phylogenetic Tree
 //
-//  Created by Sid on 15/01/15.
+//  Created by Siddalingamurthy Gangadharappa on 30/05/15.
 //  Copyright (c) 2015 Adroit. All rights reserved.
 //
 
-#import "PHiTunesFASTATableViewController.h"
-#import "PHFASTAFileViewerController.h"
-#import "PHFilechooserViewController.h"
-#import "PHAllignmentViewController.h"
-#import "ALToastView.h"
-#import "DirectoryWatcher.h"
+#import "PHWebServiceViewController.h"
+#import "Reachability.h"
 #import "PHUtility.h"
+#import "MBProgressHUD.h"
+#import "DirectoryWatcher.h"
+#import "PHFilechooserViewController.h"
+#import "PHFASTAFileViewerController.h"
+#import "PHAllignmentViewController.h"
+#import <QuickLook/QuickLook.h>
 
 #define kRowHeight 58.0f
-static NSInteger IS_FIRST_TIME = 1;
 
-@interface PHiTunesFASTATableViewController ()<DirectoryWatcherDelegate,UIDocumentInteractionControllerDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>{
+static NSInteger IS_FIRST_TIME_VC = 1;
+@interface PHWebServiceViewController ()<NSURLSessionDelegate,UIPickerViewDataSource,UIPickerViewDelegate,MBProgressHUDDelegate,DirectoryWatcherDelegate,UIDocumentInteractionControllerDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *typeSelectorTextField;
+@property (weak, nonatomic) IBOutlet UITextField *nameSelectorTextField;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic,copy) NSString *errorMessage;
+@property (nonatomic,copy) NSString *hostName;
+@property (nonatomic,strong) NSURLSession *urlSession;
+@property (weak, nonatomic) IBOutlet UIPickerView *fileSeclectorPicker;
+@property (nonatomic,strong) NSMutableArray *pickerDataSourceArray;
+@property (strong,nonatomic) MBProgressHUD *progressbar;
 
-}
 @property (nonatomic, strong) DirectoryWatcher *docWatcher;
 @property (nonatomic, strong) NSMutableArray *documentURLs;
 @property (nonatomic, strong) NSMutableArray *selectedDocumentsURL;
 @property (nonatomic,strong)  NSMutableArray *xmlFileDataSourceArray;
 @property (nonatomic,copy) NSString *selectedFileName;
 
-
 @property (nonatomic, strong) UIDocumentInteractionController *docInteractionController;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+- (IBAction)searchAction:(id)sender;
+
 @end
 
-@implementation PHiTunesFASTATableViewController
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        
-       
-    }
-    return self;
-}
-
+@implementation PHWebServiceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellID"];
+    [self.fileSeclectorPicker removeFromSuperview];
     
-    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+    
+    if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]){
         
         NSArray *sampleFiles = [[NSFileManager defaultManager]
-                                contentsOfDirectoryAtPath:[PHUtility allignedXMLDirectory] error:nil];
+                                contentsOfDirectoryAtPath:[PHUtility webServiceFASTADirectory] error:nil];
         if (sampleFiles.count > 0){
             self.xmlFileDataSourceArray = [[NSMutableArray alloc]initWithArray:sampleFiles];
         } else {
@@ -64,21 +66,34 @@ static NSInteger IS_FIRST_TIME = 1;
         
     } else {
         
-        self.docWatcher = [DirectoryWatcher watchFolderWithPath:[PHUtility applicationDocumentsDirectory]delegate:self];
-        
+        self.docWatcher = [DirectoryWatcher watchFolderWithPath:[PHUtility webServiceFASTADirectory]delegate:self];
         self.documentURLs = [NSMutableArray array];
         self.selectedDocumentsURL = [NSMutableArray new];
         [self directoryDidChange:self.docWatcher];
     }
-    
-   
-    
-}
 
-- (void)dealloc{
-    self.documentURLs = nil;
-    self.docWatcher = nil;
-    self.selectedDocumentsURL = nil;
+    
+    self.pickerDataSourceArray = [NSMutableArray arrayWithObjects:@"",@"nucleotide",@"protein",nil];
+    self.typeSelectorTextField.inputView = self.fileSeclectorPicker;
+    // Do any additional setup after loading the view.
+    
+    /*
+     Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the method reachabilityChanged will be called.
+     */
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    //[self.internetReachability startNotifier];
+    
+    NetworkStatus netStatus = [self.internetReachability currentReachabilityStatus];
+    
+    self.hostName = @"http://togows.org/";
+    NSString *remoteHostLabelFormatString = NSLocalizedString(@"Remote Host: %@", @"Remote host label format string");
+    if (netStatus == NotReachable) {
+        self.errorMessage = [NSString stringWithFormat:@"Could Not Reach %@. Plese check Internet Connection",[NSString stringWithFormat:remoteHostLabelFormatString, self.hostName]];
+    }
+
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,27 +101,165 @@ static NSInteger IS_FIRST_TIME = 1;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
-#pragma mark Action Methods
-- (void)doneButtonAction:(id)inSender{
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+    self.documentURLs = nil;
+    self.docWatcher = nil;
+    self.selectedDocumentsURL = nil;
+}
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    Reachability* reachability = [note object];
+    NSParameterAssert([reachability isKindOfClass:[Reachability class]]);
     
-    if (nil != self.selectedFileName) {
-        if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+        NSString *remoteHostLabelFormatString = NSLocalizedString(@"Remote Host: %@", @"Remote host label format string");
+    if (netStatus == NotReachable) {
+        self.errorMessage = [NSString stringWithFormat:@"Could Not Reach %@. Plese check Internet Connection",[NSString stringWithFormat:remoteHostLabelFormatString, self.hostName]];
+    } else {
+        
+    }
+    
+    
+}
+
+
+- (IBAction)searchAction:(id)sender {
+    
+    [self.typeSelectorTextField resignFirstResponder];
+    [self.nameSelectorTextField resignFirstResponder];
+    
+    NetworkStatus netStatus = [self.internetReachability currentReachabilityStatus];
+    
+    NSString *remoteHostLabelFormatString = NSLocalizedString(@"Remote Host: %@", @"Remote host label format string");
+    if (netStatus == NotReachable) {
+        self.errorMessage = [NSString stringWithFormat:@"Could Not Reach %@. Plese check Internet Connection",[NSString stringWithFormat:remoteHostLabelFormatString, self.hostName]];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Network Error" message:self.errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    } else {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        self.progressbar = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:self.progressbar];
+        [self.progressbar removeFromSuperViewOnHide];
+        self.progressbar.delegate = self;
+        self.progressbar.labelText = @"Downloading File…";
+        self.progressbar.minSize = CGSizeMake(135.f, 135.f);
+        self.progressbar.mode = MBProgressHUDModeIndeterminate;
+        self.progressbar.progress = 0.0;
+        [self.progressbar show:YES];
+        
+        NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        
+        NSString *fastaFileName = [self.nameSelectorTextField text];
+        NSString *fastaFileType = [self.typeSelectorTextField text];
+        
+        if (fastaFileName.length !=0 && fastaFileType.length !=0) {
             
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
-                                                                 bundle:nil];
-            PHAllignmentViewController *viewController =[storyboard instantiateViewControllerWithIdentifier:@"AllignmentViewController"];
-            viewController.fileChooserDelegate = self.fileChooserDelegate;
-            viewController.quickTreeFileName = self.selectedFileName;
-            [self.navigationController pushViewController:viewController animated:YES];
+            //NSString *fileName = @"J00231";
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://togows.org/entry/%@/%@.fasta",fastaFileType,fastaFileName]];
             
-            
+            NSURLSession *session =
+            [NSURLSession sessionWithConfiguration:urlSessionConfig
+                                          delegate:self
+                                     delegateQueue:nil];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+            request.HTTPMethod = @"GET";
+            NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                                                self.progressbar.hidden = YES;
+                                                                
+                                                            });
+
+                                                            
+                                                            if (error == nil) {
+                                                                NSLog(@"Complete Data %@",data);
+                                                                
+                                                                NSString *filePath = [NSString stringWithFormat:@"%@/%@.fasta",[PHUtility webServiceFASTADirectory],fastaFileName];
+                                                                
+                                                                NSFileManager *fileManager = [NSFileManager defaultManager];
+                                                                BOOL isDirectory = NO;
+                                                                if ([fileManager fileExistsAtPath:filePath isDirectory:&isDirectory]) {
+                                                                   
+                                                                    [fileManager removeItemAtPath:filePath error:nil];
+                                                                    [fileManager createFileAtPath:filePath
+                                                                                         contents:data attributes:nil];
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    [fileManager createFileAtPath:filePath
+                                                                                         contents:data attributes:nil];
+                                                                    
+                                                                }
+                                                                
+                                                            }
+                                                            
+                                                        }];
+            [dataTask resume];
         } else {
             
+            NSLog(@"Invalid Input");
+            
         }
-
+        
     }
+    
+
 }
+
+#pragma mark -
+#pragma mark Delegate
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+    didReceiveData:(NSData *)data{
+    
+    NSLog(@"Data %@",data);
+}
+
+#pragma mark -
+#pragma mark Picker Data Source
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    
+    return 3;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    return [self.pickerDataSourceArray objectAtIndex:row];
+}
+#pragma mark -
+#pragma mark Picker Delegates
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+    [self.typeSelectorTextField setText:[self.pickerDataSourceArray objectAtIndex:row]];
+}
+
+
 
 #pragma mark - Table view data source
 
@@ -116,7 +269,7 @@ static NSInteger IS_FIRST_TIME = 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
         return self.xmlFileDataSourceArray.count;
     } else {
@@ -128,7 +281,7 @@ static NSInteger IS_FIRST_TIME = 1;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     NSString *title = nil;
-
+    
     if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
         
         if (self.xmlFileDataSourceArray.count > 0){
@@ -155,7 +308,7 @@ static NSInteger IS_FIRST_TIME = 1;
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
     }
-     cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     
     if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
         
@@ -251,10 +404,24 @@ static NSInteger IS_FIRST_TIME = 1;
 }
 
 
+- (void)setupDocumentControllerWithURL:(NSURL *)url
+{
+    //checks if docInteractionController has been initialized with the URL
+    if (self.docInteractionController == nil)
+    {
+        self.docInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
+        self.docInteractionController.delegate = self;
+        self.docInteractionController.URL = url;
+    }
+    else
+    {
+        self.docInteractionController.URL = url;
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSLog(@"Selected Index path %@",indexPath);
+    NSLog(@"Selected Index path %@",indexPath);
     if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]){
         
         self.selectedFileName = [self.xmlFileDataSourceArray objectAtIndex:indexPath.row];
@@ -291,7 +458,7 @@ static NSInteger IS_FIRST_TIME = 1;
                 UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
                 selectedCell.accessoryType = UITableViewCellAccessoryNone;
             }
-
+            
         }
     }
     
@@ -309,7 +476,7 @@ static NSInteger IS_FIRST_TIME = 1;
     } else {
         
         return YES;
-
+        
     }
 }
 
@@ -351,6 +518,7 @@ static NSInteger IS_FIRST_TIME = 1;
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
+
 
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
@@ -399,58 +567,16 @@ static NSInteger IS_FIRST_TIME = 1;
     if (selectedIndexPath.section == 0)
     {
         /*
-        NSString *file = [(NSURL*)[self.documentURLs objectAtIndex:idx] path];
-        NSString *tmp = [file stringByAppendingPathExtension:@".txt"];
-        [[NSFileManager defaultManager]copyItemAtPath:file toPath:tmp error:NULL];
-        return [NSURL fileURLWithPath:tmp];
-        */
-       fileURL = [self.documentURLs objectAtIndex:idx];
+         NSString *file = [(NSURL*)[self.documentURLs objectAtIndex:idx] path];
+         NSString *tmp = [file stringByAppendingPathExtension:@".txt"];
+         [[NSFileManager defaultManager]copyItemAtPath:file toPath:tmp error:NULL];
+         return [NSURL fileURLWithPath:tmp];
+         */
+        fileURL = [self.documentURLs objectAtIndex:idx];
     }
     
     return fileURL;
 }
-
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (void)setupDocumentControllerWithURL:(NSURL *)url
-{
-    //checks if docInteractionController has been initialized with the URL
-    if (self.docInteractionController == nil)
-    {
-        self.docInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
-        self.docInteractionController.delegate = self;
-        self.docInteractionController.URL = url;
-    }
-    else
-    {
-        self.docInteractionController.URL = url;
-    }
-}
-
 
 
 
@@ -460,7 +586,7 @@ static NSInteger IS_FIRST_TIME = 1;
     
     [self.documentURLs removeAllObjects];    // clear out the old docs and start over
     
-    NSString *documentsDirectoryPath = [PHUtility applicationDocumentsDirectory];
+    NSString *documentsDirectoryPath = [PHUtility webServiceFASTADirectory];
     
     NSArray *documentsDirectoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectoryPath error:NULL];
     
@@ -478,22 +604,42 @@ static NSInteger IS_FIRST_TIME = 1;
             [self.documentURLs addObject:fileURL];
         }
     }
+//    
+//    if(IS_FIRST_TIME_VC && [self.documentURLs count]){
+//        [self performSelector:@selector(showToastView:) withObject:nil afterDelay:2.0];
+//        IS_FIRST_TIME_VC = 0;
+//    }
     
-    if(IS_FIRST_TIME && [self.documentURLs count]){
-        [self performSelector:@selector(showToastView:) withObject:nil afterDelay:2.0];
-        IS_FIRST_TIME = 0;
-    }
-
     [self.tableView reloadData];
     
 }
 
-- (void)showToastView:sender{
-    [ALToastView toastInView:self.view withText:@"Tap and Hold for few seconds to view the file"];
-}
+//- (void)showToastView:sender{
+//    [ALToastView toastInView:self.view withText:@"Tap and Hold for few seconds to view the file"];
+//}
+
 
 #pragma mark -
-#pragma Private Methods
+#pragma mark Action Methods
+- (void)doneButtonAction:(id)inSender{
+    
+    if (nil != self.selectedFileName) {
+        if ([self.fileChooserDelegate respondsToSelector:@selector(isAppInQuickTreeViewMode)] && [self.fileChooserDelegate isAppInQuickTreeViewMode]) {
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle:nil];
+            PHAllignmentViewController *viewController =[storyboard instantiateViewControllerWithIdentifier:@"AllignmentViewController"];
+            viewController.fileChooserDelegate = self.fileChooserDelegate;
+            viewController.quickTreeFileName = self.selectedFileName;
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+            
+        } else {
+            
+        }
+        
+    }
+}
 
 
 @end
