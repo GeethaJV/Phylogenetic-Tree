@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2A76DDBC1A603DD800C00302"
-               BuildableName = "Phylogenetic Tree.app"
-               BlueprintName = "Phylogenetic Tree"
+               BuildableName = "Phylogeny Tree.app"
+               BlueprintName = "Phylogeny Tree"
                ReferencedContainer = "container:Phylogenetic Tree.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2A76DDD51A603DD800C00302"
-               BuildableName = "Phylogenetic TreeTests.xctest"
-               BlueprintName = "Phylogenetic TreeTests"
+               BuildableName = "Phylogeny TreeTests.xctest"
+               BlueprintName = "Phylogeny TreeTests"
                ReferencedContainer = "container:Phylogenetic Tree.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2A76DDD51A603DD800C00302"
-               BuildableName = "Phylogenetic TreeTests.xctest"
-               BlueprintName = "Phylogenetic TreeTests"
+               BuildableName = "Phylogeny TreeTests.xctest"
+               BlueprintName = "Phylogeny TreeTests"
                ReferencedContainer = "container:Phylogenetic Tree.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2A76DDBC1A603DD800C00302"
-            BuildableName = "Phylogenetic Tree.app"
-            BlueprintName = "Phylogenetic Tree"
+            BuildableName = "Phylogeny Tree.app"
+            BlueprintName = "Phylogeny Tree"
             ReferencedContainer = "container:Phylogenetic Tree.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -77,8 +77,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2A76DDBC1A603DD800C00302"
-            BuildableName = "Phylogenetic Tree.app"
-            BlueprintName = "Phylogenetic Tree"
+            BuildableName = "Phylogeny Tree.app"
+            BlueprintName = "Phylogeny Tree"
             ReferencedContainer = "container:Phylogenetic Tree.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -96,8 +96,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2A76DDBC1A603DD800C00302"
-            BuildableName = "Phylogenetic Tree.app"
-            BlueprintName = "Phylogenetic Tree"
+            BuildableName = "Phylogeny Tree.app"
+            BlueprintName = "Phylogeny Tree"
             ReferencedContainer = "container:Phylogenetic Tree.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
